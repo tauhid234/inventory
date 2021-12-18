@@ -103,6 +103,78 @@
           <!-- ./col -->
         </div>
         <!-- /.row -->
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card" style="height: 400px;">
+                <div class="card-header">
+                  <h3 class="card-title">ITEM HARI INI YANG BARU DITAMBAHKAN</h3>
+                </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Nama Barang</th>
+                      <th>Harga Jual Barang</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Apple</td>
+                      <td>Rp 12.000.000</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>IPhone 11</td>
+                      <td>Rp 22.000.000</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Redmi Pro 7 Mobile</td>
+                      <td>Rp 10.000.000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card" style="height: 400px;">
+                  <div class="card-header">
+                    <h3 class="card-title">PERINGATAN STOK</h3>
+                  </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Nama Kategori</th>
+                        <th>Nama Barang</th>
+                        <th>Persediaan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Acer</td>
+                        <td>Laptop Acer</td>
+                        <td>12</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>ROG</td>
+                        <td>Laptop ASUS ROG</td>
+                        <td>5</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
         
       </div><!-- /.container-fluid -->
     </section>

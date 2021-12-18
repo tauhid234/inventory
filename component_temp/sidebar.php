@@ -44,6 +44,35 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-solid fa-user-group"></i>
+              <p>
+                Pengguna
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/user.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengguna Baru</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/user_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Pengguna</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/role_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Peran</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
             <a href="../../pages/login.php" class="nav-link">
               <i class="nav-icon fas fa-solid fa-arrow-right-from-bracket"></i>
               <p>
