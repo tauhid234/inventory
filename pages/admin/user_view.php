@@ -1,6 +1,8 @@
     <!-- HEADER -->
     <?php
         include('../../component_temp/header.php');
+        include('../../model/UserModel.php');
+        $usermodel = new UserModel();
     ?>
     <!-- END HEADER -->
 
@@ -15,6 +17,30 @@
     include('../../component_temp/sidebar.php');
     ?>
   <!-- END SIDEBAR -->
+
+  <?php
+  include('../../controller/UserController.php');
+  $alert = "";
+
+  $controller = new UserController();
+
+  if(isset($_POST['update'])){
+    $id = $_POST['id'];
+    $username = $_POST['nama_pengguna'];
+    $nohp = $_POST['nomor_handphone'];
+    $email = $_POST['email'];
+    $peran = $_POST['peran'];
+    $status = $_POST['status'];
+
+    $alert = $controller->updateUser($id, $username, $nohp, $email, $peran, $status);
+  }
+
+  if(isset($_POST['hapus'])){
+    $id = $_POST['id'];
+    $username = $_POST['username'];
+    $alert = $controller->Delete($id,$username);
+  }
+  ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -32,6 +58,7 @@
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
+        <?= $alert; ?> 
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -61,19 +88,138 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <?php
+                      $no = 1;
+                      foreach($usermodel->tampil_data() as $data){
+                    ?>
                     <tr>
-                      <td>1</td>
-                      <td>mstdev</td>
-                      <td>085695673132</td>
-                      <td>mstdev@gmail.com</td>
-                      <td>admin</td>
-                      <td>2021-12-18</td>
-                      <td><span class="badge bg-primary">Primary</span></td>
+                      <td><?= $no++; ?></td>
+                      <td><?= $data['username']; ?></td>
+                      <td><?= $data['no_handphone']; ?></td>
+                      <td><?= $data['email']; ?></td>
+                      <td><?= $data['peran']; ?></td>
+                      <td><?=  $data['create_date']; ?></td>
+                      <?php if($data['status'] == "AKTIF"){?>
+                      <td><span class="badge bg-primary"><?= $data['status']; ?></span></td>
+                      <?php }else{ ?>
+                      <td><span class="badge bg-danger"><?= $data['status']; ?></span></td>
+                      <?php } ?>
                       <td>
-                          <button type="button" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i></button>
-                          <button type="button" class="btn btn-block btn-sm btn-danger">HAPUS</button>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-success">Action</button>
+                          <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-edit-<?= $data['id']; ?>">EDIT</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-hapus-<?= $data['id']; ?>">HAPUS</a>
+                        </div>
                       </td>
                     </tr>
+
+
+                    <!-- MODAL -->
+                    <div class="modal fade" id="modal-edit-<?= $data['id'];?>">
+                      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">EDIT DATA</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row">
+                              <div class="col-md-12">
+                              <div class="card card-warning">
+                                  <div class="card-header">
+                                  </div>
+                                  <!-- /.card-header -->
+                                  <div class="card-body">
+                                    <form method="post" action="">
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <!-- text input -->
+                                          <div class="form-group">
+                                            <label>Nama Pengguna <span style="color: red;">*</span></label>
+                                            <input type="text" class="form-control" name="nama_pengguna" readonly value="<?= $data['username']; ?>" required>
+                                            <input hidden type="text" class="form-control" name="id" value="<?= $data['id']; ?>">
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Nomor Handphone <span style="color: red;">*</span></label>
+                                            <input type="text" class="form-control" name="nomor_handphone" data-inputmask='"mask": "(999) 999-999-999"' data-mask value="<?= $data['no_handphone']; ?>" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Email Pengguna <span style="color: red;">*</span></label>
+                                            <input type="email" class="form-control" name="email" value="<?= $data['email']; ?>" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Peran <span style="color: red;">*</span></label>
+                                            <select class="form-control" name="peran" required>
+                                              <option value="">-PILIH-</option>
+                                              <option value="ADMIN" <?=$data['peran'] == 'ADMIN' ? ' selected="selected"' : '';?>>Admin</option>
+                                              <option value="SALES"<?=$data['peran'] == 'SALES' ? ' selected="selected"' : '';?>>Sales</option>
+                                            </select>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Status Pengguna <span style="color: red;">*</span></label>
+                                            <select class="form-control" name="status" required>
+                                              <option value="">-PILIH-</option>
+                                              <option value="AKTIF" <?=$data['status'] == 'AKTIF' ? ' selected="selected"' : '';?>>AKTIF</option>
+                                              <option value="NON AKTIF" <?=$data['status'] == 'NON AKTIF' ? ' selected="selected"' : '';?>>NON AKTIF</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="justify-content-between">
+                                        <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <!-- /.card-body -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+
+
+                    <!-- MODAL DELETE -->
+                    <div class="modal fade" id="modal-hapus-<?= $data['id']; ?>">
+                      <div class="modal-dialog">
+                        <form method="post" action="">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Konfirmasi Hapus</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <input type="text" hidden name="id" class="form-control" value="<?= $data['id'];?>">
+                              <input type="text" hidden name="username" class="form-control" value="<?= $data['username'];?>">
+                              <p>Apakah anda yakin ingin mengahpus user <b><?= $data['username']; ?></b> ?</p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                              <button type="submit" name="hapus" class="btn btn-danger">Hapus</button>
+                            </div>
+                          </div>
+                        </form>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                    <!-- END MODAL DELETE -->
+
+                    <?php 
+                     } ?>
                   </tbody>
                 </table>
               </div>
@@ -90,79 +236,3 @@
     include('../../component_temp/footer.php');
     ?>
   <!-- END FOOTER -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="../../plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="../../plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="../../plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="../../plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="../../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="../../plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="../../plugins/moment/moment.min.js"></script>
-<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="../../dist/js/pages/dashboard.js"></script>
-
-<!-- DataTables  & Plugins -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="../../plugins/jszip/jszip.min.js"></script>
-<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-</body>
-</html>

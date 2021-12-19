@@ -2,7 +2,7 @@
 
 class Component{
     public function title(){
-        $title = "INVENTORY MANAGEMENT";
+        $title = "BINTANG 89";
         echo $title;
     }
 }
