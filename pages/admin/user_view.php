@@ -204,7 +204,7 @@
                             <div class="modal-body">
                               <input type="text" hidden name="id" class="form-control" value="<?= $data['id'];?>">
                               <input type="text" hidden name="username" class="form-control" value="<?= $data['username'];?>">
-                              <p>Apakah anda yakin ingin mengahpus user <b><?= $data['username']; ?></b> ?</p>
+                              <p>Apakah anda yakin ingin menghapus user <b><?= $data['username']; ?></b> ?</p>
                             </div>
                             <div class="modal-footer justify-content-between">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>

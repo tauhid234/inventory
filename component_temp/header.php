@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION["username"])){
+  header("Location:../../pages/login.php");
+}
 include('../../util/component.php');
 include('../../server/server.php');
 $title = new Component();
