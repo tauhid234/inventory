@@ -17,6 +17,8 @@ $db = new Server();
   <meta name="description" content="INVENTORY MANAGEMENT - BINTANG 89">
   <title><?= $title->title();?></title>
 
+  <link rel='shortcut icon' href='../../dist/img/LOGO-BINTANG-89.png'/>
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
