@@ -1,0 +1,79 @@
+<?php
+
+require_once('../../server/server.php');
+require_once('../../util/MessageUtil.php');
+require_once('../../util/UUID.php');
+
+class CustomerModel{
+    
+    var $output = [];
+    var $msg;
+    var $server;
+    var $uid;
+
+    public function __construct()
+    {
+        $this->server = new Server();
+        $this->msg = new MessageUtil();
+        $this->uid = new UUID();
+    }
+
+    public function View(){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM customer");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+
+    public function Add($username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat){
+
+        $cek = mysqli_query($this->server->mysql, "SELECT name_customer FROM customer WHERE name_customer = '$name_customer'");
+        $num = mysqli_num_rows($cek);
+        
+        if($num == 1){
+            return $this->msg->Warning('Data dengan nama pelanggan '.$name_customer.' sudah tersedia');
+        }
+
+        $date = date('Y-m-d');
+
+        $ids = $this->uid->guidv4();
+
+        $name = strtoupper($name_customer);
+
+
+        $insert = mysqli_query($this->server->mysql, "INSERT INTO customer (id, id_customer, name_customer, no_handphone, email, kota, kode_pos, alamat,
+                            create_date, create_by, update_date, update_by) VALUES ('', '$ids', '$name', '$nohp', '$email', 
+                            '$kota', '$kode_pos', '$alamat', '$date', '$username', null, null)");
+        
+        return $this->msg->Success('Data pelanggan berhasil disimpan');
+    }
+
+    public function Update($id, $username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat){
+        
+        $date = date('Y-m-d');
+
+        $name = strtoupper($name_customer);
+        $update = mysqli_query($this->server->mysql, "UPDATE customer SET name_customer = '$name', no_handphone = '$nohp', email = '$email', 
+                              kota = '$kota', kode_pos = '$kode_pos', alamat = '$alamat',
+                              update_date = '$date', update_by = '$username' WHERE id_customer = '$id'");
+
+        if($update == false){
+            return $this->msg->Error($update);
+        }
+
+        return $this->msg->Success('Data pelanggan berhasil di update');
+    }
+
+    public function Delete($id){
+
+        $delete = mysqli_query($this->server->mysql, "DELETE FROM customer WHERE id_customer = '$id'");
+
+        if($delete == false){
+            return $this->msg->Error($delete);
+        }
+
+        return $this->msg->Success('Data pelanggan berhasil dihapus');
+    }
+}

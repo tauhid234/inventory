@@ -45,6 +45,29 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-users-gear"></i>
+              <p>
+                Pelanggan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/customer.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/customer_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Pelanggan</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-solid fa-user-group"></i>
               <p>
                 Pengguna
@@ -88,7 +111,7 @@
                 </a>
               </li>
             </ul>
-            <ul class="nav nav-treeview">
+            <!-- <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="../../pages/admin/kategori.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -101,7 +124,7 @@
                   <p>Data Kategori</p>
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </li>
           <li class="nav-item">
             <a href="../../pages/logout.php" class="nav-link">

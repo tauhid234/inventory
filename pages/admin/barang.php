@@ -1,8 +1,6 @@
     <!-- HEADER -->
     <?php
         include('../../component_temp/header.php');
-        include('../../model/CategoryModel.php');
-        $model = new CategoryModel();
     ?>
     <!-- END HEADER -->
 
@@ -19,16 +17,24 @@
   <!-- END SIDEBAR -->
 
   <?php 
-  include('../../controller/CategoryController.php');
+  include('../../controller/ItemsController.php');
   $alert = "";
 
-  $input = new CategoryController();
+  $input = new ItemsController();
 
   if(isset($_POST['submit'])){
 
-    $name_category = $_POST['nama_kategori'];
+    $username = $_SESSION['username'];
+    $name_item = $_POST['nama_barang'];
+    $size = $_POST['nomor_ukuran'];
+    $size_type = $_POST['jenis_ukuran'];
+    $quantity = $_POST['kuantitas'];
+    $unit_type = $_POST['jenis_satuan'];
+    $purchase_price = $_POST['harga_penjualan'];
+    $selling_price = $_POST['harga_pembelian'];
 
-    $alert = $input->AddController($name_category);
+    $alert = $input->AddController($username, $name_item, $size, $size_type, $quantity, $unit_type, $purchase_price, $selling_price);
+    
   }
 
   // $input->inputUser();
@@ -78,16 +84,19 @@
                     <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Jenis Kategori<span style="color: red;">*</span></label>
-                        <select class="form-control" name="kategori" required>
-                            <option value="">-PILIH-</option>
-                            <?php 
-                             foreach($model->View() as $data){
-                             ?>
-                            <option value="<?= $data['name_category']; ?>"><?= $data['name_category'];?></option>
-                            <?php } ?>
-                        </select>
+                        <label>Nomor Ukuran<span style="color: red;">*</span></label>
+                        <input type="number" class="form-control" name="nomor_ukuran" required>
                       </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Jenis Ukuran<span style="color: red;">*</span></label>
+                            <select class="form-control" name="jenis_ukuran" required>
+                                <option value="">-PILIH-</option>
+                                <option value="CM">CM</option>
+                                <option value="M">METER</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-sm-6">
                       <!-- text input -->
@@ -99,7 +108,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Jenis Satuan<span style="color: red;">*</span></label>
-                            <select class="form-control" name="kategori" required>
+                            <select class="form-control" name="jenis_satuan" required>
                                 <option value="">-PILIH-</option>
                                 <option value="PIECES">PIECES</option>
                                 <option value="BOX">BOX</option>
@@ -110,14 +119,14 @@
                       <!-- text input -->
                       <div class="form-group">
                         <label>Harga Pembelian<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="harga_pembelian" required>
+                        <input type="number" class="form-control" name="harga_pembelian" required>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
                         <label>Harga Penjualan<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="harga_penjualan" required>
+                        <input type="number" class="form-control" name="harga_penjualan" required>
                       </div>
                     </div>
                   </div>

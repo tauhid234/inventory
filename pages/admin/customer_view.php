@@ -1,8 +1,8 @@
     <!-- HEADER -->
     <?php
         include('../../component_temp/header.php');
-        include('../../model/UserModel.php');
-        $usermodel = new UserModel();
+        include('../../model/CustomerModel.php');
+        $model = new CustomerModel();
     ?>
     <!-- END HEADER -->
 
@@ -19,26 +19,29 @@
   <!-- END SIDEBAR -->
 
   <?php
-  include('../../controller/UserController.php');
+  include('../../controller/CustomerController.php');
   $alert = "";
 
-  $controller = new UserController();
+  $controller = new CustomerController();
 
   if(isset($_POST['update'])){
     $id = $_POST['id'];
-    $username = $_POST['nama_pengguna'];
+
+    $username = $_SESSION['username'];
+    
+    $name_customer = $_POST['nama_customer'];
     $nohp = $_POST['nomor_handphone'];
     $email = $_POST['email'];
-    $peran = $_POST['peran'];
-    $status = $_POST['status'];
+    $kota = $_POST['kota'];
+    $kode_pos = $_POST['kode_pos'];
+    $alamat = $_POST['alamat'];
 
-    $alert = $controller->updateUser($id, $username, $nohp, $email, $peran, $status);
+    $alert = $controller->UpdateController($id, $username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat);
   }
 
   if(isset($_POST['hapus'])){
     $id = $_POST['id'];
-    $username = $_POST['username'];
-    $alert = $controller->Delete($id,$username);
+    $alert = $controller->DeleteController($id);
   }
   ?>
 
@@ -49,12 +52,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Pengguna</h1>
+            <h1 class="m-0">Data Pelanggan</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Pengguna</a></li>
-              <li class="breadcrumb-item active">Data Pengguna</li>
+              <li class="breadcrumb-item"><a href="#">Pelanggan</a></li>
+              <li class="breadcrumb-item active">Data Pelanggan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -78,32 +81,30 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Nama Pengguna</th>
+                      <th>Nama Pelanggan</th>
                       <th>Nomor Hanphone</th>
                       <th>Email</th>
-                      <th>Peran</th>
+                      <th>Kota</th>
                       <th>Dibuat Pada</th>
-                      <th>Status</th>
+                      <th>Kode POS</th>
+                      <th>Alamat</th>
                       <th>Tindakan</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                       $no = 1;
-                      foreach($usermodel->tampil_data() as $data){
+                      foreach($model->View() as $data){
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
-                      <td><?= $data['username']; ?></td>
+                      <td><?= $data['name_customer']; ?></td>
                       <td><?= $data['no_handphone']; ?></td>
                       <td><?= $data['email']; ?></td>
-                      <td><?= $data['peran']; ?></td>
+                      <td><?= $data['kota']; ?></td>
                       <td><?=  $data['create_date']; ?></td>
-                      <?php if($data['status'] == "AKTIF"){?>
-                      <td><span class="badge bg-primary"><?= $data['status']; ?></span></td>
-                      <?php }else{ ?>
-                      <td><span class="badge bg-danger"><?= $data['status']; ?></span></td>
-                      <?php } ?>
+                      <td><?= $data['kode_pos']; ?></td>
+                      <td><?= $data['alamat']; ?></td>
                       <td>
                         <div class="btn-group">
                           <button type="button" class="btn btn-success">Action</button>
@@ -141,9 +142,9 @@
                                         <div class="col-sm-12">
                                           <!-- text input -->
                                           <div class="form-group">
-                                            <label>Nama Pengguna <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control" name="nama_pengguna" readonly value="<?= $data['username']; ?>" required>
-                                            <input hidden type="text" class="form-control" name="id" value="<?= $data['id']; ?>">
+                                            <label>Nama Pelanggan <span style="color: red;">*</span></label>
+                                            <input type="text" class="form-control" name="nama_customer" value="<?= $data['name_customer']; ?>" required>
+                                            <input hidden type="text" class="form-control" name="id" value="<?= $data['id_customer']; ?>">
                                           </div>
                                           <div class="form-group">
                                             <label>Nomor Handphone <span style="color: red;">*</span></label>
@@ -154,20 +155,16 @@
                                             <input type="email" class="form-control" name="email" value="<?= $data['email']; ?>" required>
                                           </div>
                                           <div class="form-group">
-                                            <label>Peran <span style="color: red;">*</span></label>
-                                            <select class="form-control" name="peran" required>
-                                              <option value="">-PILIH-</option>
-                                              <option value="ADMIN" <?=$data['peran'] == 'ADMIN' ? ' selected="selected"' : '';?>>Admin</option>
-                                              <option value="SALES"<?=$data['peran'] == 'SALES' ? ' selected="selected"' : '';?>>Sales</option>
-                                            </select>
+                                            <label>Kota <span style="color: red;">*</span></label>
+                                            <input type="text" class="form-control" name="kota" value="<?= $data['kota']; ?>" required>
                                           </div>
                                           <div class="form-group">
-                                            <label>Status Pengguna <span style="color: red;">*</span></label>
-                                            <select class="form-control" name="status" required>
-                                              <option value="">-PILIH-</option>
-                                              <option value="AKTIF" <?=$data['status'] == 'AKTIF' ? ' selected="selected"' : '';?>>AKTIF</option>
-                                              <option value="NON AKTIF" <?=$data['status'] == 'NON AKTIF' ? ' selected="selected"' : '';?>>NON AKTIF</option>
-                                            </select>
+                                            <label>Kode POS <span style="color: red;">*</span></label>
+                                            <input type="text" class="form-control" name="kode_pos" value="<?= $data['kode_pos']; ?>" required>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Alamat <span style="color: red;">*</span></label>
+                                            <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat"><?= $data['alamat']; ?></textarea>
                                           </div>
                                         </div>
                                       </div>
@@ -202,9 +199,8 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <input type="text" hidden name="id" class="form-control" value="<?= $data['id'];?>">
-                              <input type="text" hidden name="username" class="form-control" value="<?= $data['username'];?>">
-                              <p>Apakah anda yakin ingin menghapus user <b><?= $data['username']; ?></b> ?</p>
+                              <input type="text" hidden name="id" class="form-control" value="<?= $data['id_customer'];?>">
+                              <p>Apakah anda yakin ingin menghapus pelanggan <b><?= $data['name_customer']; ?></b> ?</p>
                             </div>
                             <div class="modal-footer justify-content-between">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
