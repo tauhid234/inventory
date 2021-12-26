@@ -30,8 +30,8 @@
     $size_type = $_POST['jenis_ukuran'];
     $quantity = $_POST['kuantitas'];
     $unit_type = $_POST['jenis_satuan'];
-    $purchase_price = $_POST['harga_penjualan'];
-    $selling_price = $_POST['harga_pembelian'];
+    $purchase_price = $_POST['harga_pembelian'];
+    $selling_price = $_POST['harga_penjualan'];
 
     $alert = $input->AddController($username, $name_item, $size, $size_type, $quantity, $unit_type, $purchase_price, $selling_price);
     

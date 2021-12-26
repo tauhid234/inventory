@@ -45,6 +45,69 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-cart-arrow-down"></i>
+              <p>
+                Penjualan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/penjualan.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Penjualan Baru</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/penjualan_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Penjualan</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-file-invoice"></i>
+              <p>
+                Invoice
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/invoice_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Invoice</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-user-ninja"></i>
+              <p>
+                Sales
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/sales.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/sales_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Sales</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-users-gear"></i>
               <p>
                 Pelanggan
@@ -68,7 +131,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-solid fa-user-group"></i>
+              <i class="nav-icon fas fa-solid fa-user-shield"></i>
               <p>
                 Pengguna
                 <i class="right fas fa-angle-left"></i>

@@ -48,6 +48,10 @@
 <script src="../../plugins/inputmask/jquery.inputmask.min.js"></script>
 
 
+<!-- Select2 -->
+<script src="../../plugins/select2/js/select2.full.min.js"></script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <!--SWEET ALERT-->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -69,7 +73,14 @@
 <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<script src="../../lib_js/javascript.js"></script>
 <script>
+
+$(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+});
 $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false

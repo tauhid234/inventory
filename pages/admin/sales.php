@@ -17,27 +17,24 @@
   <!-- END SIDEBAR -->
 
   <?php 
-  include('../../controller/CustomerController.php');
+  include('../../controller/SalesController.php');
   $alert = "";
 
-  $controller = new CustomerController();
+  $controller = new SalesController();
 
   if(isset($_POST['submit'])){
 
     $username = $_SESSION['username'];
 
-    $name_customer = $_POST['nama_customer'];
-    
-    $name_toko = $_POST['nama_toko'];
-    $nomor_toko = $_POST['nomor_toko'];
+    $name_sales = $_POST['nama_sales'];
     
     $nohp = $_POST['nomor_handphone'];
     $email = $_POST['email'];
     $kota = $_POST['kota'];
     $kode_pos = $_POST['kode_pos'];
-    $alamat_toko = $_POST['alamat_toko'];
+    $alamat = $_POST['alamat'];
 
-    $alert = $controller->AddController($username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko);
+    $alert = $controller->AddController($username, $name_sales, $nohp, $email, $kota, $kode_pos, $alamat);
   }
 
   // $input->inputUser();
@@ -50,12 +47,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Tambah Pelanggan</h1>
+          <h1 class="m-0">Tambah Sales</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Pelanggan</a></li>
-            <li class="breadcrumb-item active">Tambah Pelanggan</li>
+            <li class="breadcrumb-item"><a href="#">Sales</a></li>
+            <li class="breadcrumb-item active">Tambah Sales</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -80,16 +77,8 @@
                     <div class="col-sm-12">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Nama Pelanggan <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="nama_customer" required>
-                      </div>
-                      <div class="form-group">
-                        <label>Nama Toko <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="nama_toko" required>
-                      </div>
-                      <div class="form-group">
-                        <label>Nomor Toko <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="nomor_toko" required>
+                        <label>Nama Sales <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="nama_sales" required>
                       </div>
                       <div class="form-group">
                         <label>Nomor Handphone <span style="color: red;">*</span></label>
@@ -108,8 +97,8 @@
                         <input type="number" class="form-control" name="kode_pos" required>
                       </div>
                       <div class="form-group">
-                        <label>Alamat toko<span style="color: red;">*</span></label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat_toko"></textarea>
+                        <label>Alamat <span style="color: red;">*</span></label>
+                        <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat"></textarea>
                       </div>
                     </div>
                   </div>

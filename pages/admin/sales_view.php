@@ -1,8 +1,8 @@
     <!-- HEADER -->
     <?php
         include('../../component_temp/header.php');
-        include('../../model/CustomerModel.php');
-        $model = new CustomerModel();
+        include('../../model/SalesModel.php');
+        $model = new SalesModel();
     ?>
     <!-- END HEADER -->
 
@@ -19,29 +19,27 @@
   <!-- END SIDEBAR -->
 
   <?php
-  include('../../controller/CustomerController.php');
+  include('../../controller/SalesController.php');
   $alert = "";
 
-  $controller = new CustomerController();
+  $controller = new SalesController();
 
   if(isset($_POST['update'])){
     $id = $_POST['id'];
 
     $username = $_SESSION['username'];
     
-    $name_customer = $_POST['nama_customer'];
+    $name_customer = $_POST['nama_sales'];
 
-    $name_toko = $_POST['nama_toko'];
-    $nomor_toko = $_POST['nomor_toko'];
     
     $nohp = $_POST['nomor_handphone'];
     $email = $_POST['email'];
     $kota = $_POST['kota'];
     $kode_pos = $_POST['kode_pos'];
 
-    $alamat_toko = $_POST['alamat_toko'];
+    $alamat = $_POST['alamat'];
 
-    $alert = $controller->UpdateController($id, $username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko);
+    $alert = $controller->UpdateController($id, $username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat);
   }
 
   if(isset($_POST['hapus'])){
@@ -57,12 +55,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Pelanggan</h1>
+            <h1 class="m-0">Data Sales</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Pelanggan</a></li>
-              <li class="breadcrumb-item active">Data Pelanggan</li>
+              <li class="breadcrumb-item"><a href="#">Sales</a></li>
+              <li class="breadcrumb-item active">Data Sales</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -86,15 +84,13 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Nama Pelanggan</th>
-                      <th>Nama Toko</th>
-                      <th>Nomor Toko</th>
+                      <th>Nama Sales</th>
                       <th>Nomor Hanphone</th>
                       <th>Email</th>
                       <th>Kota</th>
                       <th>Dibuat Pada</th>
                       <th>Kode POS</th>
-                      <th>Alamat Toko</th>
+                      <th>Alamat</th>
                       <th>Tindakan</th>
                     </tr>
                   </thead>
@@ -105,15 +101,13 @@
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
-                      <td><?= $data['name_customer']; ?></td>
-                      <td><?= $data['name_toko']; ?></td>
-                      <td><?= $data['nomor_toko']; ?></td>
-                      <td><?= $data['no_handphone_customer']; ?></td>
-                      <td><?= $data['email_customer']; ?></td>
-                      <td><?= $data['kota_customer']; ?></td>
+                      <td><?= $data['name_sales']; ?></td>
+                      <td><?= $data['no_handphone_sales']; ?></td>
+                      <td><?= $data['email_sales']; ?></td>
+                      <td><?= $data['kota_sales']; ?></td>
                       <td><?=  $data['create_date']; ?></td>
-                      <td><?= $data['kode_pos_customer']; ?></td>
-                      <td><?= $data['alamat_toko']; ?></td>
+                      <td><?= $data['kode_pos_sales']; ?></td>
+                      <td><?= $data['alamat_sales']; ?></td>
                       <td>
                         <div class="btn-group">
                           <button type="button" class="btn btn-success">Action</button>
@@ -151,37 +145,29 @@
                                         <div class="col-sm-12">
                                           <!-- text input -->
                                           <div class="form-group">
-                                            <label>Nama Pelanggan <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control" name="nama_customer" value="<?= $data['name_customer']; ?>" required>
-                                            <input hidden type="text" class="form-control" name="id" value="<?= $data['id_customer']; ?>">
-                                          </div>
-                                          <div class="form-group">
-                                            <label>Nama Toko <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control" name="nama_toko" value="<?= $data['name_toko']; ?>" required>
-                                          </div>
-                                          <div class="form-group">
-                                            <label>Nomor Toko <span style="color: red;">*</span></label>
-                                            <input type="number" class="form-control" name="nomor_toko" value="<?= $data['nomor_toko']; ?>" required>
+                                            <label>Nama Sales <span style="color: red;">*</span></label>
+                                            <input type="text" class="form-control" name="nama_sales" value="<?= $data['name_sales']; ?>" required>
+                                            <input hidden type="text" class="form-control" name="id" value="<?= $data['id_sales']; ?>">
                                           </div>
                                           <div class="form-group">
                                             <label>Nomor Handphone <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control" name="nomor_handphone" data-inputmask='"mask": "(999) 999-999-999"' data-mask value="<?= $data['no_handphone_customer']; ?>" required>
+                                            <input type="text" class="form-control" name="nomor_handphone" data-inputmask='"mask": "(999) 999-999-999"' data-mask value="<?= $data['no_handphone_sales']; ?>" required>
                                           </div>
                                           <div class="form-group">
-                                            <label>Email Pelanggan <span style="color: red;">*</span></label>
-                                            <input type="email" class="form-control" name="email" value="<?= $data['email_customer']; ?>" required>
+                                            <label>Email Sales <span style="color: red;">*</span></label>
+                                            <input type="email" class="form-control" name="email" value="<?= $data['email_sales']; ?>" required>
                                           </div>
                                           <div class="form-group">
                                             <label>Kota <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control" name="kota" value="<?= $data['kota_customer']; ?>" required>
+                                            <input type="text" class="form-control" name="kota" value="<?= $data['kota_sales']; ?>" required>
                                           </div>
                                           <div class="form-group">
                                             <label>Kode POS <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control" name="kode_pos" value="<?= $data['kode_pos_customer']; ?>" required>
+                                            <input type="text" class="form-control" name="kode_pos" value="<?= $data['kode_pos_sales']; ?>" required>
                                           </div>
                                           <div class="form-group">
-                                            <label>Alamat Toko<span style="color: red;">*</span></label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat_toko"><?= $data['alamat_toko']; ?></textarea>
+                                            <label>Alamat <span style="color: red;">*</span></label>
+                                            <textarea class="form-control" rows="3" placeholder="Enter ..." name="alamat"><?= $data['alamat_sales']; ?></textarea>
                                           </div>
                                         </div>
                                       </div>
@@ -216,8 +202,8 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <input type="text" hidden name="id" class="form-control" value="<?= $data['id_customer'];?>">
-                              <p>Apakah anda yakin ingin menghapus pelanggan <b><?= $data['name_customer']; ?></b> ?</p>
+                              <input type="text" hidden name="id" class="form-control" value="<?= $data['id_sales'];?>">
+                              <p>Apakah anda yakin ingin menghapus sales <b><?= $data['name_sales']; ?></b> ?</p>
                             </div>
                             <div class="modal-footer justify-content-between">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>

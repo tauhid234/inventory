@@ -15,12 +15,12 @@ class CustomerController {
         return $this->controller->View();
     }
 
-    public function AddController($username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat){
-        return $this->controller->Add($username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat);
+    public function AddController($username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko){
+        return $this->controller->Add($username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko);
     }
 
-    public function UpdateController($id, $username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat){
-        return $this->controller->Update($id, $username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat);
+    public function UpdateController($id, $username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko){
+        return $this->controller->Update($id, $username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko);
     }
 
     public function DeleteController($id){

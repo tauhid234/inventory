@@ -21,6 +21,20 @@ class ItemsModel {
 
     public function View(){
         $data = mysqli_query($this->server->mysql, "SELECT * FROM items");
+        while($d = mysqli_fetch_assoc($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+
+
+    public function ViewId($id){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM items WHERE id_item = '$id'");
+        $num = mysqli_num_rows($data);
+        if($num == 0){
+            return $this->msg->Error("Id tidak valid");
+        }
         while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;
         }

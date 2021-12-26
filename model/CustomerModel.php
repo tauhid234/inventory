@@ -27,7 +27,7 @@ class CustomerModel{
         mysqli_close($this->server->mysql);
     }
 
-    public function Add($username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat){
+    public function Add($username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko){
 
         $cek = mysqli_query($this->server->mysql, "SELECT name_customer FROM customer WHERE name_customer = '$name_customer'");
         $num = mysqli_num_rows($cek);
@@ -43,24 +43,28 @@ class CustomerModel{
         $name = strtoupper($name_customer);
 
 
-        $insert = mysqli_query($this->server->mysql, "INSERT INTO customer (id, id_customer, name_customer, no_handphone, email, kota, kode_pos, alamat,
+        $insert = mysqli_query($this->server->mysql, "INSERT INTO customer (id, id_customer, name_customer, no_handphone_customer, email_customer, kota_customer, kode_pos_customer, name_toko, nomor_toko, alamat_toko,
                             create_date, create_by, update_date, update_by) VALUES ('', '$ids', '$name', '$nohp', '$email', 
-                            '$kota', '$kode_pos', '$alamat', '$date', '$username', null, null)");
+                            '$kota', '$kode_pos', '$name_toko', '$nomor_toko',  '$alamat_toko', '$date', '$username', null, null)");
+        
+        if($insert == false){
+            return $this->msg->Error("QUERY SQL INSERT");
+        }
         
         return $this->msg->Success('Data pelanggan berhasil disimpan');
     }
 
-    public function Update($id, $username, $name_customer, $nohp, $email, $kota, $kode_pos, $alamat){
+    public function Update($id, $username, $name_customer, $name_toko, $nomor_toko, $nohp, $email, $kota, $kode_pos, $alamat_toko){
         
         $date = date('Y-m-d');
 
         $name = strtoupper($name_customer);
-        $update = mysqli_query($this->server->mysql, "UPDATE customer SET name_customer = '$name', no_handphone = '$nohp', email = '$email', 
-                              kota = '$kota', kode_pos = '$kode_pos', alamat = '$alamat',
+        $update = mysqli_query($this->server->mysql, "UPDATE customer SET name_customer = '$name', no_handphone_customer = '$nohp', email_customer = '$email', 
+                              kota_customer = '$kota', kode_pos_customer = '$kode_pos', name_toko = '$name_toko', nomor_toko = '$nomor_toko', alamat_toko = '$alamat_toko',
                               update_date = '$date', update_by = '$username' WHERE id_customer = '$id'");
 
         if($update == false){
-            return $this->msg->Error($update);
+            return $this->msg->Error('QUERY SQL UPDATE');
         }
 
         return $this->msg->Success('Data pelanggan berhasil di update');

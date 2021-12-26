@@ -19,11 +19,19 @@ $db = new Server();
 
   <link rel='shortcut icon' href='../../dist/img/LOGO-BINTANG-89.png'/>
 
+  <!-- CSS INVOICE -->
+  <link rel='stylesheet' href='../../dist/css/temp_invoice.css'/>
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   
   
   <!-- DataTables -->
