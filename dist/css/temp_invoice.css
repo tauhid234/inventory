@@ -167,20 +167,30 @@ body{margin-top:20px;
         border-top: 1px solid #aaa;
         padding: 8px 0
     }
-    
+    @page {
+        size: A1 landscape;
+            }
     @media print {
-        .invoice {
+
+        html, body {
+            height:50%; 
+            margin: 550; 
+            padding: 0 !important;
+            overflow: hidden;
+          }
+
+        /* .invoice {
             font-size: 11px !important;
             overflow: hidden !important
-        }
-        .invoice footer {
+        } */
+        /* .invoice footer {
             position: absolute;
             bottom: 10px;
             page-break-after: always
         }
         .invoice>div:last-child {
             page-break-before: always
-        }
+        } */
     }
     
     .invoice main .notices {

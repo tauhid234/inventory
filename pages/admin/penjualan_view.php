@@ -101,7 +101,7 @@
                           <div class="modal-body">
                               <div class="row">
                                 <div class="col-md-6">
-                                        <div class="card card-secondary" style="height: 500px;">
+                                        <div class="card card-secondary">
                                             <div class="card-header">
                                                 Detail Sales
                                             </div>
@@ -173,7 +173,7 @@
                                 </div>
                                 <!-- END COL 6 -->
                                 <div class="col-md-6">
-                                    <div class="card card-secondary" style="height: 500px;">
+                                    <div class="card card-secondary">
                                         <div class="card-header">
                                             Detail Pelanggan
                                         </div>

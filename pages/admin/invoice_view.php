@@ -101,15 +101,13 @@
                       <?php } ?>
                       <td>
                         <div class="btn-group">
-                          <?php if($data['quantity'] == 0){ ?>
-                            <button type="button" class="btn btn-danger" disabled>Action</button>
+                            <!-- <button type="button" class="btn btn-danger" disabled>Action</button>
                             <button type="button" class="btn btn-danger dropdown-toggle" disabled data-toggle="dropdown">
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu" role="menu">
                               <a class="dropdown-item" href="input_detail_penjualan.php?item=<?= $data['id_item']; ?>">Jual</a>
-                          </div>
-                          <?php } else{ ?>
+                          </div> -->
                             <button type="button" class="btn btn-success">Action</button>
                             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                               <span class="sr-only">Toggle Dropdown</span>
@@ -117,7 +115,6 @@
                             <div class="dropdown-menu" role="menu">
                               <a class="dropdown-item" href="?modal=<?= $data['id_invoice']; ?>" data-toggle="modal" data-target="#modal-view-<?= $data['id_invoice']; ?>">Lihat Detail</a>
                           </div>
-                          <?php } ?>
                         </div>
                       </td>
                     </tr>
@@ -137,7 +134,7 @@
                     <?php if($data['status_pay'] == "PAID"){}else{?>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="card card-primary" style="height: 100px;">
+                            <div class="card card-primary">
                                 <div class="card-header">
 
                                 </div>
@@ -165,7 +162,7 @@
                     <?php } ?>
                     <div class="row">
                     <div class="col-md-6">
-                            <div class="card card-secondary" style="height: 500px;">
+                            <div class="card card-secondary">
                                 <div class="card-header">
                                     Detail Sales
                                 </div>
@@ -237,7 +234,7 @@
                     </div>
                     <!-- END COL 6 -->
                     <div class="col-md-6">
-                        <div class="card card-secondary" style="height: 500px;">
+                        <div class="card card-secondary">
                             <div class="card-header">
                                 Detail Pelanggan
                             </div>

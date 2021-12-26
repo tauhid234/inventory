@@ -15,9 +15,9 @@ $db = new Server();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="INVENTORY MANAGEMENT - BINTANG 89">
-  <title><?= $title->title();?></title>
+  <title style="color: #2980b9;"><?= $title->title();?></title>
 
-  <link rel='shortcut icon' href='../../dist/img/LOGO-BINTANG-89.png'/>
+  <link rel='shortcut icon' href='../../dist/img/LOGO BINTANG 89.png'/>
 
   <!-- CSS INVOICE -->
   <link rel='stylesheet' href='../../dist/css/temp_invoice.css'/>

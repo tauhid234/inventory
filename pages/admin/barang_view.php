@@ -116,7 +116,7 @@
                           </button>
                           <div class="dropdown-menu" role="menu">
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-edit-<?= $data['id']; ?>">EDIT</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-hapus-<?= $data['id']; ?>">HAPUS</a>
+                            <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-hapus-<?= $data['id']; ?>">HAPUS</a> -->
                         </div>
                       </td>
                     </tr>

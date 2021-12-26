@@ -1,6 +1,10 @@
     <!-- HEADER -->
     <?php
         include('../../component_temp/header.php');
+
+        include('../../model/ItemsModel.php');
+        
+        $model = new ItemsModel();
     ?>
     <!-- END HEADER -->
 
@@ -16,6 +20,16 @@
     ?>
   <!-- END SIDEBAR -->
 
+  <?php
+  include('../../controller/SaleController.php');
+  $alert = "";
+
+  $hari_ini = date("Y-m-d");
+  $tgl_pertama = date('Y-m-01', strtotime($hari_ini));
+  $tgl_terakhir = date('Y-m-t', strtotime($hari_ini));
+
+  ?>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,11 +41,11 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
+        <?= $alert; ?> 
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -41,142 +55,66 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-6 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <!-- <h3><sup style="font-size: 20px"></sup></h3> -->
-
-                <p>Barang Masuk</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- END COL -->
-          <div class="col-lg-6 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <!-- <h3><sup style="font-size: 20px"></sup></h3> -->
-
-                <p>Barang Keluar</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-
-          <!-- <div class="col-lg-3 col-6">
-            small box
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div> -->
-          <!-- ./col -->
-          <!-- <div class="col-lg-3 col-6"> -->
-            <!-- small box -->
-            <!-- <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div> -->
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card" style="height: 400px;">
+          <div class="col-md-12">
+            <div class="card card-warning">
                 <div class="card-header">
-                  <h3 class="card-title">ITEM HARI INI YANG BARU DITAMBAHKAN</h3>
+                  Data Barang
                 </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-bordered">
+              <div class="card-body">
+                <table class="table table-bordered table-striped" id="example1">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Nama Barang</th>
-                      <th>Harga Jual Barang</th>
+                      <th>Nomor Ukuran</th>
+                      <th>Jenis Ukuran</th>
+                      <th>Stock Barang</th>
+                      <th>Jenis Satuan</th>
+                      <th>Tindakan</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php
+                      $no = 1;
+                      foreach($model->View() as $data){
+                    ?>
                     <tr>
-                      <td>1</td>
-                      <td>Apple</td>
-                      <td>Rp 12.000.000</td>
+                      <td><?= $no++; ?></td>
+                      <td><?= $data['name_item']; ?></td>
+                      <td><?= $data['size']; ?></td>
+                      <td><?= $data['size_type']; ?></td>
+                      <td><?= $data['quantity']; ?></td>
+                      <td><?=  $data['unit_type']; ?></td>
+                      <td>
+                        <div class="btn-group">
+                          <?php if($data['quantity'] == 0){ ?>
+                            <button type="button" class="btn btn-danger" disabled>Action</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" disabled data-toggle="dropdown">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <a class="dropdown-item" href="input_detail_penjualan.php?item=<?= $data['id_item']; ?>">Jual</a>
+                          </div>
+                          <?php } else{ ?>
+                            <button type="button" class="btn btn-success">Action</button>
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <a class="dropdown-item" href="input_detail_penjualan.php?item=<?= $data['id_item']; ?>">Jual</a>
+                          </div>
+                          <?php } ?>
+                        </div>
+                      </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>IPhone 11</td>
-                      <td>Rp 22.000.000</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Redmi Pro 7 Mobile</td>
-                      <td>Rp 10.000.000</td>
-                    </tr>
+                    <?php 
+                     } ?>
                   </tbody>
                 </table>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card" style="height: 400px;">
-                  <div class="card-header">
-                    <h3 class="card-title">PERINGATAN STOK</h3>
-                  </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Nama Kategori</th>
-                        <th>Nama Barang</th>
-                        <th>Persediaan</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Acer</td>
-                        <td>Laptop Acer</td>
-                        <td>12</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>ROG</td>
-                        <td>Laptop ASUS ROG</td>
-                        <td>5</td>
-                      </tr>
-                    </tbody>
-                  </table>
-              </div>
-            </div>
-          </div>
-        
+          </div>        
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -188,4 +126,3 @@
     include('../../component_temp/footer.php');
     ?>
   <!-- END FOOTER -->
-
