@@ -157,6 +157,6 @@ if(!isset($_SESSION["username"])){
 </div>
 </body>
 <script>
-    // window.print();
+    window.print();
 </script>
 </html>
