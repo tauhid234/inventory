@@ -23,15 +23,19 @@ class SaleController {
         return $this->controller->ViewId($id_sell);
     }
 
-    public function AddController($id_items, $value, $id_customer, $id_sales, $selling_amount, $total_amount, $price_clean, $username){
+    public function AddController($id_items, $value, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $total_amount, $price_clean, $username){
 
         if($value < 0){
             return $this->msg->Warning("Jumlah penjualan barang tidak boleh melebihi kapasitas stock saat ini");
         }
 
-        $t = $price_clean + $total_amount;
-        $this->profit = $t / 100 * 30;
-        return $this->controller->Add($id_items, $value, $this->profit, $id_customer, $id_sales, $selling_amount, $total_amount, $price_clean, $username);
+        if($selling_price_sales < $selling_price_admin){
+            return $this->msg->Warning("Harga jual sales harus lebih tinggi daripada harga jual admin");
+        }
+
+        // $t = $price_clean + $total_amount;
+        $this->profit = $price_clean / 100 * 30;
+        return $this->controller->Add($id_items, $value, $this->profit, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $total_amount, $price_clean, $username);
     }
 
 }

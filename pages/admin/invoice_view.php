@@ -407,7 +407,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                <label class="text-muted"><?= $data['selling_price']; ?></label>
+                                <label class="text-muted"><?= $data['price_sales']; ?></label>
                                 </div>
                             </div>
                             </div>

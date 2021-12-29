@@ -44,7 +44,7 @@ class SaleModel{
         mysqli_close($this->server->mysql);
     }
 
-    public function Add($id_items, $value, $profit, $id_customer, $id_sales, $selling_amount, $total_amount, $price_clean, $username){
+    public function Add($id_items, $value, $profit, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $total_amount, $price_clean, $username){
 
         $date = date('Y-m-d');
         $month = date('m');
@@ -54,8 +54,8 @@ class SaleModel{
 
 
         $insert = mysqli_query($this->server->mysql, "INSERT INTO sale (id, id_selling_items, id_items, id_customer, id_sales, sell_date, selling_amount, total_amount,
-                            price_clean, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
-                            '$date', '$selling_amount',  '$total_amount', '$price_clean', null, '$username', '$date', null, null)");
+                            price_clean, price_sales, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
+                            '$date', '$selling_amount',  '$total_amount', '$price_clean', '$selling_price_sales', null, '$username', '$date', null, null)");
         
         if($insert == false){
             return $this->msg->Error("Gagal menambahkan penjualan baru");

@@ -49,10 +49,14 @@
     $selling_amount = $_POST['jumlah_jual'];
     $total_amount = $_POST['total_harga'];
 
-    $selling_price = $_POST['harga_jual'];
-    $purchase_price = $_POST['harga_beli'];
+    // $purchase_price = $_POST['harga_beli'];
 
-    $price_clean = $selling_price - $purchase_price;
+    $selling_price_admin = $_POST['harga_jual_admin'];
+    $selling_price_sales = $_POST['harga_jual_sales'];
+
+    // $price_clean = $selling_price - $purchase_price;
+    $price_clean = $selling_price_sales - $selling_price_admin;
+
 
 
 
@@ -64,7 +68,7 @@
 
     
 
-    $alert = $controller->AddController($id_items, $value, $id_customer, $id_sales, $selling_amount, $total_amount, $price_clean, $username);
+    $alert = $controller->AddController($id_items, $value, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $total_amount, $price_clean, $username);
   }
 
   ?>
@@ -214,13 +218,26 @@
                                       <div class="row">
                                         <div class="col-sm-3">
                                           <div class="form-group">
-                                            <label>Harga Jual</label>
+                                            <label>Harga Jual Admin</label>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <div class="form-group">
+                                            <!-- <input type="text" class="form-control" hidden name="harga_beli" value="<?= $data[0]['purchase_price']; ?>"> -->
+                                            <input type="number" class="form-control" readonly id="harga_jual_admin" name="harga_jual_admin" value="<?= $data[0]['selling_price']; ?>">
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <div class="form-group">
+                                            <label>Harga Jual Sales</label>
                                           </div>
                                         </div>
                                         <div class="col-sm-6">
                                           <div class="form-group">
                                             <input type="text" class="form-control" hidden name="harga_beli" value="<?= $data[0]['purchase_price']; ?>">
-                                            <input type="number" class="form-control" readonly id="harga_jual" name="harga_jual" value="<?= $data[0]['selling_price']; ?>">
+                                            <input type="number" class="form-control" id="harga_jual_sales" name="harga_jual_sales">
                                           </div>
                                         </div>
                                       </div>

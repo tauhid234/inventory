@@ -199,7 +199,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                           <div class="form-group">
-                                            <input type="number" class="form-control" readonly id="harga_jual" name="harga_jual" value="<?= $data[0]['selling_price']; ?>">
+                                            <input type="number" class="form-control" readonly id="harga_jual" name="harga_jual" value="<?= $data[0]['price_sales']; ?>">
                                           </div>
                                         </div>
                                       </div>

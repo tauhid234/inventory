@@ -109,7 +109,7 @@ if(!isset($_SESSION["username"])){
                                             <h3><?= $data[0]['name_item']; ?></h3></td>
                                         <td class="qty"><?= $data[0]['selling_amount']; ?></td>
                                         <td class="qty"><?= $data[0]['unit_type']; ?></td>
-                                        <td class="total"><?= $data[0]['selling_price']; ?></td>
+                                        <td class="total"><?= $data[0]['price_sales']; ?></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

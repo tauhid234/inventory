@@ -8,14 +8,13 @@ function sum(id) {
     }
 }
 
-function sumTotal(data) {
+function sumTotal() {
 
-    console.log("DATA ",data);
     var x = document.getElementById("jumlah_jual");
-    var y = document.getElementById("harga_jual");
+    var y = document.getElementById("harga_jual_sales");
 
     var sum = parseInt(x.value) * parseInt(y.value);    
-    if(sum == NaN){
+    if(sum.value == isNaN()){
         alert('perhitungan tidak valid');
     }
     document.getElementById("total_harga").value = sum;

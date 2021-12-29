@@ -57,6 +57,8 @@
                       <th>Nama Barang</th>
                       <th>Nama Sales</th>
                       <th>Nama Pelanggan</th>
+                      <th>Kuantitas</th>
+                      <th>Harga Penjualan</th>
                       <th>Total Penjualan</th>
                       <th>Tindakan</th>
                     </tr>
@@ -72,6 +74,8 @@
                       <td><?= $data['name_item']; ?></td>
                       <td><?= $data['name_sales']; ?></td>
                       <td><?= $data['name_customer']; ?></td>
+                      <td><?= $data['selling_amount']; ?></td>
+                      <td><?= $data['price_sales']; ?></td>
                       <td><?= $data['total_amount']; ?></td>
                       <td>
                         <div class="btn-group">
@@ -332,7 +336,7 @@
                                         </div>
                                         <div class="col-sm-3">
                                           <div class="form-group">
-                                            <label class="text-muted"><?= $data['selling_price']; ?></label>
+                                            <label class="text-muted"><?= $data['price_sales']; ?></label>
                                           </div>
                                         </div>
                                       </div>
