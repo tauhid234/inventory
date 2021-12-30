@@ -8,6 +8,7 @@ function sum(id) {
     }
 }
 
+// TEST
 function sumTotal() {
 
     var x = document.getElementById("jumlah_jual");
