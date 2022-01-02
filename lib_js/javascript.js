@@ -3,7 +3,7 @@ function sum(id) {
     let harga_sales = Number(document.getElementById('harga_sales_'+id).value);
     let harga_admin = Number(document.getElementById('harga_admin_'+id).value);
 
-    // RESET INPUTAN KETIKA HARGA SALES TIDAK JADI INPUT
+    // RESET INPUTAN KETIKA HARGA SALES TIDAK JADI INPUT/
     if(harga_sales == "" || harga_sales == 0 || harga_sales < 0){
         document.getElementById('jumlah_jual_'+id).value = "";
         document.getElementById('total_seluruh_'+id).value = "";
