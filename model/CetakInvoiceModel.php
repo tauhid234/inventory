@@ -17,8 +17,8 @@ class CetakInvoiceModel{
         $this->uid = new UUID();
     }
 
-    public function ViewId($id){
-        $data = mysqli_query($this->server->mysql, "SELECT invoice.*, sale.*, items.*, sales.*, customer.* FROM invoice, sale, sales, items, customer WHERE invoice.id_invoice = '$id' AND invoice.id_sale = sale.id_selling_items
+    public function ViewId($no_invoice){
+        $data = mysqli_query($this->server->mysql, "SELECT invoice.*, sale.*, items.*, sales.*, customer.* FROM invoice, sale, sales, items, customer WHERE invoice.no_invoice = '$no_invoice' AND invoice.sale_versi_invoice = sale.sale_versi
                             AND items.id_item = sale.id_items AND customer.id_customer = sale.id_customer AND sales.id_sales = sale.id_sales");
         while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;

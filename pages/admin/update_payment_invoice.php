@@ -39,17 +39,23 @@
       $data_invoice = $model->ViewNoInvoice($no_invoice);
       $sale = $model_sale->ViewVersi($no_invoice);
 
+    //   $num = 0;
+    //   foreach($sale as $test){
+    //       $num += $test['total_amount'];
+    //   }
+    //   echo $num;
+
       $data_sales = $model_sales->ViewId($data_invoice[0]['id_sales_invoice']);
       $data_customer = $model_customer->ViewId($data_invoice[0]['id_customer_invoice']);
   }
 
-  if(isset($_POST['submit'])){
+  if(isset($_POST['update'])){
       
       $username = $_SESSION['username'];
       $no_invoice = $_POST['no_invoice'];
-      $tempo = $_POST['tanggal_jatuh_tempo'];
+      $status_bayar = $_POST['status_bayar'];
 
-      $alert = $controller->UpdateTempoController($no_invoice, $username, $tempo);
+      $alert = $controller->UpdatePembayaranController($no_invoice, $username, $status_bayar);
       $disable = "disabled";
 
   }
@@ -64,13 +70,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Detail Data Invoice </h1>
+            <h1 class="m-0">Pembayaran Data Invoice </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Invoice</a></li>
               <li class="breadcrumb-item">Data Invoice</li>
-              <li class="breadcrumb-item active">Detail</li>
+              <li class="breadcrumb-item active">Pembayaran Invoice</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -105,11 +111,20 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Tanggal Jatuh Tempo</label>
-                                            <input type="number" hidden class="form-control" name="no_invoice" value="<?= $no_invoice; ?>">
-                                            <input type="date" class="form-control" name="tanggal_jatuh_tempo" required>
+                                            <div class="form-group">
+                                                <label>Ubah Status Bayar</label>
+                                                <select class="form-control" name="status_bayar" required> 
+                                                    <option value="">-PILIH-</option>
+                                                    <option value="PAID">BAYAR</option>
+                                                </select>
+                                            </div>
                                         </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Tanggal Tempo</label>
+                                                <input type="number" hidden class="form-control" name="no_invoice" value="<?= $no_invoice; ?>">
+                                                <input type="date" class="form-control" readonly value="<?= $data_invoice[0]['tempo_date']; ?>">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -331,7 +346,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button type="submit" name="submit" class="btn btn-block btn-primary" <?= $disable; ?>>Simpan Invoice</button>                    
+                        <button type="submit" name="update" class="btn btn-block btn-primary" <?= $disable; ?>>Simpan Pembayaran</button>                    
                     </div>
                 </form>
               </div>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set("Asia/Jakarta");
 if(!isset($_SESSION["username"])){
   header("Location:../../../pages/login.php");
 }
@@ -10,8 +11,13 @@ if(!isset($_SESSION["username"])){
     $model = new CetakInvoiceModel();
 
     if(isset($_GET['inv'])){
-        $id = $_GET['inv'];
-        $data = $model->ViewId($id);
+        $no_invoice = $_GET['inv'];
+        $data = $model->ViewId($no_invoice);
+
+        $num = 0;
+        foreach($data as $r){
+            $num += $r['total_amount'];
+        }
     }
 ?>
 
@@ -103,14 +109,16 @@ if(!isset($_SESSION["username"])){
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i = 1; foreach($data as $d){ ?>
                                     <tr>
-                                        <td class="no">01</td>
+                                        <td class="no"><?= '0'.$i++; ?></td>
                                         <td class="text-left">
-                                            <h3><?= $data[0]['name_item']; ?></h3></td>
-                                        <td class="qty"><?= $data[0]['selling_amount']; ?></td>
-                                        <td class="qty"><?= $data[0]['unit_type']; ?></td>
-                                        <td class="total"><?= $data[0]['price_sales']; ?></td>
+                                            <h3><?= $d['name_item']; ?></h3></td>
+                                        <td class="qty"><?= $d['selling_amount']; ?></td>
+                                        <td class="qty"><?= $d['unit_type']; ?></td>
+                                        <td class="total"><?= $d['price_sales']; ?></td>
                                     </tr>
+                                    <?php } ?>
                                 </tbody>
                                 <tfoot>
                                     <!-- <tr>
@@ -126,7 +134,7 @@ if(!isset($_SESSION["username"])){
                                     <tr>
                                         <td colspan="2"></td>
                                         <td colspan="2">TOTAL</td>
-                                        <td><?= $data[0]['total_amount']; ?></td>
+                                        <td><?= $num; ?></td>
                                     </tr>
                                 </tfoot>
                             </table>

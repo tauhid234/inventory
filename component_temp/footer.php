@@ -74,7 +74,6 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-<script src="../../lib_js/javascript.js"></script>
 <script>
 
 $(function () {

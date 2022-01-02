@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+date_default_timezone_set("Asia/Jakarta");
+
 if(!isset($_SESSION["username"])){
   header("Location:../../pages/login.php");
 }
@@ -19,6 +22,8 @@ $db = new Server();
 
   <link rel='shortcut icon' href='../../dist/img/LOGO BINTANG 89.png'/>
 
+  <script src="../../lib_js/javascript.js"></script>
+  
   <!-- CSS INVOICE -->
   <link rel='stylesheet' href='../../dist/css/temp_invoice.css'/>
 
@@ -59,6 +64,8 @@ $db = new Server();
 
   
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

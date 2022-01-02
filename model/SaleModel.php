@@ -17,6 +17,7 @@ class SaleModel{
 
     public function __construct()
     {
+        date_default_timezone_set("Asia/Jakarta");
         $this->server = new Server();
         $this->msg = new MessageUtil();
         $this->uid = new UUID();
@@ -43,6 +44,16 @@ class SaleModel{
         return $this->output;
         mysqli_close($this->server->mysql);
     }
+    
+    public function ViewVersi($sale_versi){
+        $data = mysqli_query($this->server->mysql, "SELECT items.*, customer.*, sale.*, sales.* FROM items,customer,sale,sales WHERE sale.sale_versi = '$sale_versi' AND items.id_item = sale.id_items
+        AND customer.id_customer = sale.id_customer AND sales.id_sales = sale.id_sales");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
 
     public function Add($id_items, $value, $profit, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $total_amount, $price_clean, $username){
 
@@ -62,6 +73,72 @@ class SaleModel{
         }
 
         $update = mysqli_query($this->server->mysql, "UPDATE items SET quantity = '$value' WHERE id_item = '$id_items'");
+
+        if($update == false){
+            return $this->msg->Error("Gagal mengupdate stock");
+        }
+
+        // SCHEDULE MONTH
+        $schedule = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE MONTH(create_date) = '$month'");
+        $num_schedule = mysqli_num_rows($schedule);
+
+        if($tgl_terakhir === $date){
+
+            if($num_schedule == 1 || $num_schedule > 1){
+                $update_schedule = mysqli_query($this->server->mysql, "UPDATE profit SET final_date = '$date' WHERE MONTH(create_date) = '$month'");
+                if($update_schedule == false){
+                    $this->msg->Error("Gagal mengupdate profit per bulan");
+                }
+            }
+
+        }
+
+        // CEK PROFIT ID SALES
+        $cek_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$month'");
+        $num = mysqli_num_rows($cek_profit);
+        $rows = mysqli_fetch_array($cek_profit);
+
+        if($num == 1){
+
+            $sum = $rows['profit'] + $profit;
+
+            $update_profit = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
+            if($update_profit == false){
+                return $this->msg->Error("update profit dihari yang sama tidak berhasil");
+            }
+
+        }else{
+
+            $insert_profit = mysqli_query($this->server->mysql, "INSERT INTO profit (id, id_profit, id_sales, profit, final_date, create_by, create_date, update_by, update_date)
+                             VALUES ('', '$ids', '$id_sales', '$profit', null, '$username', '$date', null, null)");
+            
+            if($insert_profit == false){
+                return $this->msg->Error("Data profit gagal disimpan");
+            }
+
+        }
+        
+        return $this->msg->Success('Data penjualan berhasil disimpan');
+    }
+    
+    public function AddPenjualan($id_items, $value, $profit, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $sale_versi, $total_amount, $price_clean, $username){
+
+        $date = date('Y-m-d');
+        $month = date('m');
+        $tgl_terakhir = date('Y-m-t', strtotime($date));
+
+        $ids = $this->uid->guidv4();
+
+
+        $insert = mysqli_query($this->server->mysql, "INSERT INTO sale (id, id_selling_items, id_items, id_customer, id_sales, sell_date, selling_amount, total_amount,
+                            price_clean, price_sales, sale_versi, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
+                            '$date', '$selling_amount',  '$total_amount', '$price_clean', '$selling_price_sales', '$sale_versi', null, '$username', '$date', null, null)");
+        
+        if($insert == false){
+            return $this->msg->Error("Gagal menambahkan penjualan baru");
+        }
+
+        $update = mysqli_query($this->server->mysql, "UPDATE items SET quantity = '$value', update_by = '$username', update_date = '$date' WHERE id_item = '$id_items'");
 
         if($update == false){
             return $this->msg->Error("Gagal mengupdate stock");

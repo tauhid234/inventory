@@ -84,15 +84,15 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" href="?modal=<?= $data['id']; ?>" data-toggle="modal" data-target="#modal-view-<?= $data['id']; ?>">Lihat Detail</a>
-                            <?php if($data['no_invoice_sale'] == ""){ ?>
+                            <a class="dropdown-item" href="?modal=<?= $data['id_selling_items']; ?>" data-toggle="modal" data-target="#modal-view-<?= $data['id_selling_items']; ?>">Lihat Detail</a>
+                            <!-- <?php if($data['no_invoice_sale'] == ""){ ?>
                             <a class="dropdown-item" href="input_detail_invoice.php?item=<?= $data['id_selling_items']; ?>">Input Invoice</a>
-                            <?php }else{} ?>
+                            <?php }else{} ?> -->
                         </div>
                       </td>
                     </tr>
                     <!-- MODAL -->
-                    <div class="modal fade" id="modal-view-<?= $data['id'];?>">
+                    <div class="modal fade" id="modal-view-<?= $data['id_selling_items'];?>">
 
                       <div class="modal-dialog modal-xl modal-dialog-scrollable">
                         <div class="modal-content">

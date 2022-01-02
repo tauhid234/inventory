@@ -25,6 +25,15 @@ class SalesModel{
         return $this->output;
         mysqli_close($this->server->mysql);
     }
+    
+    public function ViewId($id){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM sales WHERE id_sales = '$id'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
 
     public function Add($username, $name_sales, $nohp, $email, $kota, $kode_pos, $alamat){
 
