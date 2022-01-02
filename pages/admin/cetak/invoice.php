@@ -105,7 +105,8 @@ if(!isset($_SESSION["username"])){
                                         <th class="text-left">Nama Barang</th>
                                         <th class="text-right">Jumlah</th>
                                         <th class="text-right">Jenis Satuan</th>
-                                        <th class="text-rigth">Harga Barang</th>
+                                        <th class="qty">Harga Barang</th>
+                                        <th class="total">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,7 +117,8 @@ if(!isset($_SESSION["username"])){
                                             <h3><?= $d['name_item']; ?></h3></td>
                                         <td class="qty"><?= $d['selling_amount']; ?></td>
                                         <td class="qty"><?= $d['unit_type']; ?></td>
-                                        <td class="total"><?= $d['price_sales']; ?></td>
+                                        <td class="qty"><?= $d['price_sales']; ?></td>
+                                        <td class="total"><?= $d['total_amount']; ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -133,7 +135,7 @@ if(!isset($_SESSION["username"])){
                                     </tr> -->
                                     <tr>
                                         <td colspan="2"></td>
-                                        <td colspan="2">TOTAL</td>
+                                        <td colspan="3">TOTAL</td>
                                         <td><?= $num; ?></td>
                                     </tr>
                                 </tfoot>
