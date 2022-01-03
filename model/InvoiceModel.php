@@ -35,6 +35,16 @@ class InvoiceModel{
         return $this->output;
         mysqli_close($this->server->mysql);
     }
+    
+    public function ViewHutangInvoice(){
+        $data = mysqli_query($this->server->mysql, "SELECT invoice.*, customer.name_customer, customer.id_customer, sales.name_sales, sales.id_sales FROM invoice, sales, customer WHERE sales.id_sales = invoice.id_sales_invoice AND customer.id_customer = invoice.id_customer_invoice 
+                             AND invoice.status_pay = 'UNPAID' AND invoice.tempo_date IS NOT NULL");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
 
     public function ViewId($id){
         $data = mysqli_query($this->server->mysql, "SELECT invoice.*, sale.*, items.*, sales.*, customer.* FROM invoice, sale, sales, items, customer WHERE invoice.id_invoice = '$id' AND invoice.id_sale = sale.id_selling_items

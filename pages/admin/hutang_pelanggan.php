@@ -46,12 +46,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Invoice </h1>
+            <h1 class="m-0">Hutang Pelanggan </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Invoice</a></li>
-              <li class="breadcrumb-item active">Data Invoice</li>
+              <li class="breadcrumb-item"><a href="#">Hutang</a></li>
+              <li class="breadcrumb-item active">Hutang Pelanggan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -68,7 +68,7 @@
           <div class="col-md-12">
             <div class="card card-warning">
                 <div class="card-header">
-                  
+                  Data Hutang Pelanggan
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -86,7 +86,7 @@
                   </thead>
                   <tbody>
                     <?php
-                      foreach($model->ViewSingleInvoice() as $data){
+                      foreach($model->ViewHutangInvoice() as $data){
                     ?>
                     <tr>
                       <td><?= $data['no_invoice']; ?></td>

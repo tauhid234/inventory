@@ -151,6 +151,7 @@
                       <th>Jenis Ukuran</th>
                       <th>Stock Barang</th>
                       <th>Jenis Satuan</th>
+                      <th>Harga Jual Admin</th>
                       <th>Harga Jual Sales</th>
                       <th>Jumlah Jual</th>
                       <th>Total Harga</th>
@@ -173,6 +174,7 @@
                       <td><?= $data['size_type']; ?></td>
                       <td><input type="number" class="form-control" readonly name="stock[]" id="stock_<?= $data['id']; ?>" value="<?= $data['quantity']; ?>"></td>
                       <td><?=  $data['unit_type']; ?></td>
+                      <td><?=  $data['selling_price']; ?></td>
                       <td>
                         <input type="number" hidden class="form-control" name="harga_admin[]" id="harga_admin_<?= $data['id']; ?>" value="<?= $data['selling_price']; ?>">
                         <?php if($data['quantity'] == 0){ ?>

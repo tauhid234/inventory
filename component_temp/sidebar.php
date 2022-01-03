@@ -85,6 +85,46 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-regular fa-credit-card"></i>
+              <p>
+                Hutang
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/hutang_pelanggan.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hutang Pelanggan</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-id-card-clip"></i>
+              <p>
+                Suplier
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/suplier.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Suplier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/suplier_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Suplier</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-user-ninja"></i>
               <p>
                 Sales
