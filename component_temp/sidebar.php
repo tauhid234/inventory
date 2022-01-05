@@ -173,6 +173,12 @@
                   <p>Data Sales</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/profit_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Profit</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

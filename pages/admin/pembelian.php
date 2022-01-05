@@ -30,24 +30,32 @@
 
 
   if(isset($_POST['submit'])){
-    $id_suplier = $_POST['id_suplier'];
-    $no_invoice = $_POST['no_invoice'];
-    $tgl_beli = $_POST['tanggal_pembelian'];
-    $status_bayar = $_POST['status_bayar'];
-    
-    $nama_barang = $_POST['nama_barang'];
-    $ukuran = $_POST['ukuran'];
-    $jenis_ukuran = $_POST['jenis_ukuran'];
-    $jenis_satuan = $_POST['jenis_satuan'];
-    $harga_beli = $_POST['harga_pembelian'];
-    $jumlah_beli = $_POST['jumlah_beli'];
-    $total_harga = $_POST['total_harga'];
 
-    $username = $_SESSION['username'];
+      $no_invoice = $_POST['no_invoice'];
+      
+      for($i = 0; $i < count($no_invoice); $i++){
+        
+        $id_suplier = $_POST['id_suplier'];
+        $tgl_beli = $_POST['tanggal_pembelian'];
+        $status_bayar = $_POST['status_bayar'];
+        
+        $no_invoicee = $_POST['no_invoice'][$i];
+        $nama_barang = $_POST['nama_barang'][$i];
+        $ukuran = $_POST['ukuran'][$i];
+        $jenis_ukuran = $_POST['jenis_ukuran'][$i];
+        $jenis_satuan = $_POST['jenis_satuan'][$i];
+        $harga_beli = $_POST['harga_pembelian'][$i];
+        $jumlah_beli = $_POST['jumlah_beli'][$i];
+        $total_harga = $_POST['total_harga'][$i];
 
-    
+        $username = $_SESSION['username'];
+      
+        if($no_invoicee !== ""){
+            $alert = $controller->AddController($id_suplier, $no_invoicee, $tgl_beli, $status_bayar, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $jumlah_beli, $total_harga, $username);
+        }
+      
+    }   
 
-    $alert = $controller->AddController($id_suplier, $no_invoice, $tgl_beli, $status_bayar, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $jumlah_beli, $total_harga, $username);
   }
 
   ?>
@@ -63,8 +71,8 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Pembelian</a></li>
-            <li class="breadcrumb-item"><a href="#">Pembelian Baru</a></li>
+            <li class="breadcrumb-item">Pembelian</li>
+            <li class="breadcrumb-item active">Pembelian Baru</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -106,12 +114,6 @@
                                               </div>
                                               <div class="row">
                                                   <div class="col-sm-6">
-                                                      <div class="form-group">
-                                                          <label>No Invoice <span style="color: red;">*</span> </label>
-                                                          <input type="text" required class="form-control" name="no_invoice">
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Status Bayar <span style="color: red;">*</span></label>
                                                         <select class="form-control" name="status_bayar" required>
@@ -120,6 +122,9 @@
                                                             <option value="UNPAID">BELUM BAYAR</option>
                                                         </select>
                                                     </div>
+                                                  </div>
+                                                  <div class="col-sm-6">
+                                                      <div class="form-group"></div>
                                                   </div>
                                               </div>
                                       </div>
@@ -136,91 +141,31 @@
                                     </div>
                                     <div class="card-body">
                                       <div class="row">
-                                        <div class="col-sm-3">
-                                          <div class="form-group">
-                                            <label>Nama Barang <span style="color: red;">*</span></label>
+                                          <div class="col-md-1">
+                                              <div class="form-group">
+                                                <button type="button" onclick="myTable()" class="btn btn-block btn-primary">+</button>
+                                              </div>
                                           </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" required name="nama_barang">
-                                          </div>
-                                        </div>
                                       </div>
                                       <div class="row">
-                                        <div class="col-sm-3">
-                                          <div class="form-group">
-                                            <label>Ukuran <span style="color: red;">*</span></label>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                          <div class="form-group">
-                                            <input type="number" class="form-control" required name="ukuran">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-sm-3">
-                                          <div class="form-group">
-                                            <label>Jenis Ukuran <span style="color: red;">*</span></label>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" required name="jenis_ukuran">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-sm-3">
-                                          <div class="form-group">
-                                            <label>Jenis Satuan <span style="color: red;">*</span></label>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                          <div class="form-group">
-                                            <input type="text" class="form-control" required name="jenis_satuan">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-sm-3">
-                                          <div class="form-group">
-                                            <label>Harga Pembelian <span style="color: red;">*</span></label>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                          <div class="form-group">
-                                            <input type="number" class="form-control" required name="harga_pembelian">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-sm-3">
-                                          <div class="form-group">
-                                            <label>Jumlah Beli <span style="color: red;">*</span></label>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                          <div class="form-group">
-                                            <input type="number" class="form-control" name="jumlah_beli" required>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-sm-12">
-                                          <hr>
-                                        </div>
-                                        <div class="col-sm-3">
-                                          <div class="form-group">
-                                            <label>Total Harga <span style="color: red;">*</span></label>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                          <div class="form-group">
-                                            <input type="number" class="form-control" required name="total_harga">
-                                          </div>
-                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="table-responsive p-0">
+                                                <table class="table table-hover table-striped text-nowrap" id="mytable">
+                                                    <tr>
+                                                        <th>No Invoice</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>Ukuran</th>
+                                                        <th>Jenis Ukuran</th>
+                                                        <th>Jenis Satuan</th>
+                                                        <th>Harga Pembelian</th>
+                                                        <th>Jumlah Beli</th>
+                                                        <th>Total Harga</th>
+                                                    </tr>
+                                                    <tr>
+
+                                                    </tr>
+                                                </table>
+                                            </div>
                                       </div>
                                     </div>
                                     <div class="card-footer">

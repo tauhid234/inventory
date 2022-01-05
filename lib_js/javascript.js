@@ -42,3 +42,39 @@ function sum(id) {
     document.getElementById("total_seluruh_"+id).value = total;
     
 }
+
+function myTable(){
+        
+        var table = document.getElementById("mytable");
+        var totalRow = table.rows.length;
+        var sum = totalRow - 1;
+        console.log("TOTAL ROW ",sum);
+
+        var row = table.insertRow(sum);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var cell7 = row.insertCell(6);
+        var cell8 = row.insertCell(7);
+
+        cell1.innerHTML = "<input type='text' name='no_invoice[]' class='form-control' id='required' required>";
+        cell2.innerHTML = "<input type='text' name='nama_barang[]' class='form-control' id='required' required>";
+        cell3.innerHTML = "<input type='number' name='ukuran[]' class='form-control' required>";
+        cell4.innerHTML = "<input type='text' name='jenis_ukuran[]' class='form-control' required>";
+        cell5.innerHTML = "<input type='text' name='jenis_satuan[]' class='form-control' required>";
+        cell6.innerHTML = "<input type='number' name='harga_pembelian[]' class='form-control' required>";
+        cell7.innerHTML = "<input type='number' name='jumlah_beli[]' class='form-control' required>";
+        cell8.innerHTML = "<input type='number' name='total_harga[]' class='form-control' required>";
+
+}
+
+function removeTable(){
+
+    var table = document.getElementById("mytable");
+    var totalRow = table.rows.length;
+
+    document.getElementById("mytable").deleteRow(deletes);
+}
