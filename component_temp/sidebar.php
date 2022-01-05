@@ -68,6 +68,29 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-bag-shopping"></i>
+              <p>
+                Pembelian
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/pembelian.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pembelian Baru</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/pembelian_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Pembelian</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-file-invoice"></i>
               <p>
                 Invoice
@@ -96,6 +119,12 @@
                 <a href="../../pages/admin/hutang_pelanggan.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hutang Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/hutang_suplier.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hutang Suplier</p>
                 </a>
               </li>
             </ul>
