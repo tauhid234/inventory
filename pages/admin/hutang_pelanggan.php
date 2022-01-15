@@ -89,7 +89,7 @@
                       foreach($model->ViewHutangInvoice() as $data){
                     ?>
                     <tr>
-                      <td><?= $data['no_invoice']; ?></td>
+                      <td><?= substr($data['name_sales'], 0, 2); ?><?= $data['no_invoice']; ?></td>
                       <td><?= $data['create_date']; ?></td>
                       <td><?= $data['name_sales']; ?></td>
                       <td><?= $data['name_customer']; ?></td>
@@ -114,9 +114,9 @@
                             </button>
                             <div class="dropdown-menu" role="menu">
                               <?php if($data['tempo_date'] == null){ ?>
-                              <a class="dropdown-item" href="input_detail_invoice.php?detail=<?= $data['sale_versi_invoice']; ?>">Input Jatuh Tempo</a>
+                              <a class="dropdown-item" href="input_detail_invoice.php?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Input Jatuh Tempo</a>
                               <?php } else{ } if($data['status_pay'] == 'UNPAID' && $data['tempo_date'] != null){?>
-                              <a class="dropdown-item" href="update_payment_invoice.php?detail=<?= $data['sale_versi_invoice']; ?>">Update Status Bayar</a>
+                              <a class="dropdown-item" href="update_payment_invoice.php?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Status Bayar</a>
                               <?php }else{}?>
                               <a class="dropdown-item" target="_blank" href="cetak/invoice.php?inv=<?= $data['sale_versi_invoice']; ?>">Cetak</a>
                           </div>
