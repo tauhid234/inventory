@@ -7,4 +7,8 @@ class ProfitController{
     {
         $this->model = new ProfitModel;
     }
+
+    public function ProfitAdd($id_sales, $profit, $username){
+        return $this->model->SyncronizeProfit($id_sales, $profit, $username);
+    }
 }

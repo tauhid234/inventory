@@ -2,9 +2,9 @@
     <?php
         include('../../component_temp/header.php');
 
-        include('../../model/InvoiceModel.php');
+        include('../../model/InvoiceReturModel.php');
         
-        $model = new InvoiceModel();
+        $model = new InvoiceReturModel;
     ?>
     <!-- END HEADER -->
 
@@ -21,20 +21,10 @@
   <!-- END SIDEBAR -->
 
   <?php
-  include('../../controller/InvoiceController.php');
+  include('../../controller/InvoiceReturController.php');
   $alert = "";
 
-  $controller = new InvoiceController();
-
-  if(isset($_POST['update'])){
-      
-      $username = $_SESSION['username'];
-      $id_invoice = $_POST['id_invoice'];
-      $status_bayar = $_POST['status_pembayaran'];
-
-      $alert = $controller->UpdateController($id_invoice, $username, $status_bayar);
-
-  }
+  $controller = new InvoiceReturController;
 
 
   ?>
@@ -46,12 +36,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Invoice Penjualan</h1>
+            <h1 class="m-0">Data Invoice Retur</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Invoice</a></li>
-              <li class="breadcrumb-item active">Data Invoice Penjualan</li>
+              <li class="breadcrumb-item active">Data Invoice Retur</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -79,8 +69,6 @@
                       <th>Di Buat</th>
                       <th>Nama Sales</th>
                       <th>Nama Pelanggan</th>
-                      <th>Tanggal Tempo</th>
-                      <th>Status Bayar</th>
                       <th>Tindakan</th>
                     </tr>
                   </thead>
@@ -89,38 +77,18 @@
                       foreach($model->ViewSingleInvoice() as $data){
                     ?>
                     <tr>
-                      <td><?= substr($data['name_sales'], 0, 2); ?><?= $data['no_invoice']; ?></td>
+                      <td><?= substr($data['name_sales'], 0, 2); ?><?= $data['no_invoice_retur']; ?></td>
                       <td><?= $data['create_date']; ?></td>
                       <td><?= $data['name_sales']; ?></td>
                       <td><?= $data['name_customer']; ?></td>
-                      <td><?= $data['tempo_date']; ?></td>
-                      <?php if($data['status_pay'] == "UNPAID"){ ?>
-                      <td><span class="badge badge-danger">BELUM BAYAR</span></td>
-                      <?php } else{ ?>
-                      <td><span class="badge badge-primary">SUDAH BAYAR</span></td>
-                      <?php } ?>
                       <td>
                         <div class="btn-group">
-                            <!-- <button type="button" class="btn btn-danger" disabled>Action</button>
-                            <button type="button" class="btn btn-danger dropdown-toggle" disabled data-toggle="dropdown">
-                              <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <div class="dropdown-menu" role="menu">
-                              <a class="dropdown-item" href="input_detail_penjualan.php?item=<?= $data['id_item']; ?>">Jual</a>
-                          </div> -->
                             <button type="button" class="btn btn-success">Action</button>
                             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu" role="menu">
-                              <?php if($data['tempo_date'] == null){ ?>
-                              <a class="dropdown-item" href="input_detail_invoice.php?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Input Jatuh Tempo</a>
-                              <?php } else{ ?>
-                              <a class="dropdown-item" href="retur.php?retur=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Retur</a>
-                              <?php } if($data['status_pay'] == 'UNPAID' && $data['tempo_date'] != null){?>
-                              <a class="dropdown-item" href="update_payment_invoice.php?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Status Bayar</a>
-                              <?php }else{}?>
-                              <a class="dropdown-item" target="_blank" href="cetak/invoice.php?inv=<?= $data['sale_versi_invoice']; ?>">Cetak</a>
+                              <a class="dropdown-item" target="_blank" href="cetak/invoice_retur.php?inv=<?= $data['sale_versi_invoice_retur']; ?>">Cetak</a>
                           </div>
                         </div>
                       </td>

@@ -28,14 +28,17 @@
 
   <?php
   include('../../controller/InvoiceController.php');
+  include('../../controller/ReturController.php');
   $alert = "";
 
   $controller = new InvoiceController();
+  $retur_controller = new ReturController;
+
   $disable = "";
 
-  if(isset($_GET['detail']) && isset($_GET['v'])){
+  if(isset($_GET['retur']) && isset($_GET['v'])){
 
-      $no_invoice = $_GET['detail'];
+      $no_invoice = $_GET['retur'];
       $versi = $_GET['v'];
       $data_invoice = $model->ViewNoInvoice($no_invoice, $versi);
       $sale = $model_sale->ViewSaleInvoice($no_invoice, $versi);
@@ -44,14 +47,39 @@
       $data_customer = $model_customer->ViewId($data_invoice[0]['id_customer_invoice']);
   }
 
-  if(isset($_POST['submit'])){
+  if(isset($_POST['save'])){
       
-      $username = $_SESSION['username'];
-    //   $no_invoice = $_POST['no_invoice'];
-      $tempo = $_POST['tanggal_jatuh_tempo'];
+      
+      $jumlah_retur = $_POST['jumlah_retur'];
+      
+      for($i = 0; $i < count($jumlah_retur); $i++){
+          
+          
+          $id_sale = $_POST['id_sale'][$i];
+          $id_customer = $_POST['id_customer'][$i];
+          $id_sales = $_POST['id_sales'][$i];
+          $versi_sale = $_POST['sale_versi'][$i];
+          $total_potongan = $_POST['total_potongan'][$i];
+          $retur_amount = $_POST['jumlah_retur'][$i];
+          $no_invoice = $_POST['no_invoice_sale'][$i];
+          
+          $username = $_SESSION['username'];
 
-      $alert = $controller->UpdateTempoController($versi, $username, $tempo);
-      $disable = "disabled";
+        if($total_potongan !== ""){
+            $alert = $retur_controller->AddController($id_sale, $id_sales, $id_customer, $retur_amount, $username, $versi_sale, $no_invoice, $total_potongan);
+        }
+      
+      }
+
+    //   $versi = $_POST['versi_get'];
+    //   $data_invoice = $model->ViewNoInvoice($no_invoice, $versi);
+    //   $sale = $model_sale->ViewSaleInvoice($no_invoice, $versi);
+
+    //   $data_sales = $model_sales->ViewId($data_invoice[0]['id_sales_invoice']);
+    //   $data_customer = $model_customer->ViewId($data_invoice[0]['id_customer_invoice']);
+
+
+
 
   }
 
@@ -65,13 +93,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Detail Data Invoice </h1>
+            <h1 class="m-0">Retur Barang </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Invoice</a></li>
-              <li class="breadcrumb-item">Data Invoice</li>
-              <li class="breadcrumb-item active">Detail</li>
+              <li class="breadcrumb-item"><a href="#">Retur</a></li>
+              <li class="breadcrumb-item active">Retur Barang</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -86,9 +113,9 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-md-12">
-            <div class="card card-warning">
+            <div class="card card-info">
                 <div class="card-header">
-                  Detail Invoice
+                  Detail Data Invoice
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -96,28 +123,6 @@
                     <!-- MODAL -->
              <form method="post" action="">
                 <div class="modal-body">
-                    <?php ?>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card card-primary">
-                                <div class="card-header">
-
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Tanggal Jatuh Tempo</label>
-                                            <input type="number" hidden class="form-control" name="no_invoice" value="<?= $no_invoice; ?>">
-                                            <input type="date" class="form-control" name="tanggal_jatuh_tempo" required>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php  ?>
                     <div class="row">
                     <div class="col-md-6">
                             <div class="card card-secondary">
@@ -305,22 +310,41 @@
                                                         <th>Nama Barang</th>
                                                         <th>Nama Sales</th>
                                                         <th>Nama Pelanggan</th>
-                                                        <th>Kuantitas</th>
+                                                        <th>Jumlah Jual</th>
                                                         <th>Harga Penjualan</th>
                                                         <th>Total Penjualan</th>
+                                                        <th>Jumlah Retur</th>
+                                                        <th>Total Potongan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php $i = 1; foreach($sale as $s) { ?>
                                                     <tr>
-                                                        <td><?= $i++; ?></td>
+                                                        <td>
+                                                            <?= $i++; ?>
+                                                            <input type="text" name="id_sale[]" hidden value="<?= $s['id_selling_items']; ?>">
+                                                            <input type="text" name="id_sales[]" hidden value="<?= $s['id_sales']; ?>">
+                                                            <input type="text" name="id_customer[]" hidden value="<?= $s['id_customer']; ?>">
+                                                            <input type="text" name="no_invoice_sale[]" hidden value="<?= $s['no_invoice_sale']; ?>">
+                                                            <input type="text" name="sale_versi[]" hidden value="<?= $s['sale_versi']; ?>">
+                                                            <input type="text" name="sale_inovoice[]" hidden value="<?= $s['no_invoice_sale']; ?>">
+                                                        </td>
                                                         <td><?= $s['sell_date']; ?></td>
                                                         <td><?= $s['name_item']; ?></td>
                                                         <td><?= $s['name_sales']; ?></td>
                                                         <td><?= $s['name_customer']; ?></td>
-                                                        <td><?= $s['selling_amount']; ?></td>
-                                                        <td><?= $s['price_sales']; ?></td>
-                                                        <td><?= $s['total_amount']; ?></td>
+                                                        <td><input type="text" class="form-control" name="jumlah_jual[]" id="jumlah_jual_<?= $s['id']; ?>" readonly value="<?= $s['selling_amount']; ?>"></td>
+                                                        <td><?= $s['price_sales']; ?> <input type="text" hidden name="harga_jual[]" id="harga_jual_<?= $s['id'];?>" hidden value="<?= $s['price_sales']; ?>"></td>
+                                                        <td><input type="text" class="form-control" readonly name="total_amount[]" id="total_amount_<?= $s['id']; ?>" value="<?= $s['total_amount']; ?>"></td>
+                                                        <?php if($s['selling_amount'] == 0){ ?>
+                                                        <td><input type="text" class="form-control" readonly name="jumlah_retur[]" id="jumlah_retur_<?= $s['id']; ?>" onkeyup="sumRetur(<?= $s['id']; ?>)"></td>
+                                                        <?php }else{ ?>
+                                                        <td>
+                                                            <input type="number" class="form-control" name="jumlah_retur[]" id="jumlah_retur_<?= $s['id']; ?>" onkeyup="sumRetur(<?= $s['id']; ?>)">
+                                                            
+                                                        </td>
+                                                        <td><input type="text" readonly class="form-control" name="total_potongan[]" id="total_potongan_<?= $s['id']; ?>"></td>
+                                                        <?php } ?>
                                                     </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -332,7 +356,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button type="submit" name="submit" class="btn btn-block btn-primary" <?= $disable; ?>>Simpan Invoice</button>                    
+                        <button type="submit" name="save" class="btn btn-block btn-primary" <?= $disable; ?>>Simpan Retur</button>                    
                     </div>
                 </form>
               </div>

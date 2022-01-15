@@ -68,8 +68,8 @@
       if($selling_price_sales !== ""){
         // echo "NM ".$type.'<br/> sales '.$id_sales.'<br/> id item '.$item_id;
         // echo "VALUE ".$value;
-        $alert = $controller->AddPenjualanController($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username);
-        $controller_invoice->AddInvoiceController($username, $sale_versi, $id_cus, $id_sales);
+        $controller_invoice->AddInvoiceControllerV2($username, $id_cus, $id_sales, $sale_versi);
+        $alert = $controller->AddPenjualanControllerV2($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username);
 
       }
     }
@@ -179,9 +179,9 @@
                       <td>
                         <input type="number" hidden class="form-control" name="harga_admin[]" id="harga_admin_<?= $data['id']; ?>" value="<?= $data['selling_price']; ?>">
                         <?php if($data['quantity'] == 0){ ?>
-                        <input type="number" readonly class="form-control" name="harga_sales[]" id="harga_sales_<?= $data['id']; ?>" onkeyup="sum(<?= $data['id']; ?>)">
+                        <input type="number" readonly class="form-control" name="harga_sales[]" id="harga_sales_<?= $data['id']; ?>">
                         <?php }else{ ?>
-                        <input type="number" class="form-control" name="harga_sales[]" id="harga_sales_<?= $data['id']; ?>" onkeyup="sum(<?= $data['id']; ?>)">
+                        <input type="number" class="form-control" name="harga_sales[]" id="harga_sales_<?= $data['id']; ?>">
                         <?php } ?>
                       </td>
                       <td>

@@ -51,7 +51,7 @@
         $username = $_SESSION['username'];
       
         if($no_invoicee !== ""){
-            $alert = $controller->AddController($id_suplier, $no_invoicee, $tgl_beli, $status_bayar, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $jumlah_beli, $total_harga, $username);
+            $alert = $controller->AddController($id_suplier, $no_invoicee, $tgl_beli, $status_bayar, $id_items, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $harga_jual, $jumlah_beli, $total_harga, $username);
         }
       
     }   

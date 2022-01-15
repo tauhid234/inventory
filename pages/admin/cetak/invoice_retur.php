@@ -12,7 +12,7 @@ if(!isset($_SESSION["username"])){
 
     if(isset($_GET['inv'])){
         $versi = $_GET['inv'];
-        $data = $model->ViewId($versi);
+        $data = $model->ViewIdReturInvoice($versi);
 
         $num = 0;
         foreach($data as $r){
@@ -57,7 +57,7 @@ if(!isset($_SESSION["username"])){
                                     <div class="invoice-id">Office : Hp. 0813 8519 5406</div>                                    
                                     <div class="invoice-id">Jakarta Barat</div>                       
                                     <div class="invoice-id"><?= $data[0]['name_sales']; ?></div>                       
-                                    <h1 class="invoice-id">INVOICE <?= substr($data[0]['name_sales'], 0, 2); ?><?= $data[0]['no_invoice']; ?></h1>             
+                                    <h1 class="invoice-id">INVOICE <?= substr($data[0]['name_sales'], 0, 2); ?><?= $data[0]['no_invoice_retur']; ?></h1>             
                                 </div>
                                 <div class="col invoice-details" style="color: #2980b9;">
                                     <div class="text-gray-light mb-4">Tanggal : <?= date('Y-m-d'); ?></div>
@@ -103,7 +103,7 @@ if(!isset($_SESSION["username"])){
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama Barang Penjualan</th>
+                                        <th>Nama Barang Retur</th>
                                         <th class="text-right">Jumlah</th>
                                         <th class="text-right">Jenis Satuan</th>
                                         <th class="qty">Harga Barang</th>

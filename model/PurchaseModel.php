@@ -38,7 +38,7 @@ class PurchaseModel{
         mysqli_close($this->server->mysql);
     }
 
-    public function Add($id_suplier, $no_invoice, $tgl_beli, $status_pay, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $jumlah_beli, $total_harga, $username){
+    public function Add($id_suplier, $no_invoice, $tgl_beli, $status_pay, $id_items, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $harga_jual, $jumlah_beli, $total_harga, $username){
         
         $date = date('Y-m-d');
 
@@ -48,6 +48,7 @@ class PurchaseModel{
         $jenis_satuans = strtoupper($jenis_satuan);
         $jenis_ukurans = strtoupper($jenis_ukuran);
 
+
         $insert = mysqli_query($this->server->mysql, "INSERT INTO purchase (id, id_purchase, id_suplier, purchase_date, purchase_amount, total_amount, no_invoice_purchase, status_pay, 
                               name_items_purchase, size_purchase, size_type, unit_type, purchase_price, create_date, create_by, update_date, update_by) VALUES 
                              ('', '$ids', '$id_suplier', '$tgl_beli', '$jumlah_beli', '$total_harga', '$no_invoice', '$status_pay', '$name_items', '$ukuran', '$jenis_ukurans', '$jenis_satuans',
@@ -55,6 +56,19 @@ class PurchaseModel{
         
         if($insert == false){
             return $this->msg->Error("Gagal menambahkan pembelian baru ".$insert);
+        }
+
+
+        $get_items = mysqli_query($this->server->mysql, "SELECT quantity FROM items WHERE id_item = '$id_items'");
+        $num = mysqli_num_rows($get_items);
+        $array = mysqli_fetch_array($get_items);
+
+        if($num == 1){
+            $sum = $array['quantity'] + $jumlah_beli; 
+            $update_item = mysqli_query($this->server->mysql, "UPDATE items SET quantity = '$sum', purchase_price = '$harga_beli', selling_price = '$harga_jual', update_by = '$username', update_date = '$date' WHERE id_item = '$id_items'");
+            if($update_item == false){
+                return $this->msg->Error("Gagal Update items di pembelian");
+            }
         }
 
         return $this->msg->Success('Data pembelian berhasil disimpan');

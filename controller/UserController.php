@@ -15,6 +15,10 @@ class UserController{
 
     public function inputUser($username, $no_hp, $email, $peran, $password, $konfirm_password){
     
+      if($password < 8){
+          return $this->msg->Warning("Input password minimal 8 karakter");
+      }
+      
        if($konfirm_password != $password){
            return $this->msg->Warning("Input konfirmasi Password tidak sesuai dengan input password");
        }

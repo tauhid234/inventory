@@ -56,8 +56,8 @@ class InvoiceModel{
         mysqli_close($this->server->mysql);
     }
 
-    public function ViewNoInvoice($no_invoice){
-        $data = mysqli_query($this->server->mysql, "SELECT * FROM invoice WHERE no_invoice = '$no_invoice'");
+    public function ViewNoInvoice($no_invoice, $versi){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM invoice WHERE no_invoice = '$no_invoice' AND sale_versi_invoice = '$versi'");
         while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;
         }
@@ -124,6 +124,51 @@ class InvoiceModel{
         return $this->msg->Success('Data invoice berhasil disimpan');
     }
 
+    public function AddInvoiceV2($username, $status_pay, $id_customer_invoice, $id_sales_invoice, $sale_versi_invoice){
+
+        // $no_invoice = time();
+        $total = 0;
+
+
+        $date = date('Y-m-d');
+
+        $ids = $this->uid->guidv4();
+
+        $get_data_invoice = mysqli_query($this->server->mysql, "SELECT COUNT(id_sales_invoice) AS total FROM invoice WHERE id_sales_invoice = '$id_sales_invoice'");
+        $data = mysqli_fetch_assoc($get_data_invoice);
+        if($get_data_invoice == false){
+            return $this->msg->Error("Gagal mengambil data nomor invoice count sales");
+        }
+
+        if($data['total'] == 0){
+           $total =  1;
+        }else{
+           $total = (int)$data['total'] + 1;
+        }
+
+        $sum = '00'.(string)$total;
+        $no_invoice = sprintf("%03d", $sum);
+
+        $cek_duplicate = mysqli_query($this->server->mysql, "SELECT * FROM invoice WHERE sale_versi_invoice = '$sale_versi_invoice'");
+        $rows = mysqli_num_rows($cek_duplicate);
+
+        if($rows == 0){
+
+            $insert = mysqli_query($this->server->mysql, "INSERT INTO invoice (id, id_invoice, no_invoice, tempo_date, status_pay, sale_invoice, sale_versi_invoice,
+                            id_customer_invoice, id_sales_invoice, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$no_invoice', null, 
+                            '$status_pay', '$no_invoice', '$sale_versi_invoice', '$id_customer_invoice', '$id_sales_invoice', '$username', '$date', null, null)");
+        
+            if($insert == false){
+                return $this->msg->Error("Gagal menambahkan invoice penjualan");
+            }
+        
+            return $this->msg->Success('Data invoice berhasil disimpan');
+
+        }
+
+            
+    }
+
     public function Update($id_invoice, $username, $status_pay){
         
         $date = date('Y-m-d');
@@ -138,12 +183,12 @@ class InvoiceModel{
         return $this->msg->Success('Data invoice berhasil di update');
     }
     
-    public function UpdateTempoInvoice($no_invoice, $username, $tempo){
+    public function UpdateTempoInvoice($versi, $username, $tempo){
         
         $date = date('Y-m-d');
 
         $update_invoice = mysqli_query($this->server->mysql, "UPDATE invoice SET tempo_date = '$tempo', update_date = '$date', update_by = '$username' 
-                  WHERE no_invoice = '$no_invoice'");
+                  WHERE sale_versi_invoice = '$versi'");
 
         if($update_invoice == false){
             return $this->msg->Error('Gagal untuk mengupdate invoice');

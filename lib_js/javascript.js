@@ -21,6 +21,13 @@ function sum(id) {
             return;
         }
     }
+    if(jumlah_jual == 0 || jumlah_jual < 0){
+        alert('Inputkan bilangan angka tidak boleh kurang dari 1 atau tidak boleh lebih dari total stock');
+        // document.getElementById('harga_sales_'+id).value = "";
+        document.getElementById("jumlah_jual_"+id).value = "";
+        document.getElementById("total_seluruh_"+id).value = "";
+        return;
+    }
 
     let stock = Number(document.getElementById('stock_'+id).value);
     
@@ -77,4 +84,48 @@ function removeTable(){
     var totalRow = table.rows.length;
 
     document.getElementById("mytable").deleteRow(deletes);
+}
+
+function sumRetur(id){
+
+    let jumlah_jual = Number(document.getElementById('jumlah_jual_'+id).value);
+    let harga_jual = Number(document.getElementById('harga_jual_'+id).value);
+    let jumlah_retur = Number(document.getElementById('jumlah_retur_'+id).value);
+
+    if(jumlah_retur == ""){
+        document.getElementById('total_potongan_'+id).value = "";
+        return;
+    }
+
+    let total_amount = Number(document.getElementById('total_amount_'+id).value);
+
+    let sum = jumlah_jual - jumlah_retur;
+
+    if(jumlah_jual < jumlah_retur){
+        alert("Peringatan jumlah retur tidak boleh lebih dari jumlah jual barang");
+        document.getElementById('jumlah_retur_'+id).value = "";
+        document.getElementById('total_potongan_'+id).value = "";
+        return;
+    }
+    let totality = sum * harga_jual;
+
+    document.getElementById('total_potongan_'+id).value = totality;
+    console.log("RETUR ", totality);
+
+}
+
+function sumV2(id){
+    let harga_beli = Number(document.getElementById('harga_beli_'+id).value);
+    let jumlah_beli = Number(document.getElementById('jumlah_beli_'+id).value);
+
+    if(harga_beli == 0 || harga_beli == "" || harga_beli == undefined){
+        document.getElementById('jumlah_beli_'+id).value = 0;
+        document.getElementById('total_transaksi_pembelian_'+id).value = 0;
+        return;
+    }
+
+    let sum = harga_beli * jumlah_beli;
+    console.log("SUM "+sum);
+
+    document.getElementById('total_transaksi_pembelian_'+id).value = sum;
 }

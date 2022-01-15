@@ -90,7 +90,7 @@
                         <select class="form-control" name="peran" required>
                           <option value="">-PILIH-</option>
                           <option value="ADMIN">Admin</option>
-                          <option value="SALES">Sales</option>
+                          <option value="ADMIN_HRD">Admin HRD</option>
                         </select>
                       </div>
                       <div class="form-group">

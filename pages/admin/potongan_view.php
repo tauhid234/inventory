@@ -1,8 +1,8 @@
     <!-- HEADER -->
     <?php
         include('../../component_temp/header.php');
-        include('../../model/ProfitModel.php');
-        $model = new ProfitModel;
+        include('../../model/PotonganModel.php');
+        $model = new PotonganModel;
     ?>
     <!-- END HEADER -->
 
@@ -18,24 +18,6 @@
     ?>
   <!-- END SIDEBAR -->
 
-  <?php
-  $alert = "";
-
-
-  if(isset($_POST['update'])){
-    
-    $jumlah_profit = $_POST['jumlah_profit'];
-    
-    for($i = 0; $i < count($jumlah_profit); $i++){
-      
-      $username = $_SESSION['username'];
-      $jumlah_profits = $_POST['jumlah_profit'][$i];
-      $id_sales = $_POST['id_sales'][$i];
-      $alert = $model->SyncronizeProfit($id_sales, $jumlah_profits, $username);
-    }
-  }
-  ?>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -43,16 +25,15 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Profit</h1>
+            <h1 class="m-0">Data Potongan Sales</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Sales</a></li>
-              <li class="breadcrumb-item active">Data Profit</li>
+              <li class="breadcrumb-item active">Data Potongan Sales</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
-        <?= $alert; ?> 
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -60,13 +41,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <form method="post" action="">
-        <div class="row mb-4">
-          <div class="col-md-3">
-            <button type="submit" name="update" class="btn btn-primary">SYNCRONIZE DATA</button>
-          </div>
-        </div>  
+        <!-- Small boxes (Stat box) -->  
         <div class="row">
           <div class="col-md-12">
             <div class="card card-primary">
@@ -81,8 +56,7 @@
                       <th>Nama Sales</th>
                       <th>Bulan</th>
                       <th>Tahun</th>
-                      <th>Hasil Pendapatan Profit</th>
-                      <th>Tanggal Final</th>
+                      <th>Potongan Sales</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -91,18 +65,13 @@
                       foreach($model->View() as $data){
                     ?>
                     <tr>
-                      <td><?= $no++; ?>
-                          <input type="text" name="id_sales[]" class="form-control" hidden value="<?= $data['id_sales'];?>">
-                          <input type="text" name="jumlah_profit[]" class="form-control" hidden value="<?= $data['profit'];?>"></td>
+                      <td><?= $no++; ?></td>
                       <td><?= $data['name_sales']; ?></td>
-                      <td><?php 
-                          $explode = explode("-",$data['create_date']);
-                          echo $model->konversiMonth($explode[1]); ?></td>
-                      <td><?php 
-                          $explode = explode("-",$data['create_date']);
-                          echo $explode[0]; ?></td>
-                      <td><?= $data['profit']; ?></td>
-                      <td><?= $data['final_date']; ?></td>
+                      <td><?php $explode = explode("-", $data['create_date']); 
+                          echo $model->konversiMonth($explode[1]);?></td>
+                      <td><?php $explode = explode("-", $data['create_date']); 
+                          echo $explode[0];?></td>
+                      <td><?= $data['potongan']; ?></td>
                     </tr>
                     <?php 
                      } ?>
@@ -111,8 +80,7 @@
               </div>
             </div>
           </div>
-        </div>
-        </form>       
+        </div>      
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

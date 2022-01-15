@@ -33,11 +33,12 @@
   $controller = new InvoiceController();
   $disable = "";
 
-  if(isset($_GET['detail'])){
+  if(isset($_GET['detail']) && isset($_GET['v'])){
 
       $no_invoice = $_GET['detail'];
-      $data_invoice = $model->ViewNoInvoice($no_invoice);
-      $sale = $model_sale->ViewVersi($no_invoice);
+      $versi = $_GET['v'];
+      $data_invoice = $model->ViewNoInvoice($no_invoice, $versi);
+      $sale = $model_sale->ViewSaleInvoice($no_invoice, $versi);
 
     //   $num = 0;
     //   foreach($sale as $test){

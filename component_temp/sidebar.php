@@ -76,7 +76,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/pembelian.php" class="nav-link">
+                <a href="../../pages/admin/pembelian_v2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pembelian Baru</p>
                 </a>
@@ -85,6 +85,23 @@
                 <a href="../../pages/admin/pembelian_view.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pembelian</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-regular fa-hand-holding-dollar"></i>
+              <p>
+                Transaksi
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/total_penjualan.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Total Penjualan</p>
                 </a>
               </li>
             </ul>
@@ -101,7 +118,30 @@
               <li class="nav-item">
                 <a href="../../pages/admin/invoice_view.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Data Invoice</p>
+                  <p>Data Invoice Penjualan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/invoice_retur_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Invoice Retur</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-arrow-right-arrow-left"></i>
+              <p>
+                Retur
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/retur_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Retur</p>
                 </a>
               </li>
             </ul>
@@ -177,6 +217,12 @@
                 <a href="../../pages/admin/profit_view.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Profit</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/potongan_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Potongan</p>
                 </a>
               </li>
             </ul>
@@ -263,6 +309,29 @@
                 </a>
               </li>
             </ul> -->
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-truck-ramp-box"></i>
+              <p>
+                Barang Rakit
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/barang_rakit.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Barang Rakit</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/barang_rakit_view.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Barang Rakit</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="../../pages/logout.php" class="nav-link">
