@@ -142,8 +142,8 @@ class ReturModel{
 
         }
 
-        $insert = mysqli_query($this->server->mysql, "INSERT INTO retur (id, id_retur, no_invoice, id_sale_retur, retur_date, retur_amount, create_by,
-                                create_date, update_by, update_date) VALUES ('', '$ids', '$no_invoice', '$id_sale', '$date', '$retur_amount', '$username',
+        $insert = mysqli_query($this->server->mysql, "INSERT INTO retur (id, id_retur, no_invoice, id_sale_retur, retur_date, retur_amount, total_potongan, create_by,
+                                create_date, update_by, update_date) VALUES ('', '$ids', '$no_invoice', '$id_sale', '$date', '$retur_amount', '$potongan', '$username',
                                 '$date', null, null)");
         
         if($insert == false){

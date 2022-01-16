@@ -71,6 +71,7 @@
                       <th>Nama Sales</th>
                       <th>Nama Pelanggan</th>
                       <th>Jumlah Retur</th>
+                      <th>Total Retur</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -84,6 +85,7 @@
                       <td><?= $data['name_sales']; ?></td>
                       <td><?= $data['name_customer']; ?></td>
                       <td><?= $data['retur_amount']; ?></td>
+                      <td><?= $data['total_potongan']; ?></td>
                     </tr>
                     <?php } ?>
                   </tbody>

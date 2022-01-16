@@ -146,12 +146,12 @@
                   <p>Data Retur</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="../../pages/admin/potongan_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Potongan</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
           <li class="nav-item">
