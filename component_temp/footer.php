@@ -93,6 +93,67 @@ $(function () {
       "autoWidth": false,
       "responsive": true,
     });
+
+    $('#laporan_penjualan').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [{
+       extend: 'pdf',
+       text : 'EXPORT PDF',
+       pageSize	: 'LEGAL',
+       className: 'btn btn-danger',
+       title : 'LAPORAN PENJUALAN - BINTANG 89'
+      }
+    ]
+    }).buttons().container().appendTo('#laporan_penjualan_wrapper .col-md-6:eq(0)');
+    
+    $('#laporan_pembelian').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [{
+       extend: 'pdf',
+       text : 'EXPORT PDF',
+       pageSize	: 'LEGAL',
+       className: 'btn btn-danger',
+       title : 'LAPORAN PEMBELIAN - BINTANG 89'
+      }
+    ]
+    }).buttons().container().appendTo('#laporan_pembelian_wrapper .col-md-6:eq(0)');
+    
+    $('#laporan_retur').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [{
+       extend: 'pdf',
+       text : 'EXPORT PDF',
+       pageSize	: 'LEGAL',
+       className: 'btn btn-danger',
+       title : 'LAPORAN DATA RETUR - BINTANG 89'
+      }
+    ]
+    }).buttons().container().appendTo('#laporan_retur_wrapper .col-md-6:eq(0)');
+    
+    $('#laporan_barang').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [{
+       extend: 'pdf',
+       text : 'EXPORT PDF',
+       pageSize	: 'LEGAL',
+       className: 'btn btn-danger',
+       title : 'LAPORAN DATA BARANG - BINTANG 89'
+      }
+    ]
+    }).buttons().container().appendTo('#laporan_barang_wrapper .col-md-6:eq(0)');
+    
+    $('#laporan_barang_rakit').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [{
+       extend: 'pdf',
+       text : 'EXPORT PDF',
+       pageSize	: 'LEGAL',
+       className: 'btn btn-danger',
+       title : 'LAPORAN DATA BARANG RAKIT - BINTANG 89'
+      }
+    ]
+    }).buttons().container().appendTo('#laporan_barang_rakit_wrapper .col-md-6:eq(0)');
+
 });
 $(function() {
     $('[data-mask]').inputmask();

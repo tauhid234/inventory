@@ -89,6 +89,7 @@
               </li>
             </ul>
           </li>
+          <?php if($peran != 'ADMIN'){?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-regular fa-hand-holding-dollar"></i>
@@ -106,6 +107,7 @@
               </li>
             </ul>
           </li>
+          <?php } ?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-file-invoice"></i>
@@ -169,6 +171,7 @@
               </li>
             </ul>
           </li>
+          <?php if($peran != 'ADMIN'){?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-id-card-clip"></i>
@@ -192,6 +195,9 @@
               </li>
             </ul>
           </li>
+          <?php } ?>
+
+          <?php if($peran != 'ADMIN'){?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-user-ninja"></i>
@@ -227,6 +233,9 @@
               </li>
             </ul>
           </li>
+          <?php } ?>
+
+          <?php if($peran != 'ADMIN'){?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-users-gear"></i>
@@ -250,6 +259,9 @@
               </li>
             </ul>
           </li>
+          <?php } ?>
+
+          <?php if($peran != 'ADMIN'){?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-solid fa-user-shield"></i>
@@ -273,6 +285,9 @@
               </li>
             </ul>
           </li>
+          <?php } ?>
+
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-light fa-boxes-stacked"></i>
@@ -333,6 +348,50 @@
               </li>
             </ul>
           </li>
+
+          <?php if($peran != 'ADMIN'){?>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-light fa-paste"></i>
+              <p>
+                Laporan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../pages/admin/laporan_penjualan.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Penjualan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/laporan_pembelian.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Pembelian</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/laporan_retur.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Data Retur</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/laporan_barang.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Data Barang</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/laporan_barang_rakit.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Data Barang Rakit</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <?php } ?>
           <li class="nav-item">
             <a href="../../pages/logout.php" class="nav-link">
               <i class="nav-icon fas fa-solid fa-arrow-right-from-bracket"></i>

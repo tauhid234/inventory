@@ -10,6 +10,8 @@ include('../../util/component.php');
 include('../../server/server.php');
 $title = new Component();
 $db = new Server();
+
+$peran = $_SESSION['peran'];
 ?>
 
 <!DOCTYPE html>
