@@ -22,7 +22,7 @@ class AuthModel{
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['peran'] = $row['peran'];
                 if($_SESSION['peran'] == 'ADMIN' || $_SESSION['peran'] == 'ADMIN_HRD'){
-                    return header("Location:../pages/admin/dashboard.php");
+                    return header("Location:../pages/admin/dashboard");
                 }else{
                     session_unset();
                     session_destroy();

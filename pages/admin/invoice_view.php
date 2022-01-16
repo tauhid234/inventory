@@ -114,13 +114,13 @@
                             </button>
                             <div class="dropdown-menu" role="menu">
                               <?php if($data['tempo_date'] == null){ ?>
-                              <a class="dropdown-item" href="input_detail_invoice.php?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Input Jatuh Tempo</a>
+                              <a class="dropdown-item" href="input_detail_invoice?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Input Jatuh Tempo</a>
                               <?php } else{ ?>
-                              <a class="dropdown-item" href="retur.php?retur=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Retur</a>
+                              <a class="dropdown-item" href="retur?retur=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Retur</a>
                               <?php } if($data['status_pay'] == 'UNPAID' && $data['tempo_date'] != null){?>
-                              <a class="dropdown-item" href="update_payment_invoice.php?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Status Bayar</a>
+                              <a class="dropdown-item" href="update_payment_invoice?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Status Bayar</a>
                               <?php }else{}?>
-                              <a class="dropdown-item" target="_blank" href="cetak/invoice.php?inv=<?= $data['sale_versi_invoice']; ?>">Cetak</a>
+                              <a class="dropdown-item" target="_blank" href="cetak/invoice?inv=<?= $data['sale_versi_invoice']; ?>">Cetak</a>
                           </div>
                         </div>
                       </td>

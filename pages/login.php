@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_SESSION["username"] )){
-    header("Location:../pages/admin/dashboard.php");
+    header("Location:../pages/admin/dashboard");
 }
     include('../util/component.php');
     include('../controller/LoginController.php');

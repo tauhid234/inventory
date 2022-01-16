@@ -36,7 +36,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="../../pages/admin/dashboard.php" class="nav-link">
+            <a href="../../pages/admin/dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -53,13 +53,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/penjualan.php" class="nav-link">
+                <a href="../../pages/admin/penjualan" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Penjualan Baru</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/penjualan_view.php" class="nav-link">
+                <a href="../../pages/admin/penjualan_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Penjualan</p>
                 </a>
@@ -76,13 +76,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/pembelian_v2.php" class="nav-link">
+                <a href="../../pages/admin/pembelian_v2" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pembelian Baru</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/pembelian_view.php" class="nav-link">
+                <a href="../../pages/admin/pembelian_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pembelian</p>
                 </a>
@@ -100,7 +100,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/total_penjualan.php" class="nav-link">
+                <a href="../../pages/admin/total_penjualan" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Total Penjualan</p>
                 </a>
@@ -118,13 +118,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/invoice_view.php" class="nav-link">
+                <a href="../../pages/admin/invoice_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Invoice Penjualan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/invoice_retur_view.php" class="nav-link">
+                <a href="../../pages/admin/invoice_retur_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Invoice Retur</p>
                 </a>
@@ -141,7 +141,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/retur_view.php" class="nav-link">
+                <a href="../../pages/admin/retur_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Retur</p>
                 </a>
@@ -158,13 +158,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/hutang_pelanggan.php" class="nav-link">
+                <a href="../../pages/admin/hutang_pelanggan" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hutang Pelanggan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/hutang_suplier.php" class="nav-link">
+                <a href="../../pages/admin/hutang_suplier" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hutang Suplier</p>
                 </a>
@@ -182,13 +182,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/suplier.php" class="nav-link">
+                <a href="../../pages/admin/suplier" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Suplier</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/suplier_view.php" class="nav-link">
+                <a href="../../pages/admin/suplier_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Suplier</p>
                 </a>
@@ -208,25 +208,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/sales.php" class="nav-link">
+                <a href="../../pages/admin/sales" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Sales</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/sales_view.php" class="nav-link">
+                <a href="../../pages/admin/sales_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Sales</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/profit_view.php" class="nav-link">
+                <a href="../../pages/admin/profit_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Profit</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/potongan_view.php" class="nav-link">
+                <a href="../../pages/admin/potongan_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Potongan</p>
                 </a>
@@ -246,13 +246,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/customer.php" class="nav-link">
+                <a href="../../pages/admin/customer" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Pelanggan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/customer_view.php" class="nav-link">
+                <a href="../../pages/admin/customer_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pelanggan</p>
                 </a>
@@ -272,13 +272,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/user.php" class="nav-link">
+                <a href="../../pages/admin/user" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Pengguna</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/user_view.php" class="nav-link">
+                <a href="../../pages/admin/user_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pengguna</p>
                 </a>
@@ -298,13 +298,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/barang.php" class="nav-link">
+                <a href="../../pages/admin/barang" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Barang</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/barang_view.php" class="nav-link">
+                <a href="../../pages/admin/barang_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Barang</p>
                 </a>
@@ -335,13 +335,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/barang_rakit.php" class="nav-link">
+                <a href="../../pages/admin/barang_rakit" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Barang Rakit</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/barang_rakit_view.php" class="nav-link">
+                <a href="../../pages/admin/barang_rakit_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Barang Rakit</p>
                 </a>
@@ -360,31 +360,31 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../pages/admin/laporan_penjualan.php" class="nav-link">
+                <a href="../../pages/admin/laporan_penjualan" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Penjualan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/laporan_pembelian.php" class="nav-link">
+                <a href="../../pages/admin/laporan_pembelian" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Pembelian</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/laporan_retur.php" class="nav-link">
+                <a href="../../pages/admin/laporan_retur" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Data Retur</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/laporan_barang.php" class="nav-link">
+                <a href="../../pages/admin/laporan_barang" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Data Barang</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../pages/admin/laporan_barang_rakit.php" class="nav-link">
+                <a href="../../pages/admin/laporan_barang_rakit" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Data Barang Rakit</p>
                 </a>
@@ -393,7 +393,7 @@
           </li>
           <?php } ?>
           <li class="nav-item">
-            <a href="../../pages/logout.php" class="nav-link">
+            <a href="../../pages/logout" class="nav-link">
               <i class="nav-icon fas fa-solid fa-arrow-right-from-bracket"></i>
               <p>
                 Logout
