@@ -68,6 +68,7 @@
                       <th style="width: 10px">No Invoice</th>
                       <th>Tanggal Retur</th>
                       <th>Nama Barang</th>
+                      <th>Nama Sales</th>
                       <th>Nama Pelanggan</th>
                       <th>Jumlah Retur</th>
                     </tr>
@@ -79,6 +80,7 @@
                     <tr>
                       <td><?= substr($data['name_sales'], 0, 2); ?><?= $data['no_invoice']; ?></td>
                       <td><?= $data['retur_date']; ?></td>
+                      <td><?= $data['name_item']; ?></td>
                       <td><?= $data['name_sales']; ?></td>
                       <td><?= $data['name_customer']; ?></td>
                       <td><?= $data['retur_amount']; ?></td>

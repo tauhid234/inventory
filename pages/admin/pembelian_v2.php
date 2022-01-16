@@ -168,9 +168,9 @@
                       <td><?= $data['size']; ?><input type="text" hidden readonly class="form-control" name="size[]" value="<?= $data['size']; ?>"></td>
                       <td><?= $data['size_type']; ?><input type="text" hidden readonly class="form-control" name="size_type[]" value="<?= $data['size_type']; ?>"></td>
                       <td><?= $data['unit_type']; ?><input type="text" hidden readonly class="form-control" name="unit_type[]" value="<?= $data['unit_type']; ?>"></td>
-                      <td><input type="number" class="form-control" name="harga_beli[]" id="harga_beli_<?= $data['id']; ?>" value="<?= $data['purchase_price']; ?>" onkeyup="sumV2(<?= $data['id']; ?>)"></td>
+                      <td><input type="number" class="form-control" name="harga_beli[]" id="harga_beli_<?= $data['id']; ?>" value="<?= $data['purchase_price']; ?>" onclick="sumV2(<?= $data['id']; ?>)" onkeyup="sumV2(<?= $data['id']; ?>)"></td>
                       <td><input type="number" class="form-control" name="harga_jual[]" id="harga_jual_<?= $data['id']; ?>" value="<?= $data['selling_price']; ?>"></td>
-                      <td><input type="number" class="form-control" name="jumlah_beli[]" id="jumlah_beli_<?= $data['id']; ?>" onkeyup="sumV2(<?= $data['id']; ?>)"></td>
+                      <td><input type="number" class="form-control" name="jumlah_beli[]" id="jumlah_beli_<?= $data['id']; ?>" onclick="sumV2(<?= $data['id']; ?>)" onkeyup="sumV2(<?= $data['id']; ?>)"></td>
                       <td><input type="number" readonly class="form-control" name="total_transaksi_pembelian[]" id="total_transaksi_pembelian_<?= $data['id']; ?>"></td>
                     </tr>
                     <?php 

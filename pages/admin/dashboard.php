@@ -187,7 +187,7 @@
                         <?php if($data['quantity'] == 0){ ?>
                         <input type="number" readonly class="form-control" name="jumlah_jual[]" id="jumlah_jual_<?= $data['id']; ?>" onkeyup="sum(<?= $data['id']; ?>)"></td>
                         <?php }else{ ?>
-                        <input type="number" class="form-control" name="jumlah_jual[]" id="jumlah_jual_<?= $data['id']; ?>" onkeyup="sum(<?= $data['id']; ?>)"></td>
+                        <input type="number" class="form-control" name="jumlah_jual[]" id="jumlah_jual_<?= $data['id']; ?>" onclick="sum(<?= $data['id']; ?>)" onkeyup="sum(<?= $data['id']; ?>)"></td>
                         <?php } ?>
                       <td><input type="number" class="form-control" readonly name="total_seluruh[]" id="total_seluruh_<?= $data['id']; ?>" ></td>
                       <!-- <td>

@@ -107,6 +107,11 @@ function sumRetur(id){
         document.getElementById('total_potongan_'+id).value = "";
         return;
     }
+
+    if(jumlah_retur < 0 || jumlah_retur == 0){
+        alert("Peringatan jumlah retur tidak boleh kurang dari 0 atau sama dengan 0");
+        return;
+    }
     let totality = sum * harga_jual;
 
     document.getElementById('total_potongan_'+id).value = totality;
@@ -116,11 +121,25 @@ function sumRetur(id){
 
 function sumV2(id){
     let harga_beli = Number(document.getElementById('harga_beli_'+id).value);
+    let harga_jual = Number(document.getElementById('harga_jual_'+id).value);
     let jumlah_beli = Number(document.getElementById('jumlah_beli_'+id).value);
 
     if(harga_beli == 0 || harga_beli == "" || harga_beli == undefined){
-        document.getElementById('jumlah_beli_'+id).value = 0;
-        document.getElementById('total_transaksi_pembelian_'+id).value = 0;
+        document.getElementById('jumlah_beli_'+id).value = "";
+        document.getElementById('total_transaksi_pembelian_'+id).value = "";
+        return;
+    }
+
+    if(harga_jual == 0 || harga_jual == "" || harga_jual == undefined){
+        document.getElementById('jumlah_beli_'+id).value = "";
+        document.getElementById('total_transaksi_pembelian_'+id).value = "";
+        return;
+    }
+
+    if(jumlah_beli < 0 || jumlah_beli == 0){
+        alert("Jumlah beli tidak boleh kurang dari 0 atau sama dengan 0");
+        document.getElementById('jumlah_beli_'+id).value = "";
+        document.getElementById('total_transaksi_pembelian_'+id).value = "";
         return;
     }
 

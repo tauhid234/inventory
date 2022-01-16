@@ -314,7 +314,7 @@
                                                         <th>Harga Penjualan</th>
                                                         <th>Total Penjualan</th>
                                                         <th>Jumlah Retur</th>
-                                                        <th>Total Potongan</th>
+                                                        <th>Total Potongan Penjualan</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -327,7 +327,6 @@
                                                             <input type="text" name="id_customer[]" hidden value="<?= $s['id_customer']; ?>">
                                                             <input type="text" name="no_invoice_sale[]" hidden value="<?= $s['no_invoice_sale']; ?>">
                                                             <input type="text" name="sale_versi[]" hidden value="<?= $s['sale_versi']; ?>">
-                                                            <input type="text" name="sale_inovoice[]" hidden value="<?= $s['no_invoice_sale']; ?>">
                                                         </td>
                                                         <td><?= $s['sell_date']; ?></td>
                                                         <td><?= $s['name_item']; ?></td>
@@ -340,8 +339,7 @@
                                                         <td><input type="text" class="form-control" readonly name="jumlah_retur[]" id="jumlah_retur_<?= $s['id']; ?>" onkeyup="sumRetur(<?= $s['id']; ?>)"></td>
                                                         <?php }else{ ?>
                                                         <td>
-                                                            <input type="number" class="form-control" name="jumlah_retur[]" id="jumlah_retur_<?= $s['id']; ?>" onkeyup="sumRetur(<?= $s['id']; ?>)">
-                                                            
+                                                            <input type="number" class="form-control" name="jumlah_retur[]" id="jumlah_retur_<?= $s['id']; ?>" onclick="sumRetur(<?= $s['id']; ?>)" onkeyup="sumRetur(<?= $s['id']; ?>)">                                                            
                                                         </td>
                                                         <td><input type="text" readonly class="form-control" name="total_potongan[]" id="total_potongan_<?= $s['id']; ?>"></td>
                                                         <?php } ?>
