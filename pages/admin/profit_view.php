@@ -81,8 +81,10 @@
                       <th>Nama Sales</th>
                       <th>Bulan</th>
                       <th>Tahun</th>
-                      <th>Hasil Pendapatan Profit</th>
+                      <th>Profit</th>
+                      <th>Potongan Sales</th>
                       <th>Tanggal Final</th>
+                      <th>Total Pendapatan</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -102,7 +104,9 @@
                           $explode = explode("-",$data['create_date']);
                           echo $explode[0]; ?></td>
                       <td><?= $data['profit']; ?></td>
+                      <td><?= $data['potongan_sales']; ?></td>
                       <td><?= $data['final_date']; ?></td>
+                      <td><?= $data['total_pendapatan_sales']; ?></td>
                     </tr>
                     <?php 
                      } ?>

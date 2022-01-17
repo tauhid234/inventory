@@ -60,51 +60,57 @@ class ReturModel{
                         return $this->msg->Error("Gagal membuat potongan kepada pelanggan");
                     }
 
-                    $potongan_sales = mysqli_query($this->server->mysql, "SELECT id_sales, potongan, create_date FROM potongan WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$m'");
-                    $num = mysqli_num_rows($potongan_sales);
-                    $arrays = mysqli_fetch_array($potongan_sales);
+
+                    // INSERT POTONGAN TIDAK JADI -> JADINYA LANGSUNG INSERT KE DATA RETUR
+
+                    // $potongan_sales = mysqli_query($this->server->mysql, "SELECT id_sales, potongan, create_date FROM potongan WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$m'");
+                    // $num = mysqli_num_rows($potongan_sales);
+                    // $arrays = mysqli_fetch_array($potongan_sales);
 
                     
-                    if($num == 1){
-                        $sum = (int)$arrays['potongan'] + (int)$potongan;
-                        $update = mysqli_query($this->server->mysql, "UPDATE potongan SET potongan = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
-                        if($update == false){
-                            return $this->msg->Error("Gagal update potongan sales");
-                        }
-                    }else{
+                    // if($num == 1){
+                    //     $sum = (int)$arrays['potongan'] + (int)$potongan;
+                    //     $update = mysqli_query($this->server->mysql, "UPDATE potongan SET potongan = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
+                    //     if($update == false){
+                    //         return $this->msg->Error("Gagal update potongan sales");
+                    //     }
+                    // }else{
 
-                        $insert = mysqli_query($this->server->mysql, "INSERT INTO potongan (id, id_potongan, id_sales, potongan, create_by, create_date, update_by, update_date)
-                                            VALUES ('', '$ids', '$id_sales', '$potongan', '$username', '$date', null, null)");
+                    //     $insert = mysqli_query($this->server->mysql, "INSERT INTO potongan (id, id_potongan, id_sales, potongan, create_by, create_date, update_by, update_date)
+                    //                         VALUES ('', '$ids', '$id_sales', '$potongan', '$username', '$date', null, null)");
                         
-                        if($insert == false){
-                            return $this->msg->Error("Gagal menambahkan data baru potongan sales");
-                        }
-                    }
+                    //     if($insert == false){
+                    //         return $this->msg->Error("Gagal menambahkan data baru potongan sales");
+                    //     }
+                    // }
 
                 }
                 else{
 
                     // UNTUK INVOICE TRANSAKSI YANG SUDAH SELESAI -> HANYA POTONG SALES
-                    $potongan_sales = mysqli_query($this->server->mysql, "SELECT id_sales, potongan, create_date FROM potongan WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$m'");
-                    $num = mysqli_num_rows($potongan_sales);
+                    // ------------------------------------------------------------------------------------------------------
+                    // INSERT POTONGAN TIDAK JADI -> JADINYA LANGSUNG INSERT KE DATA RETUR
+                    
+                    // $potongan_sales = mysqli_query($this->server->mysql, "SELECT id_sales, potongan, create_date FROM potongan WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$m'");
+                    // $num = mysqli_num_rows($potongan_sales);
 
                     
-                    if($num == 1){
-                        $arrays = mysqli_fetch_array($potongan_sales);
-                        $sum = (int)$arrays['potongan'] + (int)$potongan;
-                        $update = mysqli_query($this->server->mysql, "UPDATE potongan SET potongan = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
-                        if($update == false){
-                            return $this->msg->Error("Gagal update potongan sales");
-                        }
-                    }else{
+                    // if($num == 1){
+                    //     $arrays = mysqli_fetch_array($potongan_sales);
+                    //     $sum = (int)$arrays['potongan'] + (int)$potongan;
+                    //     $update = mysqli_query($this->server->mysql, "UPDATE potongan SET potongan = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
+                    //     if($update == false){
+                    //         return $this->msg->Error("Gagal update potongan sales");
+                    //     }
+                    // }else{
 
-                        $insert = mysqli_query($this->server->mysql, "INSERT INTO potongan (id, id_potongan, id_sales, potongan, create_by, create_date, update_by, update_date)
-                                            VALUES ('', '$ids', '$id_sales', '$potongan', '$username', '$date', null, null)");
+                    //     $insert = mysqli_query($this->server->mysql, "INSERT INTO potongan (id, id_potongan, id_sales, potongan, create_by, create_date, update_by, update_date)
+                    //                         VALUES ('', '$ids', '$id_sales', '$potongan', '$username', '$date', null, null)");
                         
-                        if($insert == false){
-                            return $this->msg->Error("Gagal menambahkan data baru potongan sales");
-                        }
-                    }
+                    //     if($insert == false){
+                    //         return $this->msg->Error("Gagal menambahkan data baru potongan sales");
+                    //     }
+                    // }
 
                 }
         }
@@ -148,6 +154,45 @@ class ReturModel{
         
         if($insert == false){
             return $this->msg->Error("Gagal menyimpan data retur");
+        }
+
+
+        // GET PROFIT
+        $get_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales'");
+        $rows_p = mysqli_num_rows($get_profit);
+        $array_p = mysqli_fetch_array($get_profit);
+
+        $sum_ = 0;
+        $sum_s = 0;
+
+        if($rows_p == 1){
+
+            // RUMUS POTONGAN SALES = TOTAL POTONGAN PENJUALAN - PROFIT
+            // MENGHINDARI MINUS
+
+            if((int) $potongan > (int) $array_p['profit']){
+
+                $sum_ = (int)$potongan - (int)$array_p['profit'];
+
+                // JIKA SUDAH ADA JUMLAH POTONGAN SEBELUMNYA MAKA AKAN DITAMBAH DENGAN YANG BARU
+                $sum_s = (int)$sum_ + (int)$array_p['potongan_sales'];
+
+            }else if((int) $potongan < (int) $array_p['profit']){
+
+                $sum_ = (int)$array_p['profit'] - (int)$potongan;
+
+                // JIKA SUDAH ADA JUMLAH POTONGAN SEBELUMNYA MAKA AKAN DITAMBAH DENGAN YANG BARU
+                $sum_s = (int)$sum_ + (int)$array_p['potongan_sales'];
+
+            } 
+
+            // UPDATE PROFIT
+
+            $update_profit = mysqli_query($this->server->mysql, "UPDATE profit SET potongan_sales = '$sum_s' WHERE id_sales = '$id_sales'");
+            if($update_profit == false){
+                return $this->msg->Error("Data potongan sales gagal dikalkulasikan");
+            }
+
         }
 
         // UPDATE ITEMS

@@ -42,7 +42,8 @@ class ProfitModel{
             // JIKA PENDAPATAN 5JT ATAU LEBIH -> DIBAGI 35%
             if((int) $array['profit'] == 5000000 || (int)$array['profit'] > 5000000){
                 $sumMax = (int) $array['profit'] / 100 * 35;
-                $updateMax = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMax', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
+                $total_pendapatan_sales = (int) $sumMax -  (int) $array['potongan_sales'];
+                $updateMax = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMax', total_pendapatan_sales = '$total_pendapatan_sales', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
                 if($updateMax == false){
                     return $this->msg->Error("Gagal update profit pendapatan lebih dari 5jt");
                 }
@@ -50,7 +51,8 @@ class ProfitModel{
 
                 // JIKA KURANG DARI 5 JT -> DIBAGI 30%
                 $sumMin = (int) $array['profit'] / 100 * 30;
-                $updateMin = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMin', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
+                $total_pendapatan_saless = (int)$sumMin -  (int)$array['potongan_sales'];
+                $updateMin = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMin', total_pendapatan_sales = '$total_pendapatan_saless', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
                 if($updateMin == false){
                     return $this->msg->Error("Gagal update profit pendapatan kurang dari 5jt");
                 }
