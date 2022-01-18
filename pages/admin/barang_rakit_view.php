@@ -73,6 +73,7 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
+                      <th>Nama Sales</th>
                       <th>Nama Barang</th>
                       <th>Nomor Ukuran</th>
                       <th>Jenis Ukuran</th>
@@ -90,6 +91,7 @@
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
+                      <td><?= $data['name_sales_rafts']; ?></td>
                       <td><?= $data['name_rafts']; ?></td>
                       <td><?= $data['size_rafts']; ?></td>
                       <td><?= $data['size_type_rafts']; ?></td>
@@ -149,7 +151,14 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-12">
+                                                <!-- text input -->
+                                                <div class="form-group">
+                                                    <label>Nama Sales </label>
+                                                    <input type="text" class="form-control" name="nama_barang" value="<?= $data['name_sales_rafts']; ?>" readonly>
+                                                </div>
+                                                </div>
+                                                <div class="col-sm-12">
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Nama Barang </label>
@@ -157,14 +166,14 @@
                                                     <input type="text" class="form-control" name="nama_barang" value="<?= $data['name_rafts']; ?>" readonly>
                                                 </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-12">
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Nomor Ukuran</label>
                                                     <input type="number" class="form-control" name="nomor_ukuran" value="<?= $data['size_rafts']; ?>" readonly>
                                                 </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <label>Jenis Ukuran</label>
                                                         <select class="form-control" name="jenis_ukuran" disabled>
@@ -174,14 +183,14 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-12">
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Jumlah Barang Rusak </label>
                                                     <input type="number" class="form-control" name="kuantitas" value="<?= $data['quantity_rafts']; ?>" readonly>
                                                 </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <label>Jenis Satuan</label>
                                                         <select class="form-control" name="jenis_satuan" disabled>

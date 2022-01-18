@@ -2,7 +2,9 @@
     <?php
         include('../../component_temp/header.php');
         include('../../model/ItemsModel.php');
+        include('../../model/SalesModel.php');
         $model = new ItemsModel;
+        $model_sales = new SalesModel;
     ?>
     <!-- END HEADER -->
 
@@ -32,13 +34,14 @@
         $username = $_SESSION['username'];
 
         $name_item = $_POST['name_item'][$i];
+        $name_sales = $_POST['name_sales'];
         $size = $_POST['size'][$i];
         $size_type = $_POST['size_type'][$i];
         $unit_type = $_POST['unit_type'][$i];
         $quantitys = $_POST['quantity'][$i];
 
-        if($quantitys !== ""){
-            $alert = $controller->AddController($username, $name_item, $size, $size_type, $quantitys, $unit_type);
+        if($quantitys !== "" && $name_sales !== ""){
+            $alert = $controller->AddController($username, $name_item, $name_sales, $size, $size_type, $quantitys, $unit_type);
         }
 
     }
@@ -79,6 +82,21 @@
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label>Nama Sales <span style="color: red;">*</span></label>
+                              <select class="form-control select2" name="name_sales" required>
+                                <option value="">-PILIH-</option>
+                                <?php foreach($model_sales->View() as $mdl){ ?>
+                                  <option value="<?= $mdl['name_sales']; ?>"><?= $mdl['name_sales'];?></option>
+                                <?php } ?>
+                              </select>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                 <table class="table table-bordered table-striped" id="example1">
                   <thead>
                     <tr>
