@@ -104,7 +104,7 @@
                           $explode = explode("-",$data['create_date']);
                           echo $explode[0]; ?></td>
                       <td><?= $data['profit']; ?></td>
-                      <td><?= $data['potongan_sales']; ?></td>
+                      <td><span class="badge badge-danger"><?= $data['potongan_sales']; ?></span></td>
                       <td><?= $data['final_date']; ?></td>
                       <td><?= $data['total_pendapatan_sales']; ?></td>
                     </tr>

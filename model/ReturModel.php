@@ -53,8 +53,10 @@ class ReturModel{
                     $potongan_pelanggan = (int)$array['price_sales'] * (int)$retur_amount;
                     $pengurangan_pembelian_pelanggan = (int)$array['selling_amount'] - (int)$retur_amount;
 
+                    $pp = (int)$pengurangan_pembelian_pelanggan * (int)$array['price_sales'];
+
                     $update_sale = mysqli_query($this->server->mysql, "UPDATE sale SET update_by = '$username', update_date = '$date', selling_amount = '$pengurangan_pembelian_pelanggan',
-                                   total_amount = '$potongan' WHERE id_selling_items = '$id_sale'");
+                                   total_amount = '$pp' WHERE id_selling_items = '$id_sale'");
                     
                     if($update_sale == false){
                         return $this->msg->Error("Gagal membuat potongan kepada pelanggan");
@@ -148,14 +150,27 @@ class ReturModel{
 
         }
 
-        $insert = mysqli_query($this->server->mysql, "INSERT INTO retur (id, id_retur, no_invoice, id_sale_retur, retur_date, retur_amount, total_potongan, create_by,
-                                create_date, update_by, update_date) VALUES ('', '$ids', '$no_invoice', '$id_sale', '$date', '$retur_amount', '$potongan', '$username',
+        
+        $potongan_pelanggan = (int)$array['price_sales'] * (int)$retur_amount;
+
+        $insert = mysqli_query($this->server->mysql, "INSERT INTO retur (id, id_retur, no_invoice, id_sale_retur, sale_versi_retur, retur_date, retur_amount, total_potongan, create_by,
+                                create_date, update_by, update_date) VALUES ('', '$ids', '$no_invoice', '$id_sale', '$versi_sale', '$date', '$retur_amount', '$potongan_pelanggan', '$username',
                                 '$date', null, null)");
         
         if($insert == false){
             return $this->msg->Error("Gagal menyimpan data retur");
         }
 
+
+        // GET ITEM
+        $id_item = $array['id_items'];
+        $get_item = mysqli_query($this->server->mysql, "SELECT * FROM items WHERE id_item = '$id_item'");
+        $array_item = mysqli_fetch_array($get_item);
+
+        // CALCULATE
+        $calculate = (int) $array['price_sales'] - (int) $array_item['selling_price'];
+        $totals = (int) $calculate * (int) $retur_amount;
+        echo $totals;
 
         // GET PROFIT
         $get_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales'");
@@ -170,25 +185,26 @@ class ReturModel{
             // RUMUS POTONGAN SALES = TOTAL POTONGAN PENJUALAN - PROFIT
             // MENGHINDARI MINUS
 
-            if((int) $potongan > (int) $array_p['profit']){
+            // if((int) $potongan > (int) $array_p['profit']){
 
-                $sum_ = (int)$potongan - (int)$array_p['profit'];
+            //     $sum_ = (int)$potongan - (int)$array_p['profit'];
 
-                // JIKA SUDAH ADA JUMLAH POTONGAN SEBELUMNYA MAKA AKAN DITAMBAH DENGAN YANG BARU
-                $sum_s = (int)$sum_ + (int)$array_p['potongan_sales'];
+            //     // JIKA SUDAH ADA JUMLAH POTONGAN SEBELUMNYA MAKA AKAN DITAMBAH DENGAN YANG BARU
+            //     $sum_s = (int)$sum_ + (int)$array_p['potongan_sales'];
 
-            }else if((int) $potongan < (int) $array_p['profit']){
+            // }else if((int) $potongan < (int) $array_p['profit']){
 
-                $sum_ = (int)$array_p['profit'] - (int)$potongan;
+            //     $sum_ = (int)$array_p['profit'] - (int)$potongan;
 
-                // JIKA SUDAH ADA JUMLAH POTONGAN SEBELUMNYA MAKA AKAN DITAMBAH DENGAN YANG BARU
-                $sum_s = (int)$sum_ + (int)$array_p['potongan_sales'];
+            //     // JIKA SUDAH ADA JUMLAH POTONGAN SEBELUMNYA MAKA AKAN DITAMBAH DENGAN YANG BARU
+            //     $sum_s = (int)$sum_ + (int)$array_p['potongan_sales'];
 
-            } 
+            // } 
 
             // UPDATE PROFIT
 
-            $update_profit = mysqli_query($this->server->mysql, "UPDATE profit SET potongan_sales = '$sum_s' WHERE id_sales = '$id_sales'");
+            $plus_exist_potongan = (int)$array_p['potongan_sales'] + (int)$totals;
+            $update_profit = mysqli_query($this->server->mysql, "UPDATE profit SET potongan_sales = '$plus_exist_potongan' WHERE id_sales = '$id_sales'");
             if($update_profit == false){
                 return $this->msg->Error("Data potongan sales gagal dikalkulasikan");
             }

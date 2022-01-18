@@ -105,6 +105,12 @@
                   <p>Total Penjualan</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/total_pembelian" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Total Pembelian</p>
+                </a>
+              </li>
             </ul>
           </li>
           <?php } ?>

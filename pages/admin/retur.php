@@ -50,9 +50,9 @@
   if(isset($_POST['save'])){
       
       
-      $jumlah_retur = $_POST['jumlah_retur'];
+      $saleid = $_POST['id_sale'];
       
-      for($i = 0; $i < count($jumlah_retur); $i++){
+      for($i = 0; $i < count($saleid); $i++){
           
           
           $id_sale = $_POST['id_sale'][$i];

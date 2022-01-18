@@ -86,4 +86,25 @@ class PurchaseModel{
 
         return $this->msg->Success("Data pembayaran pada pembelian berhasil terbayarkan");
     }
+
+    public function ViewRangeDate($tgl_mulai, $tgl_akhir){
+        $data = mysqli_query($this->server->mysql, "SELECT purchase.*, suplier.* FROM purchase, suplier WHERE purchase.id_suplier = suplier.id_suplier AND purchase.purchase_date >= '$tgl_mulai' AND purchase.purchase_date <= '$tgl_akhir'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+
+    public function ViewTransaksiAll(){
+        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_pembelian FROM purchase");
+        $data = mysqli_fetch_array($all);
+        return $data['total_pembelian'];
+    }
+
+    public function ViewTransaksiRange($tgl_mulai, $tgl_akhir){
+        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_pembelian FROM purchase WHERE purchase_date >= '$tgl_mulai' AND purchase_date <= '$tgl_akhir'");
+        $data = mysqli_fetch_array($all);
+        return $data['total_pembelian'];
+    }
 }

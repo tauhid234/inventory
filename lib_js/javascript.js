@@ -113,9 +113,10 @@ function sumRetur(id){
         return;
     }
     let totality = sum * harga_jual;
+    let totalitys = jumlah_retur * harga_jual;
 
-    document.getElementById('total_potongan_'+id).value = totality;
-    console.log("RETUR ", totality);
+    document.getElementById('total_potongan_'+id).value = totalitys;
+    console.log("RETUR ", totalitys);
 
 }
 
