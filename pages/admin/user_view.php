@@ -158,7 +158,7 @@
                                             <select class="form-control" name="peran" required>
                                               <option value="">-PILIH-</option>
                                               <option value="ADMIN" <?=$data['peran'] == 'ADMIN' ? ' selected="selected"' : '';?>>Admin</option>
-                                              <option value="SALES"<?=$data['peran'] == 'SALES' ? ' selected="selected"' : '';?>>Sales</option>
+                                              <option value="ADMIN_HRD"<?=$data['peran'] == 'ADMIN_HRD' ? ' selected="selected"' : '';?>>ADMIN HRD</option>
                                             </select>
                                           </div>
                                           <div class="form-group">
