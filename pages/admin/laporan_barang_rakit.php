@@ -53,6 +53,7 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
+                      <th>Nama Pelanggan</th>
                       <th>Nama Sales</th>
                       <th>Nama Barang</th>
                       <th>Nomor Ukuran</th>
@@ -70,6 +71,7 @@
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
+                      <td><?= $data['name_customer_rafts']; ?></td>
                       <td><?= $data['name_sales_rafts']; ?></td>
                       <td><?= $data['name_rafts']; ?></td>
                       <td><?= $data['size_rafts']; ?></td>

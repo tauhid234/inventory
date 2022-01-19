@@ -73,6 +73,7 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
+                      <th>Nama Pelanggan</th>
                       <th>Nama Sales</th>
                       <th>Nama Barang</th>
                       <th>Nomor Ukuran</th>
@@ -91,6 +92,7 @@
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
+                      <td><?= $data['name_customer_rafts']; ?></td>
                       <td><?= $data['name_sales_rafts']; ?></td>
                       <td><?= $data['name_rafts']; ?></td>
                       <td><?= $data['size_rafts']; ?></td>
@@ -154,8 +156,15 @@
                                                 <div class="col-sm-12">
                                                 <!-- text input -->
                                                 <div class="form-group">
+                                                    <label>Nama Pelanggan </label>
+                                                    <input type="text" class="form-control" name="nama_customer" value="<?= $data['name_customer_rafts']; ?>" readonly>
+                                                </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                <!-- text input -->
+                                                <div class="form-group">
                                                     <label>Nama Sales </label>
-                                                    <input type="text" class="form-control" name="nama_barang" value="<?= $data['name_sales_rafts']; ?>" readonly>
+                                                    <input type="text" class="form-control" name="nama_sales" value="<?= $data['name_sales_rafts']; ?>" readonly>
                                                 </div>
                                                 </div>
                                                 <div class="col-sm-12">

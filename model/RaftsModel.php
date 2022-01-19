@@ -43,7 +43,7 @@ class RaftsModel {
         mysqli_close($this->server->mysql);
     }
 
-    public function Add($username, $name_item, $name_sales, $size, $size_type, $quantity, $unit_type){
+    public function Add($username, $name_item, $name_customer, $name_sales, $size, $size_type, $quantity, $unit_type){
 
         $date = date('Y-m-d');
         $ids = $this->uid->guidv4();
@@ -62,8 +62,8 @@ class RaftsModel {
             return $this->msg->Error("Gagal mengurangi jumlah stock pada data barang");
         }
 
-        $insert = mysqli_query($this->server->mysql, "INSERT INTO rafts (id, id_rafts, name_rafts, name_sales_rafts, size_rafts, size_type_rafts, quantity_rafts, unit_type_rafts,
-                             create_date, create_by, update_date, update_by) VALUES ('', '$ids', '$name_item', '$name_sales', '$size', '$size_type', 
+        $insert = mysqli_query($this->server->mysql, "INSERT INTO rafts (id, id_rafts, name_rafts, name_customer_rafts, name_sales_rafts, size_rafts, size_type_rafts, quantity_rafts, unit_type_rafts,
+                             create_date, create_by, update_date, update_by) VALUES ('', '$ids', '$name_item', '$name_customer', '$name_sales', '$size', '$size_type', 
                             '$quantity', '$unit_type', '$date', '$username', null, null)");
         if($insert == false){
             return $this->msg->Error($insert.$ids);

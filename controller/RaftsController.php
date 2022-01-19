@@ -19,8 +19,8 @@ class RaftsController {
         return $this->controller->ViewId($id);
     }
 
-    public function AddController($username, $name_item, $name_sales, $size, $size_type, $quantity, $unit_type){
-        return $this->controller->Add($username, $name_item, $name_sales, $size, $size_type, $quantity, $unit_type);
+    public function AddController($username, $name_item, $name_customer, $name_sales, $size, $size_type, $quantity, $unit_type){
+        return $this->controller->Add($username, $name_item, $name_customer, $name_sales, $size, $size_type, $quantity, $unit_type);
     }
 
     public function UpdateController($id, $name_item, $username, $quantity, $status){
