@@ -14,9 +14,9 @@ class AuthModel{
     }
 
     public function getLogin($username, $password){
-        session_start();
         $query = mysqli_query($this->server->mysql, "SELECT * FROM user WHERE username = '$username' AND status = 'AKTIF'");
         if(mysqli_num_rows($query) == 1){
+            session_start();
             $row = mysqli_fetch_array($query);
             if(password_verify($password, $row["password"])){
                 $_SESSION['username'] = $row['username'];
@@ -31,7 +31,7 @@ class AuthModel{
                 return $this->msg->Error('Username atau Password anda salah');
             }
         }else{
-            return $this->msg->Error('Username atau Password anda salah');
+            return $this->msg->Error('User tersebut sudah tidak aktif, Harap hubungi ADMIN HRD untuk diaktifkan kembali');
         }
     }
 }
