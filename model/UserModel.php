@@ -56,7 +56,7 @@ class UserModel{
         }
         
         if($username == "mstdev"){
-            $dev = mysqli_query($this->mysqlz->mysql, "SELECT * FROM user WHERE peran = 'ADMIN' AND username = '$username'");
+            $dev = mysqli_query($this->mysqlz->mysql, "SELECT * FROM user WHERE peran = 'ADMIN_HRD' AND username = '$username'");
             $row_d = mysqli_num_rows($dev);
             if($row_d == 1){
                 return $this->msg = $this->msg->Warning('Anda tidak diperkenankan untuk mengupdate data user Admin DEV !');
@@ -76,13 +76,20 @@ class UserModel{
         $uname = $_SESSION['username'];
         $username2 = $username;
         $cek = mysqli_query($this->mysqlz->mysql, "SELECT * FROM user WHERE id = '$id' AND peran = 'ADMIN' AND username = '$uname'");
+        $cek_2 = mysqli_query($this->mysqlz->mysql, "SELECT * FROM user WHERE id = '$id' AND peran = 'ADMIN_HRD' AND username = '$uname'");
         $row_c = mysqli_num_rows($cek);
+        $row_c_2 = mysqli_num_rows($cek_2);
+
         if($row_c == 1){
+            return $this->msg = $this->msg->Warning('Anda tidak diperkenankan untuk menghapus data user Anda sendiri !');
+        }   
+
+        if($row_c_2 == 1){
             return $this->msg = $this->msg->Warning('Anda tidak diperkenankan untuk menghapus data user Anda sendiri !');
         }        
 
         if($username2 == "mstdev"){
-            $dev = mysqli_query($this->mysqlz->mysql, "SELECT * FROM user WHERE id = '$id' AND peran = 'ADMIN' AND username = '$username2'");
+            $dev = mysqli_query($this->mysqlz->mysql, "SELECT * FROM user WHERE id = '$id' AND peran = 'ADMIN_HRD' AND username = '$username2'");
             $row_d = mysqli_num_rows($dev);
             if($row_d == 1){
                 return $this->msg = $this->msg->Warning('Anda tidak diperkenankan untuk menghapus data user Admin DEV !');
