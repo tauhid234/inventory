@@ -2,7 +2,11 @@
     <?php
         include('../../component_temp/header.php');
         include('../../model/ItemsModel.php');
-        $model = new ItemsModel();
+        include('../../model/SizeModel.php');
+        include('../../model/UnitModel.php');
+        $model_size = new SizeModel;
+        $model_unit = new UnitModel;
+        $model = new ItemsModel;
     ?>
     <!-- END HEADER -->
 
@@ -43,6 +47,18 @@
   if(isset($_POST['hapus'])){
     $id = $_POST['id'];
     $alert = $controller->DeleteController($id);
+  }
+
+  if(isset($_POST['save_ukuran'])){
+    $nama_ukuran = $_POST['nama_ukuran'];
+
+    $alert = $size_controller->AddController($nama_ukuran);
+  }
+
+  if(isset($_POST['save_unit'])){
+    $nama_unit = $_POST['nama_satuan'];
+
+    $alert = $unit_controller->AddController($nama_unit);
   }
   ?>
 
@@ -154,10 +170,19 @@
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Nomor Ukuran<span style="color: red;">*</span></label>
-                                                    <input type="number" class="form-control" name="nomor_ukuran" value="<?= $data['size']; ?>" required>
+                                                    <input type="text" class="form-control" name="nomor_ukuran" value="<?= $data['size']; ?>" required>
                                                 </div>
                                                 </div>
+
                                                 <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Jenis Ukuran<span style="color: red;">*</span></label>
+                                                        <select class="form-control" name="jenis_ukuran" disabled>
+                                                            <option value="<?= $data['size_type']; ?>"><?= $data['size_type']; ?></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Jenis Ukuran<span style="color: red;">*</span></label>
                                                         <select class="form-control" name="jenis_ukuran" required>
@@ -166,7 +191,7 @@
                                                             <option value="M" <?=$data['size_type'] == 'M' ? ' selected="selected"' : '';?>>METER</option>
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-sm-6">
                                                 <!-- text input -->
                                                 <div class="form-group">
@@ -174,13 +199,23 @@
                                                     <input type="number" class="form-control" name="kuantitas" value="<?= $data['quantity']; ?>" required>
                                                 </div>
                                                 </div>
-                                                <div class="col-sm-6">
+
+
+                                                <!-- <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Jenis Satuan<span style="color: red;">*</span></label>
                                                         <select class="form-control" name="jenis_satuan" required>
                                                             <option value="">-PILIH-</option>
                                                             <option value="PIECES" <?=$data['unit_type'] == 'PIECES' ? ' selected="selected"' : '';?>>PIECES</option>
                                                             <option value="BOX" <?=$data['unit_type'] == 'BOX' ? ' selected="selected"' : '';?>>BOX</option>
+                                                        </select>
+                                                    </div>
+                                                </div> -->
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Jenis Satuan<span style="color: red;">*</span></label>
+                                                        <select class="form-control" name="jenis_satuan" disabled>
+                                                            <option value="<?= $data['unit_type']; ?>"><?= $data['unit_type']; ?></option>
                                                         </select>
                                                     </div>
                                                 </div>
