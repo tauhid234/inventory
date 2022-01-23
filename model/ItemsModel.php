@@ -20,12 +20,37 @@ class ItemsModel {
     }
 
     public function View(){
-        $data = mysqli_query($this->server->mysql, "SELECT * FROM items");
-        while($d = mysqli_fetch_assoc($data)){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM items WHERE status = 1");
+        while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;
         }
         return $this->output;
         mysqli_close($this->server->mysql);
+    }
+
+    public function ViewItemSale(){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM items WHERE status = 1 AND quantity != '0'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+
+    public function ViewItemPurchase(){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM items WHERE status = 1 AND quantity != '0'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+
+    public function Count(){
+        $data = mysqli_query($this->server->mysql, "SELECT COUNT(*) AS total FROM items");
+        $fetch = mysqli_fetch_array($data);
+
+        return $fetch['total'];
     }
 
 
@@ -44,7 +69,47 @@ class ItemsModel {
 
     public function Add($username, $name_item, $size, $size_type, $quantity, $unit_type, $purchase_price, $selling_price){
 
-        $cek = mysqli_query($this->server->mysql, "SELECT name_item FROM items WHERE name_item = '$name_item'");
+        if($name_item == "" || $name_item == null || strlen(trim($name_item))<=0){
+            return $this->msg->Warning("Harap input nama item terlebih dahulu");
+        }
+
+        if($size == "" || $size == null || strlen(trim($size))<=0){
+            return $this->msg->Warning("Harap input nomor ukuran terlebih dahulu");
+        }
+
+        if($size_type == "" || $size_type == null){
+            return $this->msg->Warning("Harap pilih jenis ukuran terlebih dahulu");
+        }
+
+        if($quantity == "" || $quantity == null){
+            return $this->msg->Warning("Harap input kuantitas terlebih dahulu");
+        }
+
+        if($unit_type == "" || $unit_type == null){
+            return $this->msg->Warning("Harap pilih jenis satuan terlebih dahulul");
+        }
+
+        if($purchase_price == "" || $purchase_price == null){
+            return $this->msg->Warning("Harap input harga pembelian terlebih dahulu");
+        }
+
+        if($selling_price == "" || $selling_price == null){
+            return $this->msg->Warning("Harap input harga penjualan terlebih dahulu");
+        }
+
+        if($selling_price == 0 || $selling_price < 0){
+            return $this->msg->Warning("Harap inputkan harga penjualan lebih dari 0 !");
+        }
+
+        if($purchase_price == 0 || $purchase_price < 0){
+            return $this->msg->Warning("Harap inputkan harga pembelian lebih dari 0 !");
+        }
+
+        if($quantity < 0){
+            return $this->msg->Warning("Harap inputkan kuantitas tidak kurang dari 0 !");
+        }
+
+        $cek = mysqli_query($this->server->mysql, "SELECT name_item,status FROM items WHERE name_item = '$name_item' AND status = 1");
         $num = mysqli_num_rows($cek);
 
         $date = date('Y-m-d');
@@ -58,8 +123,8 @@ class ItemsModel {
         }
 
         $insert = mysqli_query($this->server->mysql, "INSERT INTO items (id, id_item, name_item, size, size_type, quantity, unit_type, purchase_price,
-                            selling_price, create_date, create_by, update_date, update_by) VALUES ('', '$ids', '$item_name', '$size', '$size_type', 
-                            '$quantity', '$unit_type', '$purchase_price', '$selling_price', '$date', '$username', null, null)");
+                            selling_price, create_date, create_by, update_date, update_by, status) VALUES ('', '$ids', '$item_name', '$size', '$size_type', 
+                            '$quantity', '$unit_type', '$purchase_price', '$selling_price', '$date', '$username', null, null, 1)");
         if($insert == false){
             return $this->msg->Error($insert.$ids);
         }
@@ -82,9 +147,11 @@ class ItemsModel {
         return $this->msg->Success('Data barang berhasil di update');
     }
 
+
+    // SOFT DELETE
     public function Delete($id){
 
-        $delete = mysqli_query($this->server->mysql, "DELETE FROM items WHERE id_item = '$id'");
+        $delete = mysqli_query($this->server->mysql, "UPDATE items SET status = 0 WHERE id_item = '$id'");
 
         if($delete == false){
             return $this->msg->Error($delete);

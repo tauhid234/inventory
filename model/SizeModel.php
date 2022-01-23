@@ -30,6 +30,10 @@ class SizeModel {
 
     public function Add($nama_size){
 
+        if($nama_size == "" || $nama_size == null || strlen(trim($nama_size))<=0){
+            return $this->msg->Warning("Harap input nama ukuran terlebih dahulu");
+        }
+
         $cek = mysqli_query($this->server->mysql, "SELECT jenis_ukuran FROM size WHERE jenis_ukuran = '$nama_size'");
         $num = mysqli_num_rows($cek);
 

@@ -4,9 +4,12 @@
 
         include('../../model/SuplierModel.php');
         include('../../model/ItemsModel.php');
+        include('../../model/CartPurchaseModel.php');
 
         $model_suplier = new SuplierModel;
-        $model = new ItemsModel();
+        $model = new ItemsModel;
+        $model_cart_purchase = new CartPurchaseModel;
+        $username = $_SESSION['username'];
     ?>
     <!-- END HEADER -->
 
@@ -24,13 +27,27 @@
 
   <?php 
   include('../../controller/PurchaseController.php');
+  include('../../controller/CartPurchaseController.php');
 
   $alert = "";
 
   $controller = new PurchaseController;
+  $controller_cart_purchase = new CartPurchaseController;
 
   $hari_ini = date("Y-m-d");
 
+  if(isset($_POST['cart'])){
+
+    $username = $_SESSION['username'];
+    $id_item_cart = $_POST['id_item_cart'];
+
+    $alert = $controller_cart_purchase->AddController($id_item_cart, $username);
+  }
+
+  if(isset($_POST['remove'])){
+    $id = $_POST['remove_item'];
+    $alert = $controller_cart_purchase->DeleteController($id);
+  }
 
   if(isset($_POST['submit'])){
 
@@ -91,11 +108,43 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
+              <div class="card-header">Tambahkan Item</div>
+              <div class="card-body">
+                <form method="post" action="">
+                  <div class="row">
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                            <label>Nama Barang <span style="color: red;">*</span></label>
+                            <select class="form-control select2" name="id_item_cart" required>
+                              <option value="">-PILIH-</option>
+                              <?php foreach($model->ViewItemPurchase() as $mdl){ ?>
+                                <option value="<?= $mdl['id_item']; ?>"><?= $mdl['name_item'];?></option>
+                              <?php } ?>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <button type="submit" name="cart" class="btn btn-block btn-primary" style="margin-top: 30px;">Tambahkan Item +</button>
+                        </div>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div class="row">
           <div class="col-md-12">
             <div class="card card-warning">
                 <div class="card-header">
-                  
+                  Simpan Pembelian
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -105,7 +154,7 @@
                         <div class="col-sm-6">
                         <div class="form-group">
                             <label>Nama Suplier <span style="color: red;">*</span></label>
-                            <select class="form-control select2" name="id_suplier" required>
+                            <select class="form-control select2" name="id_suplier">
                                 <option value="">-PILIH-</option>
                                 <?php foreach($model_suplier->View() as $mdl){ ?>
                                 <option value="<?= $mdl['id_suplier']; ?>"><?= $mdl['name_suplier'];?></option>
@@ -116,7 +165,7 @@
                         <div class="col-sm-6">
                         <div class="form-group">
                             <label>Tanggal Pembelian <span style="color: red;">*</span></label>
-                            <input type="date" required class="form-control" name="tanggal_pembelian">
+                            <input type="date" class="form-control" name="tanggal_pembelian">
                         </div>
                         </div>
                     </div>
@@ -124,7 +173,7 @@
                         <div class="col-sm-6">
                         <div class="form-group">
                             <label>Status Bayar <span style="color: red;">*</span></label>
-                            <select class="form-control" name="status_bayar" required>
+                            <select class="form-control" name="status_bayar">
                                 <option value="">-PILIH-</option>
                                 <option value="PAID">BAYAR</option>
                                 <option value="UNPAID">BELUM BAYAR</option>
@@ -136,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped" id="example1">
+                <table class="table table-bordered table-striped" id="menu_pembelian">
                   <thead>
                     <tr>
                         <th style="width: 10px">#</th>
@@ -149,29 +198,34 @@
                         <th>Harga Jual</th>
                         <th>Jumlah Beli</th>
                         <th>Total Harga</th>
+                        <th>Action</th>
                       <!-- <th>Tindakan</th> -->
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                       $no = 1;
-                      foreach($model->View() as $data){
+                      foreach($model_cart_purchase->ViewPurchaseSale($username) as $data){
                     ?>
                     <tr>
                       <td>
                         <?= $no++; ?>
-                        <input type="text" hidden class="form-control" readonly name="id_item[]" value="<?= $data['id_item']; ?>">
+                        <input type="text" hidden class="form-control" readonly name="id_item[]" value="<?= $data['id_cart']; ?>">
                         <input type="text" hidden class="form-control" readonly name="versi[]" value="<?= time(); ?>">
                       </td>
                       <td><input type="text" class="form-control" name="no_invoice[]"></td>
-                      <td><?= $data['name_item']; ?><input type="text" hidden readonly class="form-control" name="name_item[]" value="<?= $data['name_item']; ?>"></td>
-                      <td><?= $data['size']; ?><input type="text" hidden readonly class="form-control" name="size[]" value="<?= $data['size']; ?>"></td>
-                      <td><?= $data['size_type']; ?><input type="text" hidden readonly class="form-control" name="size_type[]" value="<?= $data['size_type']; ?>"></td>
-                      <td><?= $data['unit_type']; ?><input type="text" hidden readonly class="form-control" name="unit_type[]" value="<?= $data['unit_type']; ?>"></td>
-                      <td><input type="number" class="form-control" name="harga_beli[]" id="harga_beli_<?= $data['id']; ?>" value="<?= $data['purchase_price']; ?>" onclick="sumV2(<?= $data['id']; ?>)" onkeyup="sumV2(<?= $data['id']; ?>)"></td>
-                      <td><input type="number" class="form-control" name="harga_jual[]" id="harga_jual_<?= $data['id']; ?>" value="<?= $data['selling_price']; ?>"></td>
+                      <td><?= $data['name_cart']; ?><input type="text" hidden readonly class="form-control" name="name_item[]" value="<?= $data['name_cart']; ?>"></td>
+                      <td><?= $data['size_cart']; ?><input type="text" hidden readonly class="form-control" name="size[]" value="<?= $data['size_cart']; ?>"></td>
+                      <td><?= $data['size_type_cart']; ?><input type="text" hidden readonly class="form-control" name="size_type[]" value="<?= $data['size_type_cart']; ?>"></td>
+                      <td><?= $data['unit_type_cart']; ?><input type="text" hidden readonly class="form-control" name="unit_type[]" value="<?= $data['unit_type_cart']; ?>"></td>
+                      <td><input type="number" class="form-control" name="harga_beli[]" id="harga_beli_<?= $data['id']; ?>" value="<?= $data['purchase_price_cart']; ?>" onclick="sumV2(<?= $data['id']; ?>)" onkeyup="sumV2(<?= $data['id']; ?>)"></td>
+                      <td><input type="number" class="form-control" name="harga_jual[]" id="harga_jual_<?= $data['id']; ?>" value="<?= $data['selling_price_cart']; ?>"></td>
                       <td><input type="number" class="form-control" name="jumlah_beli[]" id="jumlah_beli_<?= $data['id']; ?>" onclick="sumV2(<?= $data['id']; ?>)" onkeyup="sumV2(<?= $data['id']; ?>)"></td>
                       <td><input type="number" readonly class="form-control" name="total_transaksi_pembelian[]" id="total_transaksi_pembelian_<?= $data['id']; ?>"></td>
+                      <td>
+                        <input type="text" hidden name="remove_item" value="<?= $data['id_cart']; ?>">
+                        <button type="submit" name="remove" class="btn btn-block btn-danger mt-4">Hapus</button>
+                      </td>
                     </tr>
                     <?php 
                      } ?>

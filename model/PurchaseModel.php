@@ -44,6 +44,14 @@ class PurchaseModel{
 
         $ids = $this->uid->guidv4();
 
+        if($id_suplier == "" || $status_pay == ""){
+            return $this->msg->Warning("Harap pilih nama suplier dan status bayar dahulu");
+        }
+
+        if($tgl_beli == ""){
+            return $this->msg->Warning("Harap pilih tanggal pembelian dahulu");
+        }
+
         $name_items = strtoupper($nama_barang);
         $jenis_satuans = strtoupper($jenis_satuan);
         $jenis_ukurans = strtoupper($jenis_ukuran);
@@ -69,6 +77,12 @@ class PurchaseModel{
             if($update_item == false){
                 return $this->msg->Error("Gagal Update items di pembelian");
             }
+        }
+
+        // DELETE CART
+        $delete = mysqli_query($this->server->mysql, "DELETE FROM cart_purchase WHERE id_cart = '$id_items' AND session_cart = '$username'");
+        if($delete == false){
+            return $this->msg->Error("Gagal hapus session data penjualan");
         }
 
         return $this->msg->Success('Data pembelian berhasil disimpan');

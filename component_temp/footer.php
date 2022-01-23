@@ -94,6 +94,18 @@ $(function () {
       "responsive": true,
     });
 
+    $("#menu_penjualan").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false, "paging" : false 
+    }).buttons().container().appendTo('#menu_penjualan_wrapper .col-md-6:eq(0)');
+
+    $("#menu_pembelian").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false, "paging" : false 
+    }).buttons().container().appendTo('#menu_pembelian_wrapper .col-md-6:eq(0)');
+    
+    $("#retur").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false, "paging" : false 
+    }).buttons().container().appendTo('#retur_wrapper .col-md-6:eq(0)');
+
     $('#laporan_penjualan').DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       buttons: [{

@@ -211,6 +211,10 @@ class SaleModel{
         $ids = $this->uid->guidv4();
         $total = 0;
 
+        if($id_customer == "" || $id_sales == ""){
+            return $this->msg->Warning("Harap pilih nama pelanggan dan sales dahulu");
+        }
+
         $get_data_invoice = mysqli_query($this->server->mysql, "SELECT COUNT(id_sales_invoice) AS total FROM invoice WHERE id_sales_invoice = '$id_sales'");
         $data = mysqli_fetch_assoc($get_data_invoice);
         if($get_data_invoice == false){
@@ -222,90 +226,99 @@ class SaleModel{
         $sum = '00'.(string)$total;
         $no_invoice = sprintf("%03d", $sum);
 
-        $insert = mysqli_query($this->server->mysql, "INSERT INTO sale (id, id_selling_items, id_items, id_customer, id_sales, sell_date, selling_amount, total_amount,
-                            price_clean, price_sales, sale_versi, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
-                            '$date', '$selling_amount',  '$total_amount', '$price_clean', '$selling_price_sales', '$sale_versi', '$no_invoice', '$username', '$date', null, null)");
-        
-        if($insert == false){
-            return $this->msg->Error("Gagal menambahkan penjualan baru");
-        }
+        if($selling_price_sales != ""){
 
-        $update = mysqli_query($this->server->mysql, "UPDATE items SET quantity = '$value', update_by = '$username', update_date = '$date' WHERE id_item = '$id_items'");
-
-        if($update == false){
-            return $this->msg->Error("Gagal mengupdate stock");
-        }
-
-        // SCHEDULE MONTH
-        // $schedule = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE MONTH(create_date) = '$month'");
-        // $num_schedule = mysqli_num_rows($schedule);
-
-        // if($tgl_terakhir === $date){
-
-        //     if($num_schedule == 1 || $num_schedule > 1){
-
-        //         $cek_pendapatan_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales'");
-        //         $array = mysqli_fetch_array($cek_pendapatan_profit);
-
-        //         // JIKA PENDAPATAN 5JT ATAU LEBIH -> DIBAGI 35%
-        //         if((int) $array['profit'] == 5000000 || (int)$array['profit'] > 5000000){
-
-        //             $sumMax = (int) $array['profit'] / 100 * 35;
-        //             $total_pendapatan_sales = (int) $sumMax -  (int) $array['potongan_sales'];
-
-        //             $updateMax = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMax', total_pendapatan_sales = '$total_pendapatan_sales' WHERE id_sales = '$id_sales'");
-        //             if($updateMax == false){
-        //                 return $this->msg->Error("Gagal update profit pendapatan lebih dari 5jt");
-        //             }
-
-        //         }else{
-
-        //             // JIKA KURANG DARI 5 JT -> DIBAGI 30%
-        //             $sumMin = (int) $array['profit'] / 100 * 30;
-        //             $total_pendapatan_saless = (int)$sumMin -  (int)$array['potongan_sales'];
-        //             $updateMin = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMin', total_pendapatan_sales = '$total_pendapatan_saless' WHERE id_sales = '$id_sales'");
-        //             if($updateMin == false){
-        //                 return $this->msg->Error("Gagal update profit pendapatan kurang dari 5jt");
-        //             }
-        //         }
-
-        //         $update_schedule = mysqli_query($this->server->mysql, "UPDATE profit SET final_date = '$date' WHERE MONTH(create_date) = '$month'");
-        //         if($update_schedule == false){
-        //             $this->msg->Error("Gagal mengupdate profit per bulan");
-        //         }
-
-        //     }
-
-        // }
-
-        // CEK PROFIT ID SALES
-        $cek_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$month'");
-        $num = mysqli_num_rows($cek_profit);
-        $rows = mysqli_fetch_array($cek_profit);
-
-        if($num == 1){
-
-            $plus = (int) $selling_amount * $profit;
-            $sum = $rows['profit'] + $plus;
-
-            $update_profit = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
-            if($update_profit == false){
-                return $this->msg->Error("update profit dihari yang sama tidak berhasil");
-            }
-
-        }else{
-
-            $plus = (int) $selling_amount * $profit;
-            $insert_profit = mysqli_query($this->server->mysql, "INSERT INTO profit (id, id_profit, id_sales, profit, potongan_sales, total_pendapatan_sales, final_date, create_by, create_date, update_by, update_date)
-                             VALUES ('', '$ids', '$id_sales', '$plus', '', '', null, '$username', '$date', null, null)");
+            $insert = mysqli_query($this->server->mysql, "INSERT INTO sale (id, id_selling_items, id_items, id_customer, id_sales, sell_date, selling_amount, total_amount,
+                                price_clean, price_sales, sale_versi, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
+                                '$date', '$selling_amount',  '$total_amount', '$price_clean', '$selling_price_sales', '$sale_versi', '$no_invoice', '$username', '$date', null, null)");
             
-            if($insert_profit == false){
-                return $this->msg->Error("Data profit gagal disimpan");
+            if($insert == false){
+                return $this->msg->Error("Gagal menambahkan penjualan baru");
             }
 
+            $update = mysqli_query($this->server->mysql, "UPDATE items SET quantity = '$value', update_by = '$username', update_date = '$date' WHERE id_item = '$id_items'");
+
+            if($update == false){
+                return $this->msg->Error("Gagal mengupdate stock");
+            }
+
+            // DELETE CART
+            $delete = mysqli_query($this->server->mysql, "DELETE FROM cart_sale WHERE id_cart = '$id_items' AND session_cart = '$username'");
+            if($delete == false){
+                return $this->msg->Error("Gagal hapus session data penjualan");
+            }
+
+            // SCHEDULE MONTH
+            // $schedule = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE MONTH(create_date) = '$month'");
+            // $num_schedule = mysqli_num_rows($schedule);
+
+            // if($tgl_terakhir === $date){
+
+            //     if($num_schedule == 1 || $num_schedule > 1){
+
+            //         $cek_pendapatan_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales'");
+            //         $array = mysqli_fetch_array($cek_pendapatan_profit);
+
+            //         // JIKA PENDAPATAN 5JT ATAU LEBIH -> DIBAGI 35%
+            //         if((int) $array['profit'] == 5000000 || (int)$array['profit'] > 5000000){
+
+            //             $sumMax = (int) $array['profit'] / 100 * 35;
+            //             $total_pendapatan_sales = (int) $sumMax -  (int) $array['potongan_sales'];
+
+            //             $updateMax = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMax', total_pendapatan_sales = '$total_pendapatan_sales' WHERE id_sales = '$id_sales'");
+            //             if($updateMax == false){
+            //                 return $this->msg->Error("Gagal update profit pendapatan lebih dari 5jt");
+            //             }
+
+            //         }else{
+
+            //             // JIKA KURANG DARI 5 JT -> DIBAGI 30%
+            //             $sumMin = (int) $array['profit'] / 100 * 30;
+            //             $total_pendapatan_saless = (int)$sumMin -  (int)$array['potongan_sales'];
+            //             $updateMin = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMin', total_pendapatan_sales = '$total_pendapatan_saless' WHERE id_sales = '$id_sales'");
+            //             if($updateMin == false){
+            //                 return $this->msg->Error("Gagal update profit pendapatan kurang dari 5jt");
+            //             }
+            //         }
+
+            //         $update_schedule = mysqli_query($this->server->mysql, "UPDATE profit SET final_date = '$date' WHERE MONTH(create_date) = '$month'");
+            //         if($update_schedule == false){
+            //             $this->msg->Error("Gagal mengupdate profit per bulan");
+            //         }
+
+            //     }
+
+            // }
+
+            // CEK PROFIT ID SALES
+            $cek_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$month'");
+            $num = mysqli_num_rows($cek_profit);
+            $rows = mysqli_fetch_array($cek_profit);
+
+            if($num == 1){
+
+                $plus = (int) $selling_amount * $profit;
+                $sum = $rows['profit'] + $plus;
+
+                $update_profit = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales'");
+                if($update_profit == false){
+                    return $this->msg->Error("update profit dihari yang sama tidak berhasil");
+                }
+
+            }else{
+
+                $plus = (int) $selling_amount * $profit;
+                $insert_profit = mysqli_query($this->server->mysql, "INSERT INTO profit (id, id_profit, id_sales, profit, potongan_sales, total_pendapatan_sales, final_date, create_by, create_date, update_by, update_date)
+                                VALUES ('', '$ids', '$id_sales', '$plus', '', '', null, '$username', '$date', null, null)");
+                
+                if($insert_profit == false){
+                    return $this->msg->Error("Data profit gagal disimpan");
+                }
+
+            }
+            
+            return $this->msg->Success('Data penjualan berhasil disimpan');
         }
-        
-        return $this->msg->Success('Data penjualan berhasil disimpan');
     }
 
     public function ViewTransaksiAll(){

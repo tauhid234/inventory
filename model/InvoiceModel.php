@@ -130,6 +130,10 @@ class InvoiceModel{
         $total = 0;
 
 
+        if($id_customer_invoice == "" || $id_sales_invoice == ""){
+            return $this->msg->Warning("Harap pilih nama pelanggan dan sales dahulu");
+        }
+
         $date = date('Y-m-d');
 
         $ids = $this->uid->guidv4();

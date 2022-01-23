@@ -167,9 +167,13 @@ body{margin-top:20px;
         border-top: 1px solid #aaa;
         padding: 8px 0
     }
+
     @page {
-        size: A1 landscape;
-            }
+        size: 7in 9.25in;
+        margin: 27mm 16mm 27mm 16mm;
+
+    }
+
     @media print {
 
         html, body {

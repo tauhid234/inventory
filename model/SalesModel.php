@@ -59,7 +59,7 @@ class SalesModel{
             return $this->msg->Error("QUERY SQL INSERT");
         }
         
-        return $this->msg->Success('Data pelanggan berhasil disimpan');
+        return $this->msg->Success('Data Sales berhasil disimpan');
     }
 
     public function Update($id, $username, $name_sales, $nohp, $email, $kota, $kode_pos, $alamat){
@@ -75,7 +75,7 @@ class SalesModel{
             return $this->msg->Error('QUERY SQL UPDATE');
         }
 
-        return $this->msg->Success('Data pelanggan berhasil di update');
+        return $this->msg->Success('Data sales berhasil di update');
     }
 
     public function Delete($id){
@@ -86,6 +86,6 @@ class SalesModel{
             return $this->msg->Error($delete);
         }
 
-        return $this->msg->Success('Data pelanggan berhasil dihapus');
+        return $this->msg->Success('Data sales berhasil dihapus');
     }
 }

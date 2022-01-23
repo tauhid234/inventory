@@ -30,6 +30,10 @@ class UnitModel {
 
     public function Add($nama_unit){
 
+        if($nama_unit == "" || $nama_unit == null || strlen(trim($nama_unit))<=0){
+            return $this->msg->Warning("Harap input nama ukuran terlebih dahulu");
+        }
+
         $cek = mysqli_query($this->server->mysql, "SELECT unit_type FROM unit WHERE unit_type = '$nama_unit'");
         $num = mysqli_num_rows($cek);
 
