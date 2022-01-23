@@ -52,20 +52,20 @@ if(!isset($_SESSION["username"])){
                         <header>
                             <div class="row contacts">
                                 <div class="col invoice-to" style="color: #2980b9;">
-                                    <h1 class="invoice-id mb-4"><img src="../../../dist/img/LOGO BINTANG 89.png" width="70px"> BINTANG 89</h1>
-                                    <div class="invoice-id">SUPPLIER : KUNCI, ENGSEL & HANDLE</div>                                    
-                                    <div class="invoice-id">Office : Hp. 0813 8519 5406</div>                                    
-                                    <div class="invoice-id">Jakarta Barat</div>                       
-                                    <div class="invoice-id"><?= $data[0]['name_sales']; ?></div>                       
-                                    <h1 class="invoice-id">INVOICE <?= substr($data[0]['name_sales'], 0, 2); ?><?= $data[0]['no_invoice_retur']; ?></h1>             
+                                    <h3 class="invoice-id mb-4"><img src="../../../dist/img/LOGO BINTANG 89.png" width="70px"> BINTANG 89</h3>
+                                    <div class="invoice-id" style="font-weight: bold; font-size: 14px;">SUPPLIER : KUNCI, ENGSEL & HANDLE</div>                                    
+                                    <div class="invoice-id" style="font-weight: bold; font-size: 14px;">Office : Hp. 0813 8519 5406</div>                                    
+                                    <div class="invoice-id" style="font-weight: bold; font-size: 14px;">Jakarta Barat</div>                       
+                                    <div class="invoice-id" style="font-weight: bold; font-size: 14px;"><?= $data[0]['name_sales']; ?></div>                       
+                                    <h5 class="invoice-id" style="font-weight: bold;">INVOICE <?= substr($data[0]['name_sales'], 0, 2); ?><?= $data[0]['no_invoice_retur']; ?></h5>             
                                 </div>
                                 <div class="col invoice-details" style="color: #2980b9;">
-                                    <div class="text-gray-light mb-4">Tanggal : <?= date('Y-m-d'); ?></div>
-                                    <div class="text-gray-light">CUSTOMER :</div>
-                                        <h2 class="to"><?= $data[0]['name_customer']; ?></h2>
-                                        <div class="address"><?= $data[0]['alamat_toko']; ?></div>
-                                        <div class="address"><?= $data[0]['no_handphone_customer']; ?></div>
-                                        <div class="address mb-4"><b>Nomor Toko : </b><?= $data[0]['nomor_toko']; ?></div>
+                                    <div class="text-gray-light mb-4" style="font-weight: bold; font-size: 14px;">Tanggal : <?= date('Y-m-d'); ?></div>
+                                    <div class="text-gray-light" style="font-weight: bold; font-size: 14px;">CUSTOMER :</div>
+                                        <h2 class="to" style="font-weight: bold;"><?= $data[0]['name_customer']; ?></h2>
+                                        <div class="address" style="font-weight: bold; font-size: 14px;"><?= $data[0]['alamat_toko']; ?></div>
+                                        <div class="address" style="font-weight: bold; font-size: 14px;"><?= $data[0]['no_handphone_customer']; ?></div>
+                                        <div class="address mb-4" style="font-weight: bold; font-size: 14px;"><b>Nomor Toko : </b><?= $data[0]['nomor_toko']; ?></div>
                                 </div>
                             </div>
                             <!-- <div class="row">
@@ -99,27 +99,27 @@ if(!isset($_SESSION["username"])){
                                     <div class="email mb-4"><a href="mailto:<?=$data[0]['email_customer']; ?>"><?= $data[0]['email_customer'];?></a> -->
                                 </div>
                             </div>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" style="font-size: 12px;">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Nama Barang Retur</th>
-                                        <th class="text-right">Jumlah</th>
-                                        <th class="text-right">Jenis Satuan</th>
-                                        <th class="qty">Harga Barang</th>
-                                        <th class="total">Total</th>
+                                        <th style="font-weight: bold;">#</th>
+                                        <th style="font-weight: bold;">Nama Barang Retur</th>
+                                        <th style="font-weight: bold;" class="text-right">Jumlah</th>
+                                        <th style="font-weight: bold;" class="text-right">Jenis Satuan</th>
+                                        <th style="font-weight: bold;" class="qty">Harga Barang</th>
+                                        <th style="font-weight: bold;" class="qty">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1; foreach($data as $d){ ?>
                                     <tr>
-                                        <td class="no"><?= '0'.$i++; ?></td>
+                                        <td style="font-weight: bold;" class="qty"><?= $i++; ?></td>
                                         <td class="text-left">
-                                            <h3><?= $d['name_item']; ?></h3></td>
-                                        <td class="qty"><?= $d['selling_amount']; ?></td>
-                                        <td class="qty"><?= $d['unit_type']; ?></td>
-                                        <td class="qty"><?= $d['price_sales']; ?></td>
-                                        <td class="total"><?= $d['total_amount']; ?></td>
+                                            <h3 style="font-weight: bold; color: black;"><?= $d['name_item']; ?></h3></td>
+                                        <td style="font-weight: bold;" class="qty"><?= $d['selling_amount']; ?></td>
+                                        <td style="font-weight: bold;" class="qty"><?= $d['unit_type']; ?></td>
+                                        <td style="font-weight: bold;" class="qty"><?= $d['price_sales']; ?></td>
+                                        <td style="font-weight: bold;" class="qty"><?= $d['total_amount']; ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -136,8 +136,8 @@ if(!isset($_SESSION["username"])){
                                     </tr> -->
                                     <tr>
                                         <td colspan="2"></td>
-                                        <td colspan="3">TOTAL</td>
-                                        <td><?= $num; ?></td>
+                                        <td colspan="3" style="font-weight: bold; color: black;">TOTAL</td>
+                                        <td style="font-weight: bold; color:black;"><?= $num; ?></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -146,14 +146,14 @@ if(!isset($_SESSION["username"])){
                                 <div>NOTICE:</div>
                                 <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
                             </div> -->
-                                <div class="col invoice-to" style="color: #2980b9;">
-                                    <hr style="margin-top: 250px; width : 300px; margin-left: 50px; border: 1px solid #2980b9;">
-                                        <div class="ext-gray-light" style="margin-top: 10px; margin-left: 180px">Admin
+                                <div class="col invoice-to" style="color: black;">
+                                    <hr style="margin-top: 250px; width : 300px; margin-left: 50px; border: 1px solid black;">
+                                        <div class="ext-gray-light" style="margin-top: 10px; margin-left: 180px; font-weight: bold;">Admin
                                     </div>
                                 </div>
-                                <div class="col invoice-details" style="color: #2980b9;">
-                                    <hr style="margin-top: -40px; width : 300px; margin-right: 80px; border: 1px solid #2980b9;">
-                                        <div class="ext-gray-light" style="margin-top: 10px; margin-right: 190px;">Customer
+                                <div class="col invoice-details" style="color: black;">
+                                    <hr style="margin-top: -40px; width : 300px; margin-right: 80px; border: 1px solid black;">
+                                        <div class="ext-gray-light" style="margin-top: 10px; margin-right: 190px; font-weight: bold;">Customer
                                     </div>
                                 </div>
                         </main>
