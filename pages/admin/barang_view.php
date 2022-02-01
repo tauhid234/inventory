@@ -131,7 +131,8 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-edit-<?= $data['id']; ?>">EDIT</a>
+                            <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-edit-<?= $data['id']; ?>">EDIT</a> -->
+                            <a class="dropdown-item" href="edit_barang?id=<?= $data['id_item']; ?>">EDIT</a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-hapus-<?= $data['id']; ?>">HAPUS</a>
                         </div>
                       </td>
@@ -214,8 +215,10 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Jenis Satuan<span style="color: red;">*</span></label>
-                                                        <select class="form-control" name="jenis_satuan" disabled>
-                                                            <option value="<?= $data['unit_type']; ?>"><?= $data['unit_type']; ?></option>
+                                                        <select class="form-control" name="jenis_satuan">
+                                                          <?php foreach($model_unit->View() as $unit){ ?>
+                                                            <option value="<?= $data['unit_type']; ?>" <?php if($unit == $data['unit_type']){ echo "selected";}?>><?= $data['unit_type']; ?></option>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                 </div>
