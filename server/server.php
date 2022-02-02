@@ -2,10 +2,10 @@
 
 class Server{
 
-    var $host = "31.220.110.151";
-    var $user = "u232684745_development";
-    var $pass = "Development01";
-    var $db = "u232684745_development";
+    var $host = "194.163.35.51";
+    var $user = "u991438636_bintang89";
+    var $pass = "Bintang89";
+    var $db = "u991438636_bintang89";
 
     var $mysql;
 
