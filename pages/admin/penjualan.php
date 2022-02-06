@@ -32,10 +32,12 @@
   include('../../controller/SaleController.php');
   include('../../controller/CartSaleController.php');
   include('../../controller/InvoiceController.php');
+  include('../../controller/MatchSalesCustomerController.php');
 
   $controller = new SaleController;
   $controller_cart_sale = new CartSaleController;
   $controller_invoice = new InvoiceController;
+  $controller_match = new MatchSalesCustomerController;
   $alert = "";
 
   $hari_ini = date("Y-m-d");
@@ -43,6 +45,11 @@
   $tgl_pertama = date('Y-m-01', strtotime($hari_ini));
   $tgl_terakhir = date('Y-m-t', strtotime($hari_ini));
 
+  if(isset($_POST['search'])){
+    $id_sales_match = $_POST['id_sales'];
+
+    $data_customer_match = $controller_match->ViewIdMatchCustomerController($id_sales_match);
+  }
 
   if(isset($_POST['cart'])){
 
@@ -163,32 +170,47 @@
                 <form method="post" action="">
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Nama Pelanggan <span style="color: red;">*</span></label>
-                            <select class="form-control select2" name="id_customer" id="id_customer">
-                              <option value="">-PILIH-</option>
-                              <?php foreach($model_customer->View() as $mdl){ ?>
-                                <option value="<?= $mdl['id_customer']; ?>"><?= $mdl['name_customer'];?></option>
-                              <?php } ?>
-                            </select>
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
+                      <div class="col-sm-12">
                         <div class="form-group">
                           <label>Tanggal Penjualan</label>
                           <input type="date" readonly class="form-control" name="tanggal_penjualan" value="<?= $hari_ini; ?>">
                         </div>
                       </div>
-                      <div class="col-sm-12">
+                      <div class="col-sm-10">
                         <div class="form-group">
                             <label>Nama Sales <span style="color: red;">*</span></label>
                             <select class="form-control select2" name="id_sales" id="id_sales">
                               <option value="">-PILIH-</option>
-                              <?php foreach($model_sales->View() as $mdl){ ?>
-                                <option value="<?= $mdl['id_sales']; ?>"><?= $mdl['name_sales'];?></option>
+                              <?php foreach($model_sales->View() as $mdl){ 
+                                if($id_sales_match != "" && $id_sales_match == $mdl['id_sales']){?>
+                                  <option value="<?= $mdl['id_sales']; ?>" <?php echo "selected"; ?>><?= $mdl['name_sales'];?></option>
+                                  <?php }else{ ?>
+                                  <option value="<?= $mdl['id_sales']; ?>"><?= $mdl['name_sales'];?></option>
+                                <?php 
+                              }
+                             } ?>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-2">
+                        <div class="form-group">
+                          <button type="submit" name="search" class="btn btn-block btn-primary" style="margin-top: 30px;">Cari Pelanggan</button>
+                        </div>
+                      </div>
+                      <div class="col-sm-10">
+                        <div class="form-group">
+                            <label>Nama Pelanggan <span style="color: red;">*</span></label>
+                            <select class="form-control select2" name="id_customer" id="id_customer">
+                              <option value="">-PILIH-</option>
+                              <?php foreach($data_customer_match as $mdl){ ?>
+                                <option value="<?= $mdl['id_customer']; ?>"><?= $mdl['name_customer'];?></option>
                               <?php } ?>
                             </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-2">
+                        <div class="form-group">
+                          <button type="submit" name="reset" class="btn btn-block btn-secondary" style="margin-top: 30px;">Reset</button>
                         </div>
                       </div>
                   </div>

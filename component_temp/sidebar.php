@@ -231,6 +231,13 @@
                   <p>Data Sales</p>
                 </a>
               </li>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/pelanggan_sales" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pelanggan Sales</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="../../pages/admin/profit_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
