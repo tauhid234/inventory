@@ -20,7 +20,8 @@
 
   <?php
   $alert = "";
-
+  $earliest_year = 2000;
+  $already_selected_value = date('Y');
 
   if(isset($_POST['update'])){
     
@@ -29,9 +30,11 @@
     for($i = 0; $i < count($jumlah_profit); $i++){
       
       $username = $_SESSION['username'];
+      $bulan = $_POST['bulan'];
+      $tahun = $_POST['tahun'];
       $jumlah_profits = $_POST['jumlah_profit'][$i];
       $id_sales = $_POST['id_sales'][$i];
-      $alert = $model->SyncronizeProfit($id_sales, $jumlah_profits, $username);
+      $alert = $model->SyncronizeProfit($id_sales, $bulan, $tahun, $username);
     }
   }
   ?>
@@ -61,10 +64,60 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+
         <form method="post" action="">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-warning">
+              <div class="card-header"></div>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Bulan <span style="color: red;">*</span></label>
+                            <select class="form-control select2" name="bulan" required>
+                              <option value="">-PILIH-</option>
+                              <option value="01">Januari</option>
+                              <option value="02">Februari</option>
+                              <option value="03">Maret</option>
+                              <option value="04">April</option>
+                              <option value="05">Mei</option>
+                              <option value="06">Juni</option>
+                              <option value="07">Juli</option>
+                              <option value="08">Agustus</option>
+                              <option value="09">September</option>
+                              <option value="10">Oktober</option>
+                              <option value="11">November</option>
+                              <option value="12">Desember</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Tahun <span style="color: red;">*</span></label>
+                            <select class="form-control select2" name="tahun" required>
+                              <option value="">-PILIH-</option>
+                              <?php 
+                              foreach (range(date('Y'), $earliest_year) as $x) {
+                                print '<option value="'.$x.'"'.($x === $already_selected_value ? ' selected="selected"' : '').'>'.$x.'</option>';
+                            }
+                            ?>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <button type="submit" name="update" class="btn btn-block btn-primary" style="margin-top: 30px;">SYNCRONIZE DATA</button>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row mb-4">
           <div class="col-md-3">
-            <button type="submit" name="update" class="btn btn-primary">SYNCRONIZE DATA</button>
+            <!-- <button type="submit" name="update" class="btn btn-primary">SYNCRONIZE DATA</button> -->
           </div>
         </div>  
         <div class="row">

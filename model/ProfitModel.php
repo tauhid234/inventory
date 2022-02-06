@@ -28,10 +28,11 @@ class ProfitModel{
         mysqli_close($this->server->mysql);
     }
 
-    public function SyncronizeProfit($id_sales, $profit, $username){
+    public function SyncronizeProfit($id_sales, $bulan, $tahun, $username){
 
         $date = date('Y-m-d');
         $month = date('m');
+        $year = date('Y');
         $tgl_terakhir = date('Y-m-t', strtotime($date));
 
         if($tgl_terakhir === $date){
@@ -39,7 +40,7 @@ class ProfitModel{
             $cek_pendapatan_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales'");
             $array = mysqli_fetch_array($cek_pendapatan_profit);
 
-            // JIKA PENDAPATAN 16.700.000 ATAU LEBIH -> DIBAGI 35%
+        //     // JIKA PENDAPATAN 16.700.000 ATAU LEBIH -> DIBAGI 35%
             if((int) $array['profit'] == 16700000 || (int)$array['profit'] > 16700000){
                 $sumMax = (int) $array['profit'] / 100 * 35;
                 $total_pendapatan_sales = (int) $sumMax -  (int) $array['potongan_sales'];
@@ -63,7 +64,49 @@ class ProfitModel{
                 return $this->msg->Error("Gagal Syncronize data");
             }
             return $this->msg->Success("Berhasil mensyncronize data");
-        }else{
+
+        }else if((int) $bulan == $month && (int) $tahun == $year){
+            return $this->msg->Info("Tunggu sampai akhir bulan untuk mensyncronize data profit");
+        }
+        else if((int)$bulan < $month && (int)$tahun < $year || (int)$tahun == $year){
+
+            $cek_pendapatan_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$bulan' AND YEAR(create_date) = '$tahun'");
+            $array = mysqli_fetch_array($cek_pendapatan_profit);
+
+            if($array['total_pendapatan_sales'] != "" || $array['total_pendapatan_sales'] != 0){
+                return;
+            }else{
+
+                 // JIKA PENDAPATAN 16.700.000 ATAU LEBIH -> DIBAGI 35%
+                if((int) $array['profit'] == 16700000 || (int)$array['profit'] > 16700000){
+                    $sumMax = (int) $array['profit'] / 100 * 35;
+                    $total_pendapatan_sales = (int) $sumMax -  (int) $array['potongan_sales'];
+                    $updateMax = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMax', total_pendapatan_sales = '$total_pendapatan_sales', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$bulan' AND YEAR(create_date) = '$tahun'");
+                    if($updateMax == false){
+                        return $this->msg->Error("Gagal update profit pendapatan lebih dari 16.700.000");
+                    }
+                }else{
+
+                    // JIKA KURANG DARI 16.700.000 -> DIBAGI 30%
+                    $sumMin = (int) $array['profit'] / 100 * 30;
+                    $total_pendapatan_saless = (int)$sumMin -  (int)$array['potongan_sales'];
+                    $updateMin = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sumMin', total_pendapatan_sales = '$total_pendapatan_saless', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$bulan' AND YEAR(create_date) = '$tahun'");
+                    if($updateMin == false){
+                        return $this->msg->Error("Gagal update profit pendapatan kurang dari 16.700.000");
+                    }
+                }
+
+                $update = mysqli_query($this->server->mysql, "UPDATE profit SET update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$bulan' AND YEAR(create_date) = '$tahun'");
+                if($update == false){
+                    return $this->msg->Error("Gagal Syncronize data");
+                }
+
+
+                return $this->msg->Success("Berhasil mensyncronize data else if");
+            }
+
+        }
+        else{
             return $this->msg->Info("Tunggu sampai akhir bulan untuk mensyncronize data profit");
         }
     }
