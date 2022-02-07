@@ -43,7 +43,7 @@ border: 1px solid black;
 
     @media print{
         @page {
-        size: A5 landscape;
+        size: A5;
         }
         table { page-break-inside:auto }
     }
