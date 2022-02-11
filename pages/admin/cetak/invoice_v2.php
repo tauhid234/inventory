@@ -69,42 +69,45 @@ border: 1px solid black;
 <b>Nomor Toko : <?= $data[0]['nomor_toko']; ?></b>
 </td>
 </table>
-<table cellspacing='0' style='width:100%; font-size:8pt; font-family:calibri;  border-collapse: collapse;' border='1'>
+<table cellspacing='0' style='width:100%; font-size:8pt; font-family:calibri;  border-collapse: collapse;'>
  
 <tr align='center'>
-<td width='10%' style="font-weight: bold;">#</td>
-<td width='20%' style="font-weight: bold;">Nama Barang Penjualan</td>
-<td width='5%' style="font-weight: bold;">Jumlah</td>
-<td width='13%' style="font-weight: bold;">Jenis Satuan</td>
-<td width='15%' style="font-weight: bold;">Harga Barang</td>
-<td width='13%' style="font-weight: bold;">Total Harga</td>
+<td width='10%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black;">#</td>
+<td width='20%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Nama Barang Penjualan</td>
+<td width='5%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Jumlah</td>
+<td width='13%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Jenis Satuan</td>
+<td width='15%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Harga Barang</td>
+<td width='13%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black; border-right: 1px solid black;">Total Harga</td>
+</tr>
 
 <?php $i = 1; foreach($data as $d){ ?>
 <tr>
-    <td style="font-weight: bold; text-align: center;" class="qty"><?= $i++; ?></td>
+    <td style="font-weight: bold; text-align: center; border-left: 1px solid black;" class="qty"><?= $i++; ?></td>
     <td class="text-left">
         <h3 style="font-weight: bold; color: black;"><?= $d['name_item']; ?></h3></td>
     <td style="font-weight: bold; text-align: center" class="qty"><?= $d['selling_amount']; ?></td>
     <td style="font-weight: bold; text-align: center" class="qty"><?= $d['unit_type']; ?></td>
     <td style="font-weight: bold; text-align: right;" class="qty"><?= $d['price_sales']; ?> </td>
-    <td style="font-weight: bold; text-align: right;" class="qty"><?= $d['total_amount']; ?> </td>
+    <td style="font-weight: bold; text-align: right; border-right: 1px solid black;" class="qty"><?= $d['total_amount']; ?> </td>
 </tr>
 <?php } ?>
-<td colspan = '5'><div style='text-align:right'><b>Total Keseluruhan </b></div></td>
-<td style='text-align:right'><b><?= $num; ?></b></td>
+<td colspan = '5' style="border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black;"><div style='text-align:right'><b>Total Keseluruhan </b></div></td>
+<td style='text-align:right; border-bottom: 1px solid black; border-top: 1px solid black; border-right: 1px solid black;'><b><?= $num; ?></b></td>
 </tr>
 </table>
  
 <table style='width:650; font-size:7pt;' cellspacing='2'>
 <tr>
-<td align='center'>Admin</br></br><u>(.....................................................)</u></td>
+<td align='center'></br></br></br>Admin</br>
+<!-- </br><u>(.....................................................)</u></td> -->
 <!-- <td style='border:1px solid black; padding:5px; text-align:left; width:30%'></td> -->
-<td align='center'>Pelanggan</br></br><u>(.....................................................)</u></td>
+<td align='center'></br></br></br>Pelanggan</br>
+<!-- </br><u>(.....................................................)</u></td> -->
 </tr>
 </table>
 </center>
 </body>
 <script>
-    window.print();
+    // window.print();
 </script>
 </html>
