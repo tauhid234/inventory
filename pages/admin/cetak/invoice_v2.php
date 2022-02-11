@@ -108,6 +108,6 @@ border: 1px solid black;
 </center>
 </body>
 <script>
-    // window.print();
+    window.print();
 </script>
 </html>
