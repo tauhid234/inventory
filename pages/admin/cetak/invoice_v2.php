@@ -87,7 +87,7 @@ border: 1px solid black;
         <h3 style="font-weight: bold; color: black;"><?= $d['name_item']; ?></h3></td>
     <td style="font-weight: bold; text-align: center" class="qty"><?= $d['selling_amount']; ?></td>
     <td style="font-weight: bold; text-align: center" class="qty"><?= $d['unit_type']; ?></td>
-    <td style="font-weight: bold; text-align: right;" class="qty"><?= $d['price_sales']; ?> </td>
+    <td style="font-weight: bold; text-align: center;" class="qty"><?= $d['price_sales']; ?> </td>
     <td style="font-weight: bold; text-align: right; border-right: 1px solid black;" class="qty"><?= $d['total_amount']; ?> </td>
 </tr>
 <?php } ?>
