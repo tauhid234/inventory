@@ -72,8 +72,8 @@ border: 1px solid black;
 <table cellspacing='0' style='width:100%; font-size:8pt; font-family:calibri;  border-collapse: collapse;'>
  
 <tr align='center'>
-<td width='10%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black;">#</td>
-<td width='20%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Nama Barang Penjualan</td>
+<!-- <td width='10%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black;">#</td> -->
+<td width='20%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black;">Nama Barang Penjualan</td>
 <td width='5%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Jumlah</td>
 <td width='13%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Jenis Satuan</td>
 <td width='15%' style="font-weight: bold; border-bottom: 1px solid black; border-top: 1px solid black;">Harga Barang</td>
@@ -82,8 +82,8 @@ border: 1px solid black;
 
 <?php $i = 1; foreach($data as $d){ ?>
 <tr>
-    <td style="font-weight: bold; text-align: center; border-left: 1px solid black;" class="qty"><?= $i++; ?></td>
-    <td class="text-left">
+    <!-- <td style="font-weight: bold; text-align: center; border-left: 1px solid black;" class="qty"><?= $i++; ?></td> -->
+    <td class="text-left" style="border-left: 1px solid black;">
         <h3 style="font-weight: bold; color: black;"><?= $d['name_item']; ?></h3></td>
     <td style="font-weight: bold; text-align: center" class="qty"><?= $d['selling_amount']; ?></td>
     <td style="font-weight: bold; text-align: center" class="qty"><?= $d['unit_type']; ?></td>
@@ -91,7 +91,7 @@ border: 1px solid black;
     <td style="font-weight: bold; text-align: right; border-right: 1px solid black;" class="qty"><?= $d['total_amount']; ?> </td>
 </tr>
 <?php } ?>
-<td colspan = '5' style="border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black;"><div style='text-align:right'><b>Total Keseluruhan </b></div></td>
+<td colspan = '4' style="border-bottom: 1px solid black; border-top: 1px solid black; border-left: 1px solid black;"><div style='text-align:right'><b>Total Keseluruhan </b></div></td>
 <td style='text-align:right; border-bottom: 1px solid black; border-top: 1px solid black; border-right: 1px solid black;'><b><?= $num; ?></b></td>
 </tr>
 </table>
