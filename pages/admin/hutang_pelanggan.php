@@ -118,7 +118,7 @@
                               <?php } else{ } if($data['status_pay'] == 'UNPAID' && $data['tempo_date'] != null){?>
                               <a class="dropdown-item" href="update_payment_invoice.php?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Status Bayar</a>
                               <?php }else{}?>
-                              <a class="dropdown-item" target="_blank" href="cetak/invoice.php?inv=<?= $data['sale_versi_invoice']; ?>">Cetak</a>
+                              <a class="dropdown-item" target="_blank" href="cetak/invoice_v2.php?inv=<?= $data['sale_versi_invoice']; ?>">Cetak</a>
                           </div>
                         </div>
                       </td>
