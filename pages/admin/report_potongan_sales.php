@@ -55,8 +55,9 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Nama Sales</th>
                       <th>Nama Barang</th>
+                      <th>Nama Sales</th>
+                      <th>Nama Pelanggan</th>
                       <th>Tanggal</th>
                       <th>Total Potongan</th>
                     </tr>
@@ -68,8 +69,9 @@
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
-                      <td><?= $data['name_sales']; ?></td>
                       <td><?= $data['name_item']; ?></td>
+                      <td><?= $data['name_sales']; ?></td>
+                      <td><?= $data['name_customer']; ?></td>
                       <td><?= $data['create_date']; ?></td>
                       <td><?= $data['potongan']; ?></td>
                     </tr>

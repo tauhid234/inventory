@@ -292,8 +292,10 @@ class SaleModel{
 
 
             // ADD REPORT PROFIT SALES PER ITEM
-            $report_profit_sales = mysqli_query($this->server->mysql, "INSERT INTO report_profit_sales (id, id_report_profit_sales, id_sales_report, id_items_report, profit, create_by, create_date,
-                                  update_by, update_date) VALUES ('', '$ids', '$id_sales', '$id_items', '$profit', '$username', '$date', null, null)");
+
+            $plus2 = (int) $selling_amount * $profit;
+            $report_profit_sales = mysqli_query($this->server->mysql, "INSERT INTO report_profit_sales (id, id_report_profit_sales, id_sales_report, id_customer_report, id_items_report, profit, create_by, create_date,
+                                  update_by, update_date) VALUES ('', '$ids', '$id_sales', '$id_customer', '$id_items', '$plus2', '$username', '$date', null, null)");
 
             if($report_profit_sales == false){
                 return $this->msg->Error("insert report profit sales gagal");
