@@ -385,6 +385,18 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="../../pages/admin/report_profit_sales" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Profit Sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../pages/admin/report_potongan_sales" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Potongan Sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="../../pages/admin/laporan_retur" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Data Retur</p>

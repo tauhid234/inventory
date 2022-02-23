@@ -172,6 +172,14 @@ class ReturModel{
         $totals = (int) $calculate * (int) $retur_amount;
         echo $totals;
 
+        // ADD REPORT POTONGAN SALES PER ITEM
+        $report_profit_sales = mysqli_query($this->server->mysql, "INSERT INTO report_potongan_sales (id, id_report_potongan_sales, id_sales_report, id_items_report, potongan, create_by, create_date,
+        update_by, update_date) VALUES ('', '$ids', '$id_sales', '$id_item', '$totals', '$username', '$date', null, null)");
+
+        if($report_profit_sales == false){
+        return $this->msg->Error("insert report potongan sales gagal");
+        }
+
         // GET PROFIT
         $get_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales'");
         $rows_p = mysqli_num_rows($get_profit);

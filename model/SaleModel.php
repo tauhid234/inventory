@@ -290,6 +290,15 @@ class SaleModel{
 
             // }
 
+
+            // ADD REPORT PROFIT SALES PER ITEM
+            $report_profit_sales = mysqli_query($this->server->mysql, "INSERT INTO report_profit_sales (id, id_report_profit_sales, id_sales_report, id_items_report, profit, create_by, create_date,
+                                  update_by, update_date) VALUES ('', '$ids', '$id_sales', '$id_items', '$profit', '$username', '$date', null, null)");
+
+            if($report_profit_sales == false){
+                return $this->msg->Error("insert report profit sales gagal");
+            }
+
             // CEK PROFIT ID SALES
             $cek_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales' AND MONTH(create_date) = '$month'");
             $num = mysqli_num_rows($cek_profit);
