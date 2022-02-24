@@ -165,6 +165,30 @@ $(function () {
       }
     ]
     }).buttons().container().appendTo('#laporan_barang_rakit_wrapper .col-md-6:eq(0)');
+    
+    $('#laporan_profit_sales_peritem').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [{
+       extend: 'pdf',
+       text : 'EXPORT PDF',
+       pageSize	: 'LEGAL',
+       className: 'btn btn-danger',
+       title : 'LAPORAN PROFIT SALES PER BARANG - BINTANG 89'
+      }
+    ]
+    }).buttons().container().appendTo('#laporan_profit_sales_peritem_wrapper .col-md-6:eq(0)');
+    
+    $('#laporan_potongan_sales_peritem').DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      buttons: [{
+       extend: 'pdf',
+       text : 'EXPORT PDF',
+       pageSize	: 'LEGAL',
+       className: 'btn btn-danger',
+       title : 'LAPORAN POTONGAN SALES PER BARANG - BINTANG 89'
+      }
+    ]
+    }).buttons().container().appendTo('#laporan_potongan_sales_peritem_wrapper .col-md-6:eq(0)');
 
 });
 $(function() {

@@ -51,7 +51,7 @@
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered table-striped" id="example1">
+                <table class="table table-bordered table-striped" id="laporan_potongan_sales_peritem">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
