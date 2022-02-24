@@ -81,6 +81,7 @@
                       <th>Nama Pelanggan</th>
                       <th>Tanggal Tempo</th>
                       <th>Status Bayar</th>
+                      <th>Keterangan</th>
                       <th>Tindakan</th>
                     </tr>
                   </thead>
@@ -99,6 +100,7 @@
                       <?php } else{ ?>
                       <td><span class="badge badge-primary">SUDAH BAYAR</span></td>
                       <?php } ?>
+                      <td>Cicilan</td>
                       <td>
                         <div class="btn-group">
                             <!-- <button type="button" class="btn btn-danger" disabled>Action</button>
