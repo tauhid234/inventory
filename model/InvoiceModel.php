@@ -124,7 +124,7 @@ class InvoiceModel{
         return $this->msg->Success('Data invoice berhasil disimpan');
     }
 
-    public function AddInvoiceV2($username, $status_pay, $id_customer_invoice, $id_sales_invoice, $sale_versi_invoice){
+    public function AddInvoiceV2($username, $status_pay, $id_customer_invoice, $id_sales_invoice, $sale_versi_invoice, $keterangan){
 
         // $no_invoice = time();
         $total = 0;
@@ -158,9 +158,9 @@ class InvoiceModel{
 
         if($rows == 0){
 
-            $insert = mysqli_query($this->server->mysql, "INSERT INTO invoice (id, id_invoice, no_invoice, tempo_date, status_pay, sale_invoice, sale_versi_invoice,
+            $insert = mysqli_query($this->server->mysql, "INSERT INTO invoice (id, id_invoice, no_invoice, tempo_date, status_pay, keterangan, sale_invoice, sale_versi_invoice,
                             id_customer_invoice, id_sales_invoice, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$no_invoice', null, 
-                            '$status_pay', '$no_invoice', '$sale_versi_invoice', '$id_customer_invoice', '$id_sales_invoice', '$username', '$date', null, null)");
+                            '$status_pay', '$keterangan', '$no_invoice', '$sale_versi_invoice', '$id_customer_invoice', '$id_sales_invoice', '$username', '$date', null, null)");
         
             if($insert == false){
                 return $this->msg->Error("Gagal menambahkan invoice penjualan");

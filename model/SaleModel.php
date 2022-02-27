@@ -202,7 +202,7 @@ class SaleModel{
         return $this->msg->Success('Data penjualan berhasil disimpan');
     }
 
-    public function AddPenjualanV2($id_items, $value, $profit, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $sale_versi, $total_amount, $price_clean, $username){
+    public function AddPenjualanV2($id_items, $value, $profit, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $sale_versi, $total_amount, $price_clean, $username, $keterangan){
 
         $date = date('Y-m-d');
         $month = date('m');
@@ -229,8 +229,8 @@ class SaleModel{
         if($selling_price_sales != ""){
 
             $insert = mysqli_query($this->server->mysql, "INSERT INTO sale (id, id_selling_items, id_items, id_customer, id_sales, sell_date, selling_amount, total_amount,
-                                price_clean, price_sales, sale_versi, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
-                                '$date', '$selling_amount',  '$total_amount', '$price_clean', '$selling_price_sales', '$sale_versi', '$no_invoice', '$username', '$date', null, null)");
+                                price_clean, price_sales, sale_versi, keterangan, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
+                                '$date', '$selling_amount',  '$total_amount', '$price_clean', '$selling_price_sales', '$sale_versi', '$keterangan', '$no_invoice', '$username', '$date', null, null)");
             
             if($insert == false){
                 return $this->msg->Error("Gagal menambahkan penjualan baru");

@@ -91,13 +91,14 @@
 
       $id_cus = $_POST['id_customer'];
       $id_sales = $_POST['id_sales'];
+      $keterangan = $_POST['keterangan'];
       $sale_versi = $_POST['versi'][$i];
 
       if($selling_price_sales !== ""){
         // echo "NM ".$type.'<br/> sales '.$id_sales.'<br/> id item '.$item_id;
         // echo "VALUE ".$value;
-        $controller_invoice->AddInvoiceControllerV2($username, $id_cus, $id_sales, $sale_versi);
-        $alert = $controller->AddPenjualanControllerV2($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username);
+        $controller_invoice->AddInvoiceControllerV2($username, $id_cus, $id_sales, $sale_versi, $keterangan);
+        $alert = $controller->AddPenjualanControllerV2($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username, $keterangan);
 
       }
     }
@@ -211,6 +212,12 @@
                       <div class="col-sm-2">
                         <div class="form-group">
                           <button type="submit" name="reset" class="btn btn-block btn-secondary" style="margin-top: 30px;">Reset</button>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Keterangan <span style="color: red;">*</span></label>
+                             <input type="text" name="keterangan" class="form-control">
                         </div>
                       </div>
                   </div>
