@@ -56,7 +56,8 @@
       $no_invoice = $_POST['no_invoice'];
       $status_bayar = $_POST['status_bayar'];
       $keterangan = $_POST['keterangan'];
-      $alert = $controller->UpdatePembayaranController($no_invoice, $username, $status_bayar, $keterangan);
+      $versioning = $_POST['versioning'];
+      $alert = $controller->UpdatePembayaranController($no_invoice, $username, $status_bayar, $keterangan, $versioning);
       $disable = "disabled";
 
   }
@@ -71,7 +72,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Update Keterangan Invoice </h1>
+            <h1 class="m-0">Update Keterangan Invoice</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -114,7 +115,8 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Ubah Status Bayar</label>
-                                                <input type="text" disabled name="status_bayar" value="<?= $data_invoice[0]['status_pay'];?>" class="form-control">
+                                                <input type="text" hidden name="versioning" value="<?= $data_invoice[0]['sale_versi_invoice']; ?>" class="form-control">
+                                                <input type="text" readonly name="status_bayar" value="<?= $data_invoice[0]['status_pay'];?>" class="form-control">
                                                 <!-- <select class="form-control" name="status_bayar" required> 
                                                     <option value="">-PILIH-</option>
                                                     <option value="PAID">BAYAR</option>

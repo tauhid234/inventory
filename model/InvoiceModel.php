@@ -201,12 +201,12 @@ class InvoiceModel{
         return $this->msg->Success('Tanggal tempo invoice berhasil di simpan');
     }
     
-    public function UpdatePembayaranInvoice($no_invoice, $username, $status_pay, $keterangan){
+    public function UpdatePembayaranInvoice($no_invoice, $username, $status_pay, $keterangan, $versioning){
         
         $date = date('Y-m-d');
 
         $update_invoice = mysqli_query($this->server->mysql, "UPDATE invoice SET status_pay = '$status_pay', keterangan = '$keterangan', update_date = '$date', update_by = '$username' 
-                  WHERE no_invoice = '$no_invoice'");
+                  WHERE no_invoice = '$no_invoice' AND sale_versi_invoice = '$versioning'");
 
         if($update_invoice == false){
             return $this->msg->Error('Gagal untuk mengupdate invoice');
@@ -214,13 +214,13 @@ class InvoiceModel{
 
         // UPDATE SALE KETERANGAN
         $update_sale = mysqli_query($this->server->mysql, "UPDATE sale SET keterangan = '$keterangan', update_date = '$date', update_by = '$username' 
-                  WHERE no_invoice_sale = '$no_invoice'");
+                  WHERE no_invoice_sale = '$no_invoice' AND sale_versi = '$versioning'");
 
         if($update_sale == false){
             return $this->msg->Error('Gagal untuk mengupdate penjualan');
         }
 
-        return $this->msg->Success('Data invoice berhasil di update dan pelanggan telah sukses membayar pembelian barang');
+        return $this->msg->Success('Data invoice berhasil di update');
     }
 
     public function Delete($id_invoice){

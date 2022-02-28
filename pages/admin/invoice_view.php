@@ -121,6 +121,7 @@
                               <a class="dropdown-item" href="retur?retur=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Retur</a>
                               <?php } if($data['status_pay'] == 'UNPAID' && $data['tempo_date'] != null){?>
                               <a class="dropdown-item" href="update_payment_invoice?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Status Bayar</a>
+                              <a class="dropdown-item" href="update_keterangan_invoice?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Keterangan</a>
                               <?php }else{?>
                               <a class="dropdown-item" href="update_keterangan_invoice?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Keterangan</a>
                               <?php } ?>

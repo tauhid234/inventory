@@ -42,8 +42,8 @@ class InvoiceController {
         return $this->controller->UpdateTempoInvoice($versi, $username, $tempo);
     }
     
-    public function UpdatePembayaranController($no_invoice, $username, $status_pay, $keterangan){
-        return $this->controller->UpdatePembayaranInvoice($no_invoice, $username, $status_pay, $keterangan);
+    public function UpdatePembayaranController($no_invoice, $username, $status_pay, $keterangan, $versioning){
+        return $this->controller->UpdatePembayaranInvoice($no_invoice, $username, $status_pay, $keterangan, $versioning);
     }
 
 }
