@@ -114,7 +114,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Ubah Status Bayar</label>
-                                                <input type="text" name="status_bayar" value="<?= $data_invoice[0]['status_pay'];?>" class="form-control">
+                                                <input type="text" disabled name="status_bayar" value="<?= $data_invoice[0]['status_pay'];?>" class="form-control">
                                                 <!-- <select class="form-control" name="status_bayar" required> 
                                                     <option value="">-PILIH-</option>
                                                     <option value="PAID">BAYAR</option>
