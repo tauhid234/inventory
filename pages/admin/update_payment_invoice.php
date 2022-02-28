@@ -55,8 +55,8 @@
       $username = $_SESSION['username'];
       $no_invoice = $_POST['no_invoice'];
       $status_bayar = $_POST['status_bayar'];
-
-      $alert = $controller->UpdatePembayaranController($no_invoice, $username, $status_bayar);
+      $keterangan = $_POST['keterangan'];
+      $alert = $controller->UpdatePembayaranController($no_invoice, $username, $status_bayar, $keterangan);
       $disable = "disabled";
 
   }
@@ -125,6 +125,12 @@
                                                 <label>Tanggal Tempo</label>
                                                 <input type="number" hidden class="form-control" name="no_invoice" value="<?= $no_invoice; ?>">
                                                 <input type="date" class="form-control" readonly value="<?= $data_invoice[0]['tempo_date']; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Keterangan <span style="color: red;">*</span></label>
+                                                    <input type="text" name="keterangan" value="<?= $data_invoice[0]['keterangan'];?>" class="form-control">
                                             </div>
                                         </div>
                                     </div>

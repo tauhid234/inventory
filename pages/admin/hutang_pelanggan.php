@@ -100,7 +100,7 @@
                       <?php } else{ ?>
                       <td><span class="badge badge-primary">SUDAH BAYAR</span></td>
                       <?php } ?>
-                      <td>Cicilan</td>
+                      <td><?= $data['keterangan']; ?></td>
                       <td>
                         <div class="btn-group">
                             <!-- <button type="button" class="btn btn-danger" disabled>Action</button>
