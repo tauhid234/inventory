@@ -88,7 +88,7 @@
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu" role="menu">
-                              <a class="dropdown-item" target="_blank" href="cetak/invoice_retur?inv=<?= $data['sale_versi_invoice_retur']; ?>">Cetak</a>
+                              <a class="dropdown-item" target="_blank" href="cetak/invoice_retur_v2?inv=<?= $data['sale_versi_invoice_retur']; ?>">Cetak</a>
                           </div>
                         </div>
                       </td>
