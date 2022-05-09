@@ -310,12 +310,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+            <?php if($peran != 'ADMIN'){?>
               <li class="nav-item">
                 <a href="../../pages/admin/barang" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Barang</p>
                 </a>
               </li>
+              <?php } ?>
               <li class="nav-item">
                 <a href="../../pages/admin/barang_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

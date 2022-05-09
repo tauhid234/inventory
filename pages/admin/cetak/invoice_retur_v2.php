@@ -59,7 +59,7 @@ border: 1px solid black;
 <b>Office : Hp. 0813 8519 5406</b> </br>
 <b>Jakarta Barat</b> </br>
 <b>Sales : <?= $data[0]['name_sales']; ?></b></br>
-<span style="font-size: 15px; font-weight: bold;">INVOICE <?= substr($data[0]['name_sales'], 0, 2); ?><?= $data[0]['no_invoice_retur']; ?></span>  </br>
+<span style="font-size: 15px; font-weight: bold;">INVOICE RETUR <?= substr($data[0]['name_sales'], 0, 2); ?><?= $data[0]['no_invoice_retur']; ?></span>  </br>
 </td>
 <td style='vertical-align:middle' width='30%' align='right'>
 <b><span style='font-size:8pt'>Tanggal <?= $data[0]['sell_date']; ?></span></b></br>

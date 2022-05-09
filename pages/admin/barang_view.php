@@ -106,7 +106,12 @@
                       <th>Jenis Satuan</th>
                       <th>Harga Pembelian</th>
                       <th>Harga Penjualan</th>
+
+                      
+                      <?php if($peran != 'ADMIN'){?>
                       <th>Tindakan</th>
+                      <?php } ?>
+                      
                     </tr>
                   </thead>
                   <tbody>
@@ -124,6 +129,8 @@
                       <td><?=  $data['unit_type']; ?></td>
                       <td><?=  $data['purchase_price']; ?></td>
                       <td><?=  $data['selling_price']; ?></td>
+
+                      <?php if($peran != 'ADMIN'){?>
                       <td>
                         <div class="btn-group">
                           <button type="button" class="btn btn-success">Action</button>
@@ -134,8 +141,10 @@
                             <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-edit-<?= $data['id']; ?>">EDIT</a> -->
                             <a class="dropdown-item" href="edit_barang?id=<?= $data['id_item']; ?>">EDIT</a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-hapus-<?= $data['id']; ?>">HAPUS</a>
-                        </div>
-                      </td>
+                          </div>
+                        </td>
+                      <?php } ?>
+
                     </tr>
 
 
