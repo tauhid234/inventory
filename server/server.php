@@ -8,6 +8,7 @@ class Server{
     var $db = "u991438636_bintang89";
 
     var $mysql;
+    
 
     public function __construct()
     {
