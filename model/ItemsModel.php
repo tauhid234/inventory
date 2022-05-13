@@ -38,7 +38,7 @@ class ItemsModel {
     }
 
     public function ViewItemPurchase(){
-        $data = mysqli_query($this->server->mysql, "SELECT * FROM items WHERE status = 1 AND quantity != '0'");
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM items WHERE status = 1");
         while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;
         }
