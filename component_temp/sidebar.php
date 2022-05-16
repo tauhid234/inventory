@@ -130,6 +130,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="../../pages/admin/invoice_purchase_view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Invoice Pembelian</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="../../pages/admin/invoice_retur_view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Invoice Retur</p>

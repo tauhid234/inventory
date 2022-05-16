@@ -28,11 +28,13 @@
   <?php 
   include('../../controller/PurchaseController.php');
   include('../../controller/CartPurchaseController.php');
+  include('../../controller/InvoicePurchaseController.php');
 
   $alert = "";
 
   $controller = new PurchaseController;
   $controller_cart_purchase = new CartPurchaseController;
+  $controller_invoice = new InvoicePurchaseController;
 
   $hari_ini = date("Y-m-d");
 
@@ -70,11 +72,13 @@
         $harga_jual = $_POST['harga_jual'][$i];
         $jumlah_beli = $_POST['jumlah_beli'][$i];
         $total_harga = $_POST['total_transaksi_pembelian'][$i];
+        $purchase_versi = $_POST['versi'][$i];
 
         $username = $_SESSION['username'];
       
         if($no_invoicee !== ""){
-            $alert = $controller->AddController($id_suplier, $no_invoicee, $tgl_beli, $status_bayar, $id_items, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $harga_jual, $jumlah_beli, $total_harga, $username);
+            $controller_invoice->AddInvoiceControllerPurchase($username, $no_invoicee, $status_bayar, $id_suplier, $purchase_versi, '');
+            $alert = $controller->AddController($id_suplier, $no_invoicee, $tgl_beli, $status_bayar, $id_items, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $harga_jual, $jumlah_beli, $total_harga, $username, $purchase_versi);
         }
       
     }   

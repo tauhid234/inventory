@@ -94,6 +94,10 @@ $(function () {
       "responsive": true,
     });
 
+    $("#example3").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false
+    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+
     $("#menu_penjualan").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false, "paging" : false 
     }).buttons().container().appendTo('#menu_penjualan_wrapper .col-md-6:eq(0)');

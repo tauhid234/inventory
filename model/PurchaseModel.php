@@ -38,7 +38,7 @@ class PurchaseModel{
         mysqli_close($this->server->mysql);
     }
 
-    public function Add($id_suplier, $no_invoice, $tgl_beli, $status_pay, $id_items, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $harga_jual, $jumlah_beli, $total_harga, $username){
+    public function Add($id_suplier, $no_invoice, $tgl_beli, $status_pay, $id_items, $nama_barang, $ukuran, $jenis_ukuran, $jenis_satuan, $harga_beli, $harga_jual, $jumlah_beli, $total_harga, $username, $purchase_versi){
         
         $date = date('Y-m-d');
 
@@ -58,9 +58,9 @@ class PurchaseModel{
 
 
         $insert = mysqli_query($this->server->mysql, "INSERT INTO purchase (id, id_purchase, id_suplier, purchase_date, purchase_amount, total_amount, no_invoice_purchase, status_pay, 
-                              name_items_purchase, size_purchase, size_type, unit_type, purchase_price, create_date, create_by, update_date, update_by) VALUES 
+                              name_items_purchase, size_purchase, size_type, unit_type, purchase_price, create_date, create_by, update_date, update_by, purchase_versi) VALUES 
                              ('', '$ids', '$id_suplier', '$tgl_beli', '$jumlah_beli', '$total_harga', '$no_invoice', '$status_pay', '$name_items', '$ukuran', '$jenis_ukurans', '$jenis_satuans',
-                             '$harga_beli', '$date', '$username', null, null)");
+                             '$harga_beli', '$date', '$username', null, null, '$purchase_versi')");
         
         if($insert == false){
             return $this->msg->Error("Gagal menambahkan pembelian baru ".$insert);

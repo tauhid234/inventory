@@ -26,6 +26,15 @@ class SuplierModel{
         mysqli_close($this->server->mysql);
     }
 
+    public function ViewId($id){
+        $data = mysqli_query($this->server->mysql, "SELECT * FROM suplier WHERE id_suplier = '$id'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+
     public function Add($username, $name_suplier, $nohp, $email, $kota, $kode_pos, $alamat){
 
         $cek = mysqli_query($this->server->mysql, "SELECT name_suplier FROM suplier WHERE name_suplier = '$name_suplier'");

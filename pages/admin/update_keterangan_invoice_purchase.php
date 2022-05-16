@@ -2,15 +2,13 @@
     <?php
         include('../../component_temp/header.php');
 
-        include('../../model/InvoiceModel.php');
-        include('../../model/SaleModel.php');
-        include('../../model/CustomerModel.php');
-        include('../../model/SalesModel.php');
+        include('../../model/InvoicePembelianModel.php');
+        include('../../model/PurchaseModel.php');
+        include('../../model/SuplierModel.php');
         
-        $model = new InvoiceModel();
-        $model_sale = new SaleModel;
-        $model_sales = new SalesModel;
-        $model_customer = new CustomerModel;
+        $model = new InvoicePembelianModel;
+        $model_purchase = new PurchaseModel;
+        $model_suplier = new SuplierModel;
     ?>
     <!-- END HEADER -->
 
@@ -27,10 +25,10 @@
   <!-- END SIDEBAR -->
 
   <?php
-  include('../../controller/InvoiceController.php');
+  include('../../controller/InvoicePurchaseController.php');
   $alert = "";
 
-  $controller = new InvoiceController();
+  $controller = new InvoicePurchaseController;
   $disable = "";
 
   if(isset($_GET['detail']) && isset($_GET['v'])){
@@ -38,7 +36,7 @@
       $no_invoice = $_GET['detail'];
       $versi = $_GET['v'];
       $data_invoice = $model->ViewNoInvoice($no_invoice, $versi);
-      $sale = $model_sale->ViewSaleInvoice($no_invoice, $versi);
+      $purchase = $model->ViewPurchaseInvoiceProduct($no_invoice, $versi);
 
     //   $num = 0;
     //   foreach($sale as $test){
@@ -46,8 +44,7 @@
     //   }
     //   echo $num;
 
-      $data_sales = $model_sales->ViewId($data_invoice[0]['id_sales_invoice']);
-      $data_customer = $model_customer->ViewId($data_invoice[0]['id_customer_invoice']);
+      $data_suplier = $model_suplier->ViewId($data_invoice[0]['id_suplier_invoice']);
   }
 
   if(isset($_POST['update'])){
@@ -115,25 +112,19 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Status Bayar</label>
-                                                <input type="text" hidden name="versioning" value="<?= $data_invoice[0]['sale_versi_invoice']; ?>" class="form-control">
+                                                <input type="text" hidden name="versioning" value="<?= $data_invoice[0]['purchase_versi_invoice']; ?>" class="form-control">
                                                 <input type="text" readonly name="status_bayar" value="<?= $data_invoice[0]['status_pay'];?>" class="form-control">
+                                                <input type="text" hidden class="form-control" name="no_invoice" value="<?= $no_invoice; ?>">
                                                 <!-- <select class="form-control" name="status_bayar" required> 
                                                     <option value="">-PILIH-</option>
                                                     <option value="PAID">BAYAR</option>
                                                 </select> -->
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Tanggal Tempo</label>
-                                                <input type="number" hidden class="form-control" name="no_invoice" value="<?= $no_invoice; ?>">
-                                                <input type="date" class="form-control" readonly value="<?= $data_invoice[0]['tempo_date']; ?>">
-                                            </div>
-                                        </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Keterangan <span style="color: red;">*</span></label>
-                                                    <input type="text" name="keterangan" value="<?= $data_invoice[0]['keterangan'];?>" class="form-control">
+                                                    <input type="text" name="keterangan" value="<?= $data_invoice[0]['keterangan_purchase'];?>" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -143,22 +134,22 @@
                     </div>
                     <?php  ?>
                     <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                             <div class="card card-secondary">
                                 <div class="card-header">
-                                    Detail Sales
+                                    Detail Suplier
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>Nama Sales</label>
+                                                <label>Nama Suplier</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="text-muted"><?= $data_sales[0]['name_sales']; ?></label>
+                                                <label class="text-muted"><?= $data_suplier[0]['name_suplier']; ?></label>
                                             </div>
                                         </div>
                                     </div>
@@ -170,7 +161,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="text-muted"><?= $data_sales[0]['no_handphone_sales']; ?></label>
+                                                <label class="text-muted"><?= $data_suplier[0]['no_handphone_suplier']; ?></label>
                                             </div>
                                         </div>
                                     </div>
@@ -182,7 +173,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="text-muted"><?= $data_sales[0]['email_sales']; ?></label>
+                                                <label class="text-muted"><?= $data_suplier[0]['email_suplier']; ?></label>
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +185,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="text-muted"><?= $data_sales[0]['kode_pos_sales']; ?></label>
+                                                <label class="text-muted"><?= $data_suplier[0]['kode_pos_suplier']; ?></label>
                                             </div>
                                         </div>
                                     </div>
@@ -206,7 +197,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="text-muted"><?= $data_sales[0]['alamat_sales']; ?></label>
+                                                <label class="text-muted"><?= $data_suplier[0]['alamat_suplier']; ?></label>
                                             </div>
                                         </div>
                                     </div>
@@ -214,109 +205,14 @@
                                 <!-- /.card-body -->
                             </div>
                     </div>
-                    <!-- END COL 6 -->
-                    <div class="col-md-6">
-                        <div class="card card-secondary">
-                            <div class="card-header">
-                                Detail Pelanggan
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Nama Pelanggan</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="text-muted"><?= $data_customer[0]['name_customer']; ?></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Nama Toko</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="text-muted"><?= $data_customer[0]['name_toko']; ?></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>No. Handphone</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="text-muted"><?= $data_customer[0]['no_handphone_customer']; ?></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="text-muted"><?= $data_customer[0]['email_customer']; ?></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Nomor Toko</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="text-muted"><?= $data_customer[0]['nomor_toko']; ?></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Kode Pos</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="text-muted"><?= $data_customer[0]['kode_pos_customer']; ?></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Alamat Toko</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="text-muted"><?= $data_customer[0]['alamat_toko']; ?></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                    </div>
+                    <!-- END COL 12 -->
                     </div>
                 <!-- END ROW -->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card card-warning">
                                 <div class="card-header">
-                                    Detail Barang Penjualan                  
+                                    Detail Barang Pembelian                  
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -325,26 +221,24 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 10px">#</th>
-                                                        <th>Tanggal Penjualan</th>
+                                                        <th>Tanggal Pembelian</th>
                                                         <th>Nama Barang</th>
-                                                        <th>Nama Sales</th>
-                                                        <th>Nama Pelanggan</th>
+                                                        <th>Nama Suplier</th>
                                                         <th>Kuantitas</th>
                                                         <th>Harga Penjualan</th>
-                                                        <th>Total Penjualan</th>
+                                                        <th>Total Pembelian</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $i = 1; foreach($sale as $s) { ?>
+                                                    <?php $i = 1; foreach($purchase as $ps) { ?>
                                                     <tr>
                                                         <td><?= $i++; ?></td>
-                                                        <td><?= $s['sell_date']; ?></td>
-                                                        <td><?= $s['name_item']; ?></td>
-                                                        <td><?= $s['name_sales']; ?></td>
-                                                        <td><?= $s['name_customer']; ?></td>
-                                                        <td><?= $s['selling_amount']; ?></td>
-                                                        <td><?= $s['price_sales']; ?></td>
-                                                        <td><?= $s['total_amount']; ?></td>
+                                                        <td><?= $ps['create_date'];?></td>
+                                                        <td><?= $ps['name_item']; ?></td>
+                                                        <td><?= $ps['name_suplier']; ?></td>
+                                                        <td><?= $ps['purchase_amount']; ?></td>
+                                                        <td><?= $ps['purchase_price']; ?></td>
+                                                        <td><?= $ps['total_amount']; ?></td>
                                                     </tr>
                                                     <?php } ?>
                                                 </tbody>

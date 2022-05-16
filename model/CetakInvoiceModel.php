@@ -36,4 +36,14 @@ class CetakInvoiceModel{
         return $this->output;
         mysqli_close($this->server->mysql);
     }
+
+    public function ViewIdPurchaseInvoice($versi, $no_inv){
+        $data = mysqli_query($this->server->mysql, "SELECT invoice_purchase.*, items.*, suplier.*, purchase.* FROM invoice_purchase, suplier, items, purchase WHERE purchase.purchase_versi = '$versi' AND invoice_purchase.purchase_versi_invoice = '$versi'
+                            AND items.name_item = purchase.name_items_purchase AND suplier.id_suplier = purchase.id_suplier AND invoice_purchase.no_invoice_purchase = '$no_inv'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
 }
