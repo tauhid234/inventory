@@ -198,6 +198,39 @@ $(function () {
 $(function() {
     $('[data-mask]').inputmask();
 })
+
+/**
+ * @implements
+ * LOGOUT
+ */
+
+var inactivityTime = function () {
+    var time;
+    window.onload = resetTimer;
+    // DOM Events
+    document.onmousemove = resetTimer;
+    document.onkeydown = resetTimer;
+    document.onclick = resetTimer;
+    document.onscroll = resetTimer;
+
+    function logout() {
+        swal({title : "Peringatan", text : "Anda tidak memiliki aktifitas pada aplikasi selama 10 Menit, System akan otomatis Logout!", icon : "warning"}).then(function(){window.location = '../../pages/logout';});
+    }
+
+    function resetTimer() {
+      console.log = function(){};
+      console.error = function(){};
+      console.info = function(){};
+        clearTimeout(time);
+        time = setTimeout(logout, 600000) // => 10 menit
+        console.log(time);
+        // 1000 milliseconds = 1 second
+    }
+};
+
+window.onload = function() {
+  inactivityTime();
+}
 </script>
 </body>
 </html>
