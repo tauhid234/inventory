@@ -225,7 +225,7 @@
                                                         <th>Nama Barang</th>
                                                         <th>Nama Suplier</th>
                                                         <th>Kuantitas</th>
-                                                        <th>Harga Penjualan</th>
+                                                        <th>Harga Pembelian</th>
                                                         <th>Total Pembelian</th>
                                                     </tr>
                                                 </thead>
