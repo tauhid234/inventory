@@ -16,9 +16,9 @@ class AuthModel{
     public function getLogin($username, $password){
         $query = mysqli_query($this->server->mysql, "SELECT * FROM user WHERE username = '$username' AND status = 'AKTIF'");
         if(mysqli_num_rows($query) == 1){
-            session_start();
             $row = mysqli_fetch_array($query);
             if(password_verify($password, $row["password"])){
+                session_start();
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['peran'] = $row['peran'];
                 if($_SESSION['peran'] == 'ADMIN' || $_SESSION['peran'] == 'ADMIN_HRD'){

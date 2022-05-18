@@ -72,8 +72,15 @@ class CustomerModel{
                               kota_customer = '$kota', kode_pos_customer = '$kode_pos', name_toko = '$name_toko', nomor_toko = '$nomor_toko', alamat_toko = '$alamat_toko',
                               update_date = '$date', update_by = '$username' WHERE id_customer = '$id'");
 
+
         if($update == false){
             return $this->msg->Error('QUERY SQL UPDATE');
+        }
+
+        $update_match = mysqli_query($this->server->mysql, "UPDATE match_sales_customer SET name_customer = '$name', update_date = '$date', update_by = '$username' WHERE id_customer = '$id'");
+
+        if($update_match == false){
+            return $this->msg->Error('Gagal update Match Sales Customer');
         }
 
         return $this->msg->Success('Data pelanggan berhasil di update');
