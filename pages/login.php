@@ -46,7 +46,7 @@ if(isset($_SESSION["username"] )){
         <h1><b>BINTANG</b> <sup>89</sup></h1>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Silahkan login terlebih dahulu</p>
+      <p class="login-box-msg">Silahkan logins terlebih dahulu</p>
 
       <form action="" method="post">
         <div class="input-group mb-3">
