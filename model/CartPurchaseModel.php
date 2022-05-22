@@ -47,7 +47,7 @@ class CartPurchaseModel {
 
         $ids = $this->uid->guidv4();
 
-        $cek_cart = mysqli_query($this->server->mysql, "SELECT * FROM cart_purchase WHERE id_cart = '$id_cart'");
+        $cek_cart = mysqli_query($this->server->mysql, "SELECT * FROM cart_purchase WHERE id_cart = '$id_cart' AND session_cart = '$username'");
         $row = mysqli_num_rows($cek_cart);
 
         if($row == 1){

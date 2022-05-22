@@ -2,7 +2,9 @@
     <?php
         include('../../component_temp/header.php');
         include('../../model/ProfitModel.php');
+        include('../../model/SalesModel.php');
         $model = new ProfitModel;
+        $model_sales = new SalesModel;
     ?>
     <!-- END HEADER -->
 
@@ -23,19 +25,30 @@
   $earliest_year = 2000;
   $already_selected_value = date('Y');
 
-  if(isset($_POST['update'])){
+  // if(isset($_POST['update'])){
     
-    $jumlah_profit = $_POST['jumlah_profit'];
+  //   $jumlah_profit = $_POST['jumlah_profit'];
     
-    for($i = 0; $i < count($jumlah_profit); $i++){
+  //   for($i = 0; $i < count($jumlah_profit); $i++){
       
-      $username = $_SESSION['username'];
+  //     $username = $_SESSION['username'];
+  //     $bulan = $_POST['bulan'];
+  //     $tahun = $_POST['tahun'];
+  //     $jumlah_profits = $_POST['jumlah_profit'][$i];
+  //     $id_sales = $_POST['id_sales'][$i];
+  //     $alert = $model->SyncronizeProfit($id_sales, $bulan, $tahun, $username);
+  //   }
+  // }
+
+  
+  if(isset($_POST['search'])){
+    
       $bulan = $_POST['bulan'];
       $tahun = $_POST['tahun'];
-      $jumlah_profits = $_POST['jumlah_profit'][$i];
-      $id_sales = $_POST['id_sales'][$i];
-      $alert = $model->SyncronizeProfit($id_sales, $bulan, $tahun, $username);
-    }
+      $id_sales = $_POST['sales'];
+      $data_profit = $model->ViewCustom($id_sales, $bulan, $tahun);
+  }else{
+    $data_profit = [];
   }
   ?>
 
@@ -107,7 +120,19 @@
                       </div>
                       <div class="col-sm-12">
                         <div class="form-group">
-                          <button type="submit" name="update" class="btn btn-block btn-primary" style="margin-top: 30px;">SYNCRONIZE DATA</button>
+                          <label>Nama Sales <span style="color: red;">*</span></label>
+                          <select class="form-control select2" name="sales" required>
+                              <option value="">-PILIH-</option>
+                              <?php foreach ($model_sales->View() as $sales) {?>
+                                <option value="<?= $sales['id_sales']; ?>"><?= $sales['name_sales'];?></option>
+                            <?php } ?>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <!-- <button type="submit" name="update" class="btn btn-block btn-primary" style="margin-top: 30px;">SYNCRONIZE DATA</button> -->
+                          <button type="submit" name="search" class="btn btn-block btn-primary" style="margin-top: 30px;">CARI DATA PROFIT</button>
                         </div>
                       </div>
                     </div>
@@ -132,24 +157,26 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Nama Sales</th>
+                      <th>No Invoice</th>
                       <th>Bulan</th>
                       <th>Tahun</th>
-                      <th>Profit</th>
-                      <th>Potongan Sales</th>
-                      <th>Tanggal Final</th>
-                      <th>Total Pendapatan</th>
+                      <th>Total Keuntungan</th>
+                      <!-- <th>Potongan Sales</th>
+                      <th>Tanggal Final</th> -->
+                      <!-- <th>Total Pendapatan</th> -->
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                       $no = 1;
-                      foreach($model->View() as $data){
+                      foreach($data_profit as $data){
                     ?>
                     <tr>
                       <td><?= $no++; ?>
                           <input type="text" name="id_sales[]" class="form-control" hidden value="<?= $data['id_sales'];?>">
                           <input type="text" name="jumlah_profit[]" class="form-control" hidden value="<?= $data['profit'];?>"></td>
                       <td><?= $data['name_sales']; ?></td>
+                      <td><?= substr($data['name_sales'], 0, 2);?><?= $data['no_invoice_sale_profit']; ?></td>
                       <td><?php 
                           $explode = explode("-",$data['create_date']);
                           echo $model->konversiMonth($explode[1]); ?></td>
@@ -157,9 +184,9 @@
                           $explode = explode("-",$data['create_date']);
                           echo $explode[0]; ?></td>
                       <td><?= $data['profit']; ?></td>
-                      <td><span class="badge badge-danger"><?= $data['potongan_sales']; ?></span></td>
-                      <td><?= $data['final_date']; ?></td>
-                      <td><?= $data['total_pendapatan_sales']; ?></td>
+                      <!-- <td><span class="badge badge-danger"><?= $data['potongan_sales']; ?></span></td>
+                      <td><?= $data['final_date']; ?></td> -->
+                      <!-- <td><?= $data['total_pendapatan_sales']; ?></td> -->
                     </tr>
                     <?php 
                      } ?>

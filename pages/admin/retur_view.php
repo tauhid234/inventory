@@ -3,8 +3,12 @@
         include('../../component_temp/header.php');
 
         include('../../model/ReturModel.php');
+        include('../../model/SalesModel.php');
+        include('../../model/CustomerModel.php');
         
         $model = new ReturModel;
+        $model_sales = new SalesModel;
+        $model_customer = new CustomerModel;
     ?>
     <!-- END HEADER -->
 
@@ -25,6 +29,17 @@
   $alert = "";
 
   $controller = new ReturController;
+  if(isset($_POST['search'])){
+
+    $tgl_mulai = $_POST['tanggal_mulai'];
+    $tgl_akhir = $_POST['tanggal_akhir'];
+    $id_sales = $_POST['id_sales'];
+    $id_customer = $_POST['id_customer'];
+    $default = $model->ViewCustom($tgl_mulai, $tgl_akhir, $id_sales, $id_customer);
+
+  }else{
+    $default = $model->View();
+  }
 
 
   ?>
@@ -56,6 +71,62 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-md-12">
+            <div class="card card-primary">
+              <div class="card-header"></div>
+              <div class="card-body">
+                <form method="POST" action="">
+                  <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>Tanggal Mulai</label>
+                          <input type="date" name="tanggal_mulai" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tanggal Akhir</label>
+                            <input type="date" name="tanggal_akhir" class="form-control" required>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Sales <span style="color: red;">*</span></label>
+                        <select class="form-control select2" name="id_sales" required>
+                          <option value="">-PILIH-</option>
+                          <?php foreach($model_sales->View() as $mdl){ ?>
+                                  <option value="<?= $mdl['id_sales']; ?>"><?= $mdl['name_sales'];?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Customer <span style="color: red;">*</span></label>
+                        <select class="form-control select2" name="id_customer" required>
+                          <option value="">-PILIH-</option>
+                          <?php foreach($model_customer->View() as $mdl){ ?>
+                                  <option value="<?= $mdl['id_customer']; ?>"><?= $mdl['name_customer'];?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <button type="submit" name="search" class="btn btn-block btn-primary" style="margin-top: 30px;">Tampilkan Data</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
             <div class="card card-warning">
                 <div class="card-header">
                   
@@ -76,7 +147,7 @@
                   </thead>
                   <tbody>
                     <?php
-                      foreach($model->View() as $data){
+                      foreach($default as $data){
                     ?>
                     <tr>
                       <td><?= substr($data['name_sales'], 0, 2); ?><?= $data['no_invoice']; ?></td>

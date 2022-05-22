@@ -28,6 +28,16 @@ class ProfitModel{
         mysqli_close($this->server->mysql);
     }
 
+    public function ViewCustom($id_sales, $bulan, $tahun){
+        $data = mysqli_query($this->server->mysql, "SELECT profit.*, sales.id_sales, sales.name_sales FROM profit,sales WHERE profit.id_sales = sales.id_sales AND profit.id_sales = '$id_sales' AND MONTH(profit.create_date) = '$bulan' AND YEAR(profit.create_date) = '$tahun'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+    
+
     public function SyncronizeProfit($id_sales, $bulan, $tahun, $username){
 
         $date = date('Y-m-d');

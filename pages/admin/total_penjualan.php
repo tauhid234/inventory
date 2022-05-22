@@ -2,7 +2,11 @@
     <?php
         include('../../component_temp/header.php');
         include('../../model/SaleModel.php');
+        include('../../model/SalesModel.php');
+        include('../../model/CustomerModel.php');
         $model = new SaleModel;
+        $model_sales = new SalesModel;
+        $model_customer = new CustomerModel;
     ?>
     <!-- END HEADER -->
 
@@ -25,13 +29,15 @@
   if(isset($_POST['filter'])){
       $tgl_mulai = $_POST['tanggal_mulai'];
       $tgl_akhir = $_POST['tanggal_akhir'];
+      $id_sales = $_POST['id_sales'];
+      $id_customer = $_POST['id_customer'];
 
       if($tgl_mulai == "" || $tgl_akhir == ""){
           return $total_transaksi;
       }
 
-      $view = $model->ViewRangeDate($tgl_mulai, $tgl_akhir);
-      $total_transaksi = $model->ViewTransaksiRange($tgl_mulai, $tgl_akhir);
+      $view = $model->ViewRangeDate($tgl_mulai, $tgl_akhir, $id_sales, $id_customer);
+      $total_transaksi = $model->ViewTransaksiRange($tgl_mulai, $tgl_akhir, $id_sales, $id_customer);
   }else{
     $total_transaksi = $model->ViewTransaksiAll();
     $view = $model->View();
@@ -78,22 +84,46 @@
             <div class="col-md-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        Filter Berdasarkan jangkauan tanggal dibawah ini
+                        Filter Berdasarkan field dibawah ini
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Tanggal Mulai</label>
+                                    <label>Tanggal Mulai <span style="color: red;">*</span></label>
                                     <input type="date" name="tanggal_mulai" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Tanggal Akhir</label>
+                                    <label>Tanggal Akhir <span style="color: red;">*</span></label>
                                     <input type="date" name="tanggal_akhir" class="form-control" required>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Sales <span style="color: red;">*</span></label>
+                              <select class="form-control select2" name="id_sales" required>
+                                <option value="">-PILIH-</option>
+                                <?php foreach($model_sales->View() as $mdl){ ?>
+                                        <option value="<?= $mdl['id_sales']; ?>"><?= $mdl['name_sales'];?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Customer <span style="color: red;">*</span></label>
+                              <select class="form-control select2" name="id_customer" required>
+                                <option value="">-PILIH-</option>
+                                <?php foreach($model_customer->View() as $mdl){ ?>
+                                        <option value="<?= $mdl['id_customer']; ?>"><?= $mdl['name_customer'];?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                          </div>
                         </div>
                     </div>
                     <div class="card-footer">

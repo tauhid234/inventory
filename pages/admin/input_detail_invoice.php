@@ -38,6 +38,9 @@
       $no_invoice = $_GET['detail'];
       $versi = $_GET['v'];
       $data_invoice = $model->ViewNoInvoice($no_invoice, $versi);
+      if($data_invoice[0]['tempo_date'] !== ''){
+          $disable = 'disabled';
+      }
       $sale = $model_sale->ViewSaleInvoice($no_invoice, $versi);
 
       $data_sales = $model_sales->ViewId($data_invoice[0]['id_sales_invoice']);

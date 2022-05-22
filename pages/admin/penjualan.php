@@ -97,7 +97,7 @@
         // echo "NM ".$type.'<br/> sales '.$id_sales.'<br/> id item '.$item_id;
         // echo "VALUE ".$value;
         $controller_invoice->AddInvoiceControllerV2($username, $id_cus, $id_sales, $sale_versi, $keterangan);
-        $alert = $controller->AddPenjualanControllerV2($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username, $keterangan);
+        $alert = $controller->AddPenjualanControllerV3($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username, $keterangan);
 
       }
     }

@@ -21,7 +21,8 @@ class PurchaseModel{
     }
 
     public function View(){
-        $data = mysqli_query($this->server->mysql, "SELECT suplier.*, purchase.* FROM purchase, suplier WHERE purchase.id_suplier = suplier.id_suplier");
+        $date = date('Y-m-d');
+        $data = mysqli_query($this->server->mysql, "SELECT suplier.*, purchase.* FROM purchase, suplier WHERE purchase.id_suplier = suplier.id_suplier AND purchase.purchase_date = '$date'");
         while($d = mysqli_fetch_assoc($data)){
             $this->output[] = $d;
         }
@@ -101,8 +102,8 @@ class PurchaseModel{
         return $this->msg->Success("Data pembayaran pada pembelian berhasil terbayarkan");
     }
 
-    public function ViewRangeDate($tgl_mulai, $tgl_akhir){
-        $data = mysqli_query($this->server->mysql, "SELECT purchase.*, suplier.* FROM purchase, suplier WHERE purchase.id_suplier = suplier.id_suplier AND purchase.purchase_date >= '$tgl_mulai' AND purchase.purchase_date <= '$tgl_akhir'");
+    public function ViewRangeDate($tgl_mulai, $tgl_akhir, $id_suplier){
+        $data = mysqli_query($this->server->mysql, "SELECT purchase.*, suplier.* FROM purchase, suplier WHERE purchase.id_suplier = '$id_suplier' AND suplier.id_suplier = '$id_suplier' AND purchase.purchase_date >= '$tgl_mulai' AND purchase.purchase_date <= '$tgl_akhir'");
         while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;
         }
@@ -111,13 +112,14 @@ class PurchaseModel{
     }
 
     public function ViewTransaksiAll(){
-        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_pembelian FROM purchase");
+        $date = date('Y-m-d');
+        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_pembelian FROM purchase WHERE purchase_date = '$date'");
         $data = mysqli_fetch_array($all);
         return $data['total_pembelian'];
     }
 
-    public function ViewTransaksiRange($tgl_mulai, $tgl_akhir){
-        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_pembelian FROM purchase WHERE purchase_date >= '$tgl_mulai' AND purchase_date <= '$tgl_akhir'");
+    public function ViewTransaksiRange($tgl_mulai, $tgl_akhir, $id_suplier){
+        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_pembelian FROM purchase WHERE purchase_date >= '$tgl_mulai' AND purchase_date <= '$tgl_akhir' AND id_suplier = '$id_suplier'");
         $data = mysqli_fetch_array($all);
         return $data['total_pembelian'];
     }

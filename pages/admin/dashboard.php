@@ -98,7 +98,7 @@
         // echo "NM ".$type.'<br/> sales '.$id_sales.'<br/> id item '.$item_id;
         // echo "VALUE ".$value;
         $controller_invoice->AddInvoiceControllerV2($username, $id_cus, $id_sales, $sale_versi, $keterangan);
-        $alert = $controller->AddPenjualanControllerV2($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username, $keterangan);
+        $alert = $controller->AddPenjualanControllerV3($id_item, $value, $id_cus, $id_sales, $selling_amount, $selling_price_sales, $selling_price_admin, $sale_versi, $total_amount, $price_clean, $username, $keterangan);
 
       }
     }
@@ -121,6 +121,13 @@
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
+
+        <!-- MAINTANCE INFO -->
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>INFORMASI, Untuk data yang berkaitan dengan modul retur harap jangan dipakai terlebih dahulu karena sedang perbaikan
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <?= $alert; ?> 
       </div><!-- /.container-fluid -->
     </div>

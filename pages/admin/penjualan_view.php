@@ -2,7 +2,11 @@
     <?php
         include('../../component_temp/header.php');
         include('../../model/SaleModel.php');
+        include('../../model/SalesModel.php');
+        include('../../model/CustomerModel.php');
         $model = new SaleModel();
+        $model_sales = new SalesModel;
+        $model_customer = new CustomerModel;
     ?>
     <!-- END HEADER -->
 
@@ -17,6 +21,16 @@
     include('../../component_temp/sidebar.php');
     ?>
   <!-- END SIDEBAR -->
+
+  <?php
+    if(isset($_POST['search'])){
+      $id_sales = $_POST['id_sales'];
+      $id_customer = $_POST['id_customer'];
+      $default = $model->ViewCustom($id_sales, $id_customer);
+    }else{
+      $default = $model->View();
+    }
+  ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -45,15 +59,59 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card card-primary">
+              <div class="card-header"></div>
+              <div class="card-body">
+                <form method="POST" action="">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Sales <span style="color: red;">*</span></label>
+                        <select class="form-control select2" name="id_sales" required>
+                          <option value="">-PILIH-</option>
+                          <?php foreach($model_sales->View() as $mdl){ ?>
+                                  <option value="<?= $mdl['id_sales']; ?>"><?= $mdl['name_sales'];?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Customer <span style="color: red;">*</span></label>
+                        <select class="form-control select2" name="id_customer" required>
+                          <option value="">-PILIH-</option>
+                          <?php foreach($model_customer->View() as $mdl){ ?>
+                                  <option value="<?= $mdl['id_customer']; ?>"><?= $mdl['name_customer'];?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <button type="submit" name="search" class="btn btn-block btn-primary" style="margin-top: 30px;">Cari Data Penjualan</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
                 <div class="card-header">
                 </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered table-striped" id="example1">
+                <table class="table table-bordered table-striped" id="penjualan">
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Tanggal Penjualan</th>
+                      <th>No Invoice</th>
                       <th>Nama Barang</th>
                       <th>Nama Sales</th>
                       <th>Nama Pelanggan</th>
@@ -66,11 +124,12 @@
                   <tbody>
                     <?php
                       $no = 1;
-                      foreach($model->View() as $data){
+                      foreach($default as $data){
                     ?>
                     <tr>
                       <td><?= $no++; ?></td>
                       <td><?= $data['sell_date']; ?></td>
+                      <td><?= substr($data['name_sales'], 0, 2);?><?= $data['no_invoice_sale']; ?></td>
                       <td><?= $data['name_item']; ?></td>
                       <td><?= $data['name_sales']; ?></td>
                       <td><?= $data['name_customer']; ?></td>

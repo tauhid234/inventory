@@ -2,7 +2,9 @@
     <?php
         include('../../component_temp/header.php');
         include('../../model/PurchaseModel.php');
+        include('../../model/SuplierModel.php');
         $model = new PurchaseModel;
+        $model_suplier = new SuplierModel;
     ?>
     <!-- END HEADER -->
 
@@ -25,13 +27,14 @@
   if(isset($_POST['filter'])){
       $tgl_mulai = $_POST['tanggal_mulai'];
       $tgl_akhir = $_POST['tanggal_akhir'];
+      $id_suplier = $_POST['id_suplier'];
 
       if($tgl_mulai == "" || $tgl_akhir == ""){
           return $total_transaksi;
       }
 
-      $view = $model->ViewRangeDate($tgl_mulai, $tgl_akhir);
-      $total_transaksi = $model->ViewTransaksiRange($tgl_mulai, $tgl_akhir);
+      $view = $model->ViewRangeDate($tgl_mulai, $tgl_akhir, $id_suplier);
+      $total_transaksi = $model->ViewTransaksiRange($tgl_mulai, $tgl_akhir, $id_suplier);
   }else{
     $total_transaksi = $model->ViewTransaksiAll();
     $view = $model->View();
@@ -95,10 +98,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Suplier <span style="color: red;">*</span></label>
+                              <select class="form-control select2" name="id_suplier" required>
+                                <option value="">-PILIH-</option>
+                                <?php foreach($model_suplier->View() as $mdl){ ?>
+                                        <option value="<?= $mdl['id_suplier']; ?>"><?= $mdl['name_suplier'];?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                     <div class="card-footer">
                     <button type="submit" name="filter" class="btn btn-block btn-primary">Tampilkan Data</button>  
-                    <a href="total_penjualan.php" class="btn btn-block btn-secondary">Reset</a>
+                    <a href="total_pembelian.php" class="btn btn-block btn-secondary">Reset</a>
                     </div>
                 </div>
             </div>

@@ -125,7 +125,8 @@
                               <?php }else{?>
                               <a class="dropdown-item" href="update_keterangan_invoice?detail=<?= $data['no_invoice']; ?>&v=<?= $data['sale_versi_invoice']; ?>">Update Keterangan</a>
                               <?php } ?>
-                              <a class="dropdown-item" target="_blank" href="cetak/invoice_v2?inv=<?= $data['sale_versi_invoice']; ?>">Cetak</a>
+                              <a class="dropdown-item" target="_blank" href="cetak/invoice_v2?inv=<?= $data['sale_versi_invoice']; ?>">Cetak Pembayaran</a>
+                              <a class="dropdown-item" target="_blank" href="cetak/invoice_internal?inv=<?= $data['sale_versi_invoice']; ?>">Cetak Internal</a>
                           </div>
                         </div>
                       </td>

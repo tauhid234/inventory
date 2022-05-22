@@ -26,8 +26,12 @@ class SaleModel{
     }
 
     public function View(){
+        // $data = mysqli_query($this->server->mysql, "SELECT items.*, customer.*, sale.*, sales.* FROM items,customer,sale,sales WHERE items.id_item = sale.id_items
+        //                     AND customer.id_customer = sale.id_customer AND sales.id_sales = sale.id_sales");
+        
+        $date = date('Y-m-d');
         $data = mysqli_query($this->server->mysql, "SELECT items.*, customer.*, sale.*, sales.* FROM items,customer,sale,sales WHERE items.id_item = sale.id_items
-                            AND customer.id_customer = sale.id_customer AND sales.id_sales = sale.id_sales");
+                            AND customer.id_customer = sale.id_customer AND sales.id_sales = sale.id_sales AND sale.sell_date = '$date'");
         while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;
         }
@@ -35,9 +39,23 @@ class SaleModel{
         mysqli_close($this->server->mysql);
     }
 
-    public function ViewRangeDate($tgl_mulai, $tgl_akhir){
+    public function ViewCustom($id_sales, $id_customer){
+        // $data = mysqli_query($this->server->mysql, "SELECT items.*, customer.*, sale.*, sales.* FROM items,customer,sale,sales WHERE items.id_item = sale.id_items
+        //                     AND customer.id_customer = sale.id_customer AND sales.id_sales = sale.id_sales");
+        
+        $date = date('Y-m-d');
+        $data = mysqli_query($this->server->mysql, "SELECT items.*, customer.*, sale.*, sales.* FROM items,customer,sale,sales WHERE items.id_item = sale.id_items
+                            AND customer.id_customer = '$id_customer' AND sales.id_sales = '$id_sales'");
+        while($d = mysqli_fetch_array($data)){
+            $this->output[] = $d;
+        }
+        return $this->output;
+        mysqli_close($this->server->mysql);
+    }
+
+    public function ViewRangeDate($tgl_mulai, $tgl_akhir, $id_sales, $id_customer){
         $data = mysqli_query($this->server->mysql, "SELECT items.*, customer.*, sale.*, sales.* FROM items,customer,sale,sales WHERE sale.sell_date >= '$tgl_mulai' AND sale.sell_date <= '$tgl_akhir' AND items.id_item = sale.id_items
-                            AND customer.id_customer = sale.id_customer AND sales.id_sales = sale.id_sales");
+                            AND customer.id_customer = '$id_customer' AND sales.id_sales = '$id_sales'");
         while($d = mysqli_fetch_array($data)){
             $this->output[] = $d;
         }
@@ -332,14 +350,105 @@ class SaleModel{
         }
     }
 
+    public function AddPenjualanV3($id_items, $value, $profit, $id_customer, $id_sales, $selling_amount, $selling_price_sales, $sale_versi, $total_amount, $price_clean, $username, $keterangan){
+
+        $date = date('Y-m-d');
+        $month = date('m');
+        $year = date('Y');
+        $day = date('d');
+        $tgl_terakhir = date('Y-m-t', strtotime($date));
+
+        $ids = $this->uid->guidv4();
+        $total = 0;
+
+        if($id_customer == "" || $id_sales == ""){
+            return $this->msg->Warning("Harap pilih nama pelanggan dan sales dahulu");
+        }
+
+        $get_data_invoice = mysqli_query($this->server->mysql, "SELECT COUNT(id_sales_invoice) AS total FROM invoice WHERE id_sales_invoice = '$id_sales'");
+        $data = mysqli_fetch_assoc($get_data_invoice);
+        if($get_data_invoice == false){
+            return $this->msg->Error("Gagal mengambil data nomor invoice count sales");
+        }
+
+        $total = $data['total'];
+
+        $sum = '00'.(string)$total;
+        $no_invoice = sprintf("%03d", $sum);
+
+        if($selling_price_sales != ""){
+
+            $insert = mysqli_query($this->server->mysql, "INSERT INTO sale (id, id_selling_items, id_items, id_customer, id_sales, sell_date, selling_amount, total_amount,
+                                price_clean, price_sales, sale_versi, keterangan, no_invoice_sale, create_by, create_date, update_by, update_date) VALUES ('', '$ids', '$id_items', '$id_customer', '$id_sales', 
+                                '$date', '$selling_amount',  '$total_amount', '$price_clean', '$selling_price_sales', '$sale_versi', '$keterangan', '$no_invoice', '$username', '$date', null, null)");
+            
+            if($insert == false){
+                return $this->msg->Error("Gagal menambahkan penjualan baru");
+            }
+
+            $update = mysqli_query($this->server->mysql, "UPDATE items SET quantity = '$value', update_by = '$username', update_date = '$date' WHERE id_item = '$id_items'");
+
+            if($update == false){
+                return $this->msg->Error("Gagal mengupdate stock");
+            }
+
+            // DELETE CART
+            $delete = mysqli_query($this->server->mysql, "DELETE FROM cart_sale WHERE id_cart = '$id_items' AND session_cart = '$username'");
+            if($delete == false){
+                return $this->msg->Error("Gagal hapus session data penjualan");
+            }
+
+
+            // ADD REPORT PROFIT SALES PER ITEM
+
+            $plus2 = (int) $selling_amount * $profit;
+            $report_profit_sales = mysqli_query($this->server->mysql, "INSERT INTO report_profit_sales (id, id_report_profit_sales, id_sales_report, id_customer_report, id_items_report, profit, create_by, create_date,
+                                  update_by, update_date) VALUES ('', '$ids', '$id_sales', '$id_customer', '$id_items', '$plus2', '$username', '$date', null, null)");
+
+            if($report_profit_sales == false){
+                return $this->msg->Error("insert report profit sales gagal");
+            }
+
+            // CEK PROFIT ID SALES
+            $cek_profit = mysqli_query($this->server->mysql, "SELECT * FROM profit WHERE id_sales = '$id_sales' AND create_date = '$date' AND no_invoice_sale_profit = '$no_invoice'");
+            $num = mysqli_num_rows($cek_profit);
+            $rows = mysqli_fetch_array($cek_profit);
+
+            if($num == 1){
+
+                $plus = (int) $selling_amount * $profit;
+                $sum = $rows['profit'] + $plus;
+
+                $update_profit = mysqli_query($this->server->mysql, "UPDATE profit SET profit = '$sum', update_by = '$username', update_date = '$date' WHERE id_sales = '$id_sales' AND create_date = '$date' AND no_invoice_sale_profit = '$no_invoice'");
+                if($update_profit == false){
+                    return $this->msg->Error("update profit dihari yang sama tidak berhasil");
+                }
+
+            }else{
+
+                $plus = (int) $selling_amount * $profit;
+                $insert_profit = mysqli_query($this->server->mysql, "INSERT INTO profit (id, id_profit, id_sales, profit, potongan_sales, total_pendapatan_sales, final_date, create_by, create_date, update_by, update_date, no_invoice_sale_profit)
+                                VALUES ('', '$ids', '$id_sales', '$plus', '', '', null, '$username', '$date', null, null, '$no_invoice')");
+                
+                if($insert_profit == false){
+                    return $this->msg->Error("Data profit gagal disimpan");
+                }
+
+            }
+            
+            return $this->msg->Success('Data penjualan berhasil disimpan');
+        }
+    }
+
     public function ViewTransaksiAll(){
-        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_penjualan FROM sale");
+        $date = date('Y-m-d');
+        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_penjualan FROM sale WHERE sell_date = '$date'");
         $data = mysqli_fetch_array($all);
         return $data['total_penjualan'];
     }
 
-    public function ViewTransaksiRange($tgl_mulai, $tgl_akhir){
-        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_penjualan FROM sale WHERE sell_date >= '$tgl_mulai' AND sell_date <= '$tgl_akhir'");
+    public function ViewTransaksiRange($tgl_mulai, $tgl_akhir, $id_sales, $id_customer){
+        $all = mysqli_query($this->server->mysql, "SELECT SUM(total_amount) AS total_penjualan FROM sale WHERE sell_date >= '$tgl_mulai' AND sell_date <= '$tgl_akhir' AND id_sales = '$id_sales' AND id_customer = '$id_customer'");
         $data = mysqli_fetch_array($all);
         return $data['total_penjualan'];
     }
